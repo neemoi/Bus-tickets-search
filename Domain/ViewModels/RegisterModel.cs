@@ -22,6 +22,7 @@ namespace WebApi
         public string ConfirmPassword { get; set; } = null!;
 
         [Required]
+        [Display(Name = "Add Surname")]
         public string? Surname { get; set; } = null!;
     }
 }

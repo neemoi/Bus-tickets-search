@@ -11,8 +11,8 @@ using WebApi.Models;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(BtsContext))]
-    [Migration("20230617200217_CreatinConnectionTicketUsers")]
-    partial class CreatinConnectionTicketUsers
+    [Migration("20230617213603_AddingTicketUserConnection")]
+    partial class AddingTicketUserConnection
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,122 +165,149 @@ namespace Persistance.Migrations
                 {
                     b.Property<int>("RouteId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("route_id");
 
                     b.Property<uint>("Distance")
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("distance");
 
                     b.Property<string>("EndLocation")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)")
+                        .HasColumnName("end_location");
 
                     b.Property<uint>("FkDriver")
-                        .HasColumnType("int unsigned");
-
-                    b.Property<uint>("FkDriverNavigationDriverId")
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("fk_driver");
 
                     b.Property<uint>("FkShedule")
-                        .HasColumnType("int unsigned");
-
-                    b.Property<uint>("FkSheduleNavigationSheduleId")
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("fk_shedule");
 
                     b.Property<uint>("FkTransport")
-                        .HasColumnType("int unsigned");
-
-                    b.Property<uint>("FkTransportNavigationTransportId")
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("fk_transport");
 
                     b.Property<string>("StartLocation")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(45)
+                        .HasColumnType("varchar(45)")
+                        .HasColumnName("start_location");
 
-                    b.HasKey("RouteId");
+                    b.HasKey("RouteId")
+                        .HasName("PRIMARY");
 
-                    b.HasIndex("FkDriverNavigationDriverId");
+                    b.HasIndex(new[] { "FkDriver" }, "driver_id_idx");
 
-                    b.HasIndex("FkSheduleNavigationSheduleId");
+                    b.HasIndex(new[] { "FkShedule" }, "fk_shedule_idx");
 
-                    b.HasIndex("FkTransportNavigationTransportId");
+                    b.HasIndex(new[] { "FkTransport" }, "transport_id_idx");
 
-                    b.ToTable("Routes");
+                    b.ToTable("route", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Shedule", b =>
                 {
                     b.Property<uint>("SheduleId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("shedule_id");
 
                     b.Property<TimeOnly>("ArrivalTime")
-                        .HasColumnType("time(6)");
+                        .HasColumnType("time")
+                        .HasColumnName("arrival_time");
 
                     b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
+                        .HasColumnType("date")
+                        .HasColumnName("date");
 
                     b.Property<TimeOnly>("DepartureTime")
-                        .HasColumnType("time(6)");
+                        .HasColumnType("time")
+                        .HasColumnName("departure_time");
 
-                    b.HasKey("SheduleId");
+                    b.HasKey("SheduleId")
+                        .HasName("PRIMARY");
 
-                    b.ToTable("Shedules");
+                    b.HasIndex(new[] { "SheduleId" }, "shedule_id_UNIQUE")
+                        .IsUnique();
+
+                    b.ToTable("shedule", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Ticket", b =>
                 {
                     b.Property<uint>("TicketId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("ticket_id");
 
                     b.Property<int>("FkRouteT")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FkRouteTNavigationRouteId")
-                        .HasColumnType("int");
-
-                    b.Property<uint>("FkUser")
-                        .HasColumnType("int unsigned");
-
-                    b.Property<string>("FkUserNavigationId")
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("int")
+                        .HasColumnName("fk_route_t");
 
                     b.Property<uint>("Price")
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("price");
 
                     b.Property<int>("Seat")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("seat");
 
-                    b.HasKey("TicketId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)")
+                        .HasColumnName("user_id");
 
-                    b.HasIndex("FkRouteTNavigationRouteId");
+                    b.HasKey("TicketId")
+                        .HasName("PRIMARY");
 
-                    b.HasIndex("FkUserNavigationId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Tickets");
+                    b.HasIndex(new[] { "FkRouteT" }, "fk_route_idx");
+
+                    b.HasIndex(new[] { "TicketId" }, "ticket_id_UNIQUE")
+                        .IsUnique();
+
+                    b.ToTable("ticket", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Transport", b =>
                 {
                     b.Property<uint>("TransportId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("int unsigned")
+                        .HasColumnName("transport_id");
 
                     b.Property<string>("Color")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("color");
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("model");
 
                     b.Property<string>("Number")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("number");
 
-                    b.HasKey("TransportId");
+                    b.HasKey("TransportId")
+                        .HasName("PRIMARY");
 
-                    b.ToTable("Transports");
+                    b.HasIndex(new[] { "Number" }, "number_UNIQUE")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "TransportId" }, "transport_id_UNIQUE")
+                        .IsUnique();
+
+                    b.ToTable("transport", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.User", b =>
@@ -356,21 +383,24 @@ namespace Persistance.Migrations
                 {
                     b.HasOne("WebApi.Models.Driver", "FkDriverNavigation")
                         .WithMany("Routes")
-                        .HasForeignKey("FkDriverNavigationDriverId")
+                        .HasForeignKey("FkDriver")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_driver");
 
                     b.HasOne("WebApi.Models.Shedule", "FkSheduleNavigation")
                         .WithMany("Routes")
-                        .HasForeignKey("FkSheduleNavigationSheduleId")
+                        .HasForeignKey("FkShedule")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_shedule");
 
                     b.HasOne("WebApi.Models.Transport", "FkTransportNavigation")
                         .WithMany("Routes")
-                        .HasForeignKey("FkTransportNavigationTransportId")
+                        .HasForeignKey("FkTransport")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_transport");
 
                     b.Navigation("FkDriverNavigation");
 
@@ -383,17 +413,21 @@ namespace Persistance.Migrations
                 {
                     b.HasOne("WebApi.Models.Route", "FkRouteTNavigation")
                         .WithMany("Tickets")
-                        .HasForeignKey("FkRouteTNavigationRouteId")
+                        .HasForeignKey("FkRouteT")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_route_t");
 
-                    b.HasOne("WebApi.Models.User", "FkUserNavigation")
+                    b.HasOne("WebApi.Models.User", "User")
                         .WithMany("Tickets")
-                        .HasForeignKey("FkUserNavigationId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_id");
 
                     b.Navigation("FkRouteTNavigation");
 
-                    b.Navigation("FkUserNavigation");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebApi.Models.Driver", b =>

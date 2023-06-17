@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Models;
 
-namespace Persistance.Context.EntityFluentAPI
+namespace Persistance.EntityFluentAPI
 {
     internal class SheduleConfiguration : IEntityTypeConfiguration<Shedule>
     {

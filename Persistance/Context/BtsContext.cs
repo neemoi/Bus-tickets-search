@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Persistance.Context.EntityFluentAPI;
+using Persistance.EntityFluentAPI;
 
 namespace WebApi.Models;
 

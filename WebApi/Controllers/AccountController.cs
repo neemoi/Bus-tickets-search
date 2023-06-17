@@ -31,8 +31,8 @@ namespace WebApi.Controllers
             {
                 UserName = model.Email,
                 Email = model.Email,
-                Surname = model.Surname,
-                Password = model.Password
+                Password = model.Password,
+                Surname = model.Surname
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -60,7 +60,7 @@ namespace WebApi.Controllers
             return BadRequest("Invalid login attempt.");
         }
 
-        private string GetErrorString(IdentityResult result)
+        private static string GetErrorString(IdentityResult result)
         {
             return string.Join("; ", result.Errors.Select(x => x.Description));
         }

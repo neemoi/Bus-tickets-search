@@ -10,5 +10,5 @@ public partial class User : IdentityUser
 
     public string Password { get; set; } = null!;
 
-    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
+    public virtual ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
 }

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WebApi.Models;
 
-namespace Persistance.Context.EntityFluentAPI
+namespace Persistance.EntityFluentAPI
 {
     internal class TicketConfiguration : IEntityTypeConfiguration<Ticket>
     {
@@ -25,14 +25,20 @@ namespace Persistance.Context.EntityFluentAPI
             entity.Property(e => e.FkRouteT).HasColumnName("fk_route_t");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.Seat).HasColumnName("seat");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.FkRouteTNavigation).WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.FkRouteT)
                 .HasConstraintName("fk_route_t");
 
-            entity.HasOne(d => d.FkUserNavigation).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.FkUser)
-                .HasConstraintName("fk_user");
+            entity.HasOne(d => d.FkRouteTNavigation).WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.FkRouteT)
+                .HasConstraintName("fk_route_t");
+
+            entity.HasOne(d => d.User) 
+                .WithMany(p => p.Tickets)
+                .HasForeignKey(d => d.UserId)
+                .HasConstraintName("fk_user_id");
         }
     }
 }
