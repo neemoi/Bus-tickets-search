@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
+using System.Data;
 using System.Reflection.Emit;
+using WebApi.Controllers;
 using WebApi.Models;
 
 namespace WebApi
@@ -17,12 +19,14 @@ namespace WebApi
             builder.Services.AddDbContext<BtsContext>(options =>
                 options.UseMySql(builder.Configuration.GetConnectionString("ConnectionStrings"), new MySqlServerVersion(new Version(8, 0, 23))));
 
-            builder.Services.AddDbContext<BtsContext>();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddScoped<UserManager<User>>();
+            builder.Services.AddScoped<UserManager<User>, UserManager<User>>();
+
             builder.Services.AddIdentity<User, IdentityRole>()
-           .AddEntityFrameworkStores<BtsContext>()
-           .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<BtsContext>()
+                .AddRoles<IdentityRole>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI.Common;
 using WebApi.Models;
+using WebApi.RequestError;
 
 namespace WebApi.Controllers
 {
@@ -17,34 +19,6 @@ namespace WebApi.Controllers
             _signInManager = signInManager;
         }
 
-        [Route("api/Register")]
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = new User()
-            {
-                UserName = model.Email,
-                Email = model.Email,
-                Password = model.Password,
-                Surname = model.Surname
-            };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(GetErrorString(result));
-            }
-
-            return Ok();
-        }
-
         [Route("api/Login")]
         [AllowAnonymous]
         [HttpPost]
@@ -56,9 +30,56 @@ namespace WebApi.Controllers
             {
                 return Ok();
             }
-
-            return BadRequest("Invalid login attempt.");
+            else
+            {
+                throw new ApiRequestError(0, "Invalid login attempt");
+            }
         }
+
+        [Route("api/Register")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User()
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Password = model.Password,
+                    Surname = model.Surname
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, true);
+
+                    await _userManager.AddToRoleAsync(user, "User");
+
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(GetErrorString(result));
+                }
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [Route("api/Logout")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Ok();
+        }
+
 
         private static string GetErrorString(IdentityResult result)
         {
