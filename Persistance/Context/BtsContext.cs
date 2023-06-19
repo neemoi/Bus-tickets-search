@@ -33,20 +33,11 @@ public partial class BtsContext : IdentityDbContext<User>
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
 
-        modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
-        {
-            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-        });
+        modelBuilder.ApplyConfiguration(new IdentityUserTokenConfiguration());
 
-        modelBuilder.Entity<IdentityUserRole<string>>(entity =>
-        {
-            entity.HasKey(e => new { e.UserId, e.RoleId });
-        });
+        modelBuilder.ApplyConfiguration(new IdentityUserRoleConfiguration());
 
-        modelBuilder.Entity<IdentityUserToken<string>>(entity =>
-        {
-            entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
-        });
+        modelBuilder.ApplyConfiguration(new IdentityUserLoginConfiguration());
 
         modelBuilder.ApplyConfiguration(new UserConfiguration());
 
