@@ -22,19 +22,19 @@ namespace WebApi.Controllers
         [Route("api/Login")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> LoginAsync(LoginModel model)
         {
-            return await _accountService.Login(model);
+            return await _accountService.LoginAsync(model);
         }
 
         [Route("api/Register")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> RegisterAsync(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-               return await _accountService.Register(model);
+               return await _accountService.RegisterAsync(model);
             }
 
             return BadRequest(ModelState);
@@ -43,9 +43,9 @@ namespace WebApi.Controllers
         [Route("api/Logout")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> LogoutAsync()
         {
-           return await _accountService.Logout();
+           return await _accountService.LogoutAsync();
         }
     }
 }

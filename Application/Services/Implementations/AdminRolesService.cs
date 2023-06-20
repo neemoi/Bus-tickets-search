@@ -23,7 +23,7 @@ namespace Application.Services.Implementations
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> CreateRole([FromBody] string name)
+        public async Task<IActionResult> CreateRoleAsync([FromBody] string name)
         {
             IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
 
@@ -33,11 +33,11 @@ namespace Application.Services.Implementations
             }
             else
             {
-                throw new ApiRequestError(StatusCodes.Status400BadRequest, GetErrorString(result));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, GetErrorString(result));
             }
         }
 
-        public async Task<IActionResult> DeleteRole([FromBody] Guid roleId)
+        public async Task<IActionResult> DeleteRoleAsync([FromBody] Guid roleId)
         {
             IdentityRole? role = await _roleManager.FindByIdAsync(roleId.ToString());
 
@@ -51,12 +51,12 @@ namespace Application.Services.Implementations
                 }
                 else
                 {
-                    throw new ApiRequestError(StatusCodes.Status400BadRequest, GetErrorString(result));
+                    throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, GetErrorString(result));
                 }
             }
             else
             {
-                throw new ApiRequestError(StatusCodes.Status404NotFound, "Role not found");
+                throw new ApiRequestErrorException(StatusCodes.Status404NotFound, "Role not found");
             }
         }
 

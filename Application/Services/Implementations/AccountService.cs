@@ -26,7 +26,7 @@ namespace Application.Services.Implementations
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> LoginAsync(LoginModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
 
@@ -36,18 +36,18 @@ namespace Application.Services.Implementations
             }
             else
             {
-                throw new ApiRequestError(StatusCodes.Status400BadRequest, GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, GetErrorString(new IdentityResult()));
             }
         }
 
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> LogoutAsync()
         {
             await _signInManager.SignOutAsync();
 
             return new StatusCodeResult(StatusCodes.Status200OK);
         }
 
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> RegisterAsync(RegisterModel model)
         {
             var user = new User()
             {
@@ -69,7 +69,7 @@ namespace Application.Services.Implementations
             }
             else
             {
-                throw new ApiRequestError(StatusCodes.Status400BadRequest, GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, GetErrorString(new IdentityResult()));
             }
         }
 

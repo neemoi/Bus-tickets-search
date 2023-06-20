@@ -11,11 +11,11 @@ namespace Application.Services
 {
     public interface IAccountService
     {
-        Task<IActionResult> Login(LoginModel model);
+        Task<IActionResult> LoginAsync(LoginModel model);
 
-        Task<IActionResult> Register(RegisterModel model);
+        Task<IActionResult> RegisterAsync(RegisterModel model);
 
-        Task<IActionResult> Logout();
+        Task<IActionResult> LogoutAsync();
 
         string GetErrorString(IdentityResult result);
     }

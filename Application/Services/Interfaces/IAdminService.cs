@@ -12,7 +12,7 @@ namespace Application.Services.Interfaces
 {
     public interface IAdminService
     {
-        Task<IActionResult> GetAllUsers();
+        Task<IActionResult> GetAllUsersAsync();
 
         Task<IActionResult> EditUser(Guid id, EditUserModel model);
 

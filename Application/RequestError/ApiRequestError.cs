@@ -1,10 +1,10 @@
 ﻿namespace WebApi.RequestError
 {
-    public class ApiRequestError : Exception
+    public class ApiRequestErrorException : Exception
     {
         public int StatusCode { get; set; }
 
-        public ApiRequestError(int statusCode, string message)
+        public ApiRequestErrorException(int statusCode, string message)
             : base(message)
         {
             StatusCode = statusCode;

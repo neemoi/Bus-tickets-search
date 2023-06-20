@@ -16,9 +16,9 @@ namespace Application.Services.Interfaces
 
         string GetErrorString(IdentityResult result);
 
-        Task<IActionResult> CreateRole([FromBody] string name);
+        Task<IActionResult> CreateRoleAsync([FromBody] string name);
 
-        Task<IActionResult> DeleteRole([FromBody] Guid roleId);
+        Task<IActionResult> DeleteRoleAsync([FromBody] Guid roleId);
 
     }
 }

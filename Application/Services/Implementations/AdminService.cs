@@ -40,7 +40,7 @@ namespace Application.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsersAsync()
         {
             List<User> users = await _userManager.Users.ToListAsync();
 

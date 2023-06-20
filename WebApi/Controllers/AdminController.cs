@@ -22,7 +22,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult UserList()
         {
-            var result = _adminService.GetAllUsers();
+            var result = _adminService.GetAllUsersAsync();
 
             return Ok(result);
         }

@@ -36,15 +36,15 @@ namespace WebApi.Controllers
 
         [Route("api/CreateRole")]
         [HttpPost]
-        public async Task<IActionResult> CreateRole([FromBody] string name)
+        public async Task<IActionResult> CreateRoleAsync([FromBody] string name)
         {
             if (ModelState.IsValid)
             {
-                await _adminRolesService.CreateRole(name);
+                await _adminRolesService.CreateRoleAsync(name);
             }
             else
             {
-                throw new ApiRequestError(0, "Role is empty");
+                throw new ApiRequestErrorException(0, "Role is empty");
             }
 
             return Ok();
@@ -52,15 +52,15 @@ namespace WebApi.Controllers
 
         [Route("api/DeleteRole")]
         [HttpPost]
-        public async Task<IActionResult> DeleteRole([FromBody] Guid roleId)
+        public async Task<IActionResult> DeleteRoleAsync([FromBody] Guid roleId)
         {
             if (ModelState.IsValid)
             {
-                await _adminRolesService.DeleteRole(roleId);
+                await _adminRolesService.DeleteRoleAsync(roleId);
             }
             else
             {
-                throw new ApiRequestError(0, "Role is empty");
+                throw new ApiRequestErrorException(0, "Role is empty");
             }
 
             return Ok();

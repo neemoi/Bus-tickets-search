@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -33,23 +34,7 @@ public partial class BtsContext : IdentityDbContext<User>
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
 
-        modelBuilder.ApplyConfiguration(new IdentityUserTokenConfiguration());
-
-        modelBuilder.ApplyConfiguration(new IdentityUserRoleConfiguration());
-
-        modelBuilder.ApplyConfiguration(new IdentityUserLoginConfiguration());
-
-        modelBuilder.ApplyConfiguration(new UserConfiguration());
-
-        modelBuilder.ApplyConfiguration(new DriverConfiguration());
-        
-        modelBuilder.ApplyConfiguration(new RouteConfiguration());
-        
-        modelBuilder.ApplyConfiguration(new SheduleConfiguration());
-        
-        modelBuilder.ApplyConfiguration(new TicketConfiguration());
-        
-        modelBuilder.ApplyConfiguration(new TransportConfiguration());
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
         OnModelCreatingPartial(modelBuilder);
     }
