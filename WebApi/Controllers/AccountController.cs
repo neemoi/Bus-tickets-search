@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.Services.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace WebApi.Controllers
         [Route("api/Login")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(LoginModel model)
+        public async Task<User> LoginAsync(LoginDto model)
         {
             return await _accountService.LoginAsync(model);
         }
@@ -30,14 +31,17 @@ namespace WebApi.Controllers
         [Route("api/Register")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> RegisterAsync(RegisterModel model)
+        public async Task<User> RegisterAsync(RegisterDto model)
         {
             if (ModelState.IsValid)
             {
-               return await _accountService.RegisterAsync(model);
+                return await _accountService.RegisterAsync(model);
             }
+            else
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
 
-            return BadRequest(ModelState);
+            }
         }
 
         [Route("api/Logout")]
@@ -45,7 +49,7 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> LogoutAsync()
         {
-           return await _accountService.LogoutAsync();
+            return await _accountService.LogoutAsync();
         }
     }
 }

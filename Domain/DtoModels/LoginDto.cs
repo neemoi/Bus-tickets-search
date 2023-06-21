@@ -2,7 +2,7 @@
 
 namespace WebApi
 {
-    public class LoginModel
+    public class LoginDto
     {
         [Required]
         [EmailAddress]

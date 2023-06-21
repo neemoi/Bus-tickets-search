@@ -6,17 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebApi;
+using WebApi.Models;
 
 namespace Application.Services
 {
     public interface IAccountService
     {
-        Task<IActionResult> LoginAsync(LoginModel model);
+        Task<User> LoginAsync(LoginDto model);
 
-        Task<IActionResult> RegisterAsync(RegisterModel model);
+        Task<User> RegisterAsync(RegisterDto model);
 
         Task<IActionResult> LogoutAsync();
-
-        string GetErrorString(IdentityResult result);
     }
 }

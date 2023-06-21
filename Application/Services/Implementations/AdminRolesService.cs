@@ -1,4 +1,5 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.Services.Helper;
+using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,10 @@ namespace Application.Services.Implementations
     public class AdminRolesService : IAdminRolesService
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly UserManager<User> _userManager;
 
-        public AdminRolesService(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public AdminRolesService(RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
-            _userManager = userManager;
         }
 
         public async Task<IActionResult> CreateRoleAsync([FromBody] string name)
@@ -33,7 +32,7 @@ namespace Application.Services.Implementations
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, GetErrorString(result));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
             }
         }
 
@@ -47,11 +46,11 @@ namespace Application.Services.Implementations
 
                 if (result.Succeeded)
                 {
-                    return new StatusCodeResult(StatusCodes.Status204NoContent);
+                    return new StatusCodeResult(StatusCodes.Status200OK);
                 }
                 else
                 {
-                    throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, GetErrorString(result));
+                    throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
                 }
             }
             else
@@ -70,11 +69,6 @@ namespace Application.Services.Implementations
             List<IdentityRole> roles = _roleManager.Roles.ToList();
 
             return new ObjectResult(roles) { StatusCode = StatusCodes.Status200OK };
-        }
-
-        public string GetErrorString(IdentityResult result)
-        {
-            return string.Join("; ", result.Errors.Select(x => x.Description));
         }
     }
 }

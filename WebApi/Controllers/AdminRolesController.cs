@@ -1,4 +1,5 @@
 ﻿using Application.Services;
+using Application.Services.Helper;
 using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -44,7 +45,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                throw new ApiRequestErrorException(0, "Role is empty");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
             }
 
             return Ok();
@@ -60,7 +61,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                throw new ApiRequestErrorException(0, "Role is empty");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
             }
 
             return Ok();

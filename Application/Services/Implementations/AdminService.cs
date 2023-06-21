@@ -1,14 +1,9 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.Services.Helper;
+using Application.Services.Interfaces;
 using Domain.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi.Models;
 using WebApi.RequestError;
 
@@ -16,40 +11,98 @@ namespace Application.Services.Implementations
 {
     public class AdminService : IAdminService
     {
+        private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        readonly UserManager<User> _userManager;
 
-        public AdminService(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public AdminService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
-            _roleManager = roleManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
-        public Task<IActionResult> AddUser(AddUserModel model)
+        public async Task<User> DeleteUserAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            if (user != null && userId.ToString() != "e1035f07-bb12-493d-b4a1-715e8eeba867")
+            {
+                var roleNames = await _userManager.GetRolesAsync(user);
+
+                foreach (var roleName in roleNames)
+                {
+                    var role = await _roleManager.FindByNameAsync(roleName);
+
+                    if (role != null)
+                    {
+                        await _userManager.RemoveFromRoleAsync(user, role.Name);
+                    }
+                }
+
+                var result = await _userManager.DeleteAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return user;
+                }
+                else
+                {
+                    throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
+                }
+            }
+            else
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+            }
         }
 
-        public Task<ActionResult> DeleteUser(Guid id)
+        public async Task<User> EditUserAsync(Guid userId, EditUserDto model)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            if (user != null)
+            {
+                user.Email = model.Email ?? user.Email;
+                user.UserName = model.UserName ?? user.UserName;
+                user.Surname = model.Surname ?? user.Surname;
+                user.PhoneNumber = model.Phone ?? user.PhoneNumber;
+                user.Password = model.Password ?? user.Password;
+
+                IdentityResult result = await _userManager.UpdateAsync(user);
+
+                if (result.Succeeded)
+                {
+                    return user;
+                }
+                else
+                {
+                    throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
+                }
+            }
+            else
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+            }
         }
 
-        public Task<IActionResult> EditUser(Guid id, EditUserModel model)
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            throw new NotImplementedException();
+            var result = await _userManager.Users.ToListAsync();
+
+            return result;
         }
 
-        public async Task<IActionResult> GetAllUsersAsync()
+        public async Task<User> GetUserByIdAsync(Guid userId)
         {
-            List<User> users = await _userManager.Users.ToListAsync();
+            var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            return new ObjectResult(users) { StatusCode = StatusCodes.Status200OK };
-        }
-
-        public string GetErrorString(IdentityResult result)
-        {
-            return string.Join("; ", result.Errors.Select(x => x.Description));
+            if (user != null)
+            {
+                return user;
+            }
+            else
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+            }
         }
     }
 }

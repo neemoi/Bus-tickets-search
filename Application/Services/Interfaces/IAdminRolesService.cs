@@ -10,11 +10,9 @@ namespace Application.Services.Interfaces
 {
     public interface IAdminRolesService
     {
-        Task<IActionResult> AssignUserRole([FromBody] Guid userId);
-
         public IActionResult RoleList();
 
-        string GetErrorString(IdentityResult result);
+        Task<IActionResult> AssignUserRole([FromBody] Guid userId);
 
         Task<IActionResult> CreateRoleAsync([FromBody] string name);
 

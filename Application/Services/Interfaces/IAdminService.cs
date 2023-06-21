@@ -1,25 +1,17 @@
 ﻿using Domain.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi.Models;
 
 namespace Application.Services.Interfaces
 {
     public interface IAdminService
     {
-        Task<IActionResult> GetAllUsersAsync();
+        Task<User> EditUserAsync(Guid userId, EditUserDto model);
 
-        Task<IActionResult> EditUser(Guid id, EditUserModel model);
+        Task<List<User>> GetAllUsersAsync();
 
-        Task<IActionResult> AddUser(AddUserModel model);
+        Task<User> GetUserByIdAsync(Guid userId);
 
-        Task<ActionResult> DeleteUser(Guid id);
-
-        string GetErrorString(IdentityResult result);
+        Task<User> DeleteUserAsync(Guid userId);
     }
 }

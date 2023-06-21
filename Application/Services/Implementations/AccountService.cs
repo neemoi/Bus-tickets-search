@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Application.Services.Helper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,17 +27,19 @@ namespace Application.Services.Implementations
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> LoginAsync(LoginModel model)
+        public async Task<User> LoginAsync(LoginDto model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
 
-            if (result.Succeeded)
+            var user = await _signInManager.UserManager.FindByNameAsync(model.Email);
+
+            if (result.Succeeded && user != null)
             {
-                return new StatusCodeResult(StatusCodes.Status201Created);
+                return user;
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
             }
         }
 
@@ -47,35 +50,31 @@ namespace Application.Services.Implementations
             return new StatusCodeResult(StatusCodes.Status200OK);
         }
 
-        public async Task<IActionResult> RegisterAsync(RegisterModel model)
+        public async Task<User> RegisterAsync(RegisterDto model)
         {
             var user = new User()
             {
-                UserName = model.Email,
                 Email = model.Email,
+                UserName = model.Name,
+                Surname = model.Surname,
+                PhoneNumber = model.Phone,
                 Password = model.Password,
-                Surname = model.Surname
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
-            if (result.Succeeded || user != null)
+            if (result.Succeeded && user != null)
             {
                 await _signInManager.SignInAsync(user, true);
 
                 await _userManager.AddToRoleAsync(user, "User");
 
-                return new StatusCodeResult(StatusCodes.Status201Created);
+                return user;
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
             }
-        }
-
-        public string GetErrorString(IdentityResult result)
-        {
-            return string.Join("; ", result.Errors.Select(x => x.Description));
         }
     }
 }
