@@ -1,7 +1,9 @@
+using Application.Services;
+using Application.Services.Implementations;
+using Application.Services.Interfaces;
+using Application.Services.MappingProfile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
-using System.Reflection.Emit;
 using WebApi.Models;
 
 namespace WebApi
@@ -17,12 +19,18 @@ namespace WebApi
             builder.Services.AddDbContext<BtsContext>(options =>
                 options.UseMySql(builder.Configuration.GetConnectionString("ConnectionStrings"), new MySqlServerVersion(new Version(8, 0, 23))));
 
-            builder.Services.AddDbContext<BtsContext>();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAutoMapper(typeof(AppMappingProfile));
+            builder.Services.AddScoped<UserManager<User>>();
+            builder.Services.AddScoped<UserManager<User>, UserManager<User>>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
+            builder.Services.AddScoped<IAdminRolesService, AdminRolesService>();
+            builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+
             builder.Services.AddIdentity<User, IdentityRole>()
-           .AddEntityFrameworkStores<BtsContext>()
-           .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<BtsContext>()
+                .AddRoles<IdentityRole>();
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

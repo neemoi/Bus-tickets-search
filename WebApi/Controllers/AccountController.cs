@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Application.Services;
+using Application.Services.Helper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
+using WebApi.RequestError;
 
 namespace WebApi.Controllers
 {
@@ -9,60 +12,48 @@ namespace WebApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
-
-        [Route("api/Register")]
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var user = new User()
-            {
-                UserName = model.Email,
-                Email = model.Email,
-                Password = model.Password,
-                Surname = model.Surname
-            };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(GetErrorString(result));
-            }
-
-            return Ok();
+            _accountService = accountService;
         }
 
         [Route("api/Login")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginModel model)
+        public async Task<IActionResult> LoginAsync(LoginDto model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
+            var userLoginDto = await _accountService.LoginAsync(model);
 
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-
-            return BadRequest("Invalid login attempt.");
+            return Ok(userLoginDto);
         }
 
-        private static string GetErrorString(IdentityResult result)
+        [Route("api/Register")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> RegisterAsync(RegisterDto model)
         {
-            return string.Join("; ", result.Errors.Select(x => x.Description));
+            if (ModelState.IsValid)
+            {
+                var userRegisterDto = await _accountService.RegisterAsync(model);
+
+                return Ok(userRegisterDto);
+            }
+            else
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+            }
+        }
+
+        [Route("api/Logout")]
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> LogoutAsync()
+        {
+            var userLogoutDto = await _accountService.LogoutAsync(HttpContext);
+
+            return Ok(userLogoutDto);
         }
     }
 }
