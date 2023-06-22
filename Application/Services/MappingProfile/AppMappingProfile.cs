@@ -19,8 +19,6 @@ namespace Application.Services.MappingProfile
 
             CreateMap<User, UserRegisterResponceDto>();
 
-            CreateMap<User, UserLogoutResponceDto>();
-
             //AdminUserController
             CreateMap<User, AdminUserDeleteUserResponceDto>();
 
