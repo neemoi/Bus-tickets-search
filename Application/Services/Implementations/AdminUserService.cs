@@ -24,67 +24,65 @@ namespace Application.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<AdminUserDeleteUserResponceDto> DeleteUserAsync(Guid userId)
+        public async Task<AdminUserDeleteUserResponseDto> DeleteUserAsync(Guid userId)
         {
+            var adminId = "e1035f07-bb12-493d-b4a1-715e8eeba867";
+
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            if (user != null && userId.ToString() != "e1035f07-bb12-493d-b4a1-715e8eeba867") //id Администратора 
+            if (userId.ToString() == adminId || user == null)
             {
-                var roleNames = await _userManager.GetRolesAsync(user);
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+            }
 
-                foreach (var roleName in roleNames)
+            var roleNames = await _userManager.GetRolesAsync(user);
+
+            foreach (var roleName in roleNames)
+            {
+                var role = await _roleManager.FindByNameAsync(roleName);
+
+                if (role != null)
                 {
-                    var role = await _roleManager.FindByNameAsync(roleName);
-
-                    if (role != null)
-                    {
-                        await _userManager.RemoveFromRoleAsync(user, role.Name);
-                    }
+                    await _userManager.RemoveFromRoleAsync(user, role.Name);
                 }
+            }
 
-                var result = await _userManager.DeleteAsync(user);
+            var result = await _userManager.DeleteAsync(user);
 
-                if (result.Succeeded)
-                {
-                    return _mapper.Map<AdminUserDeleteUserResponceDto>(user);
-                }
-                else
-                {
-                    throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
-                }
+            if (result.Succeeded)
+            {
+                return _mapper.Map<AdminUserDeleteUserResponseDto>(user);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
             }
         }
 
-        public async Task<AdminUserEditUserResponceDto> EditUserAsync(Guid userId, EditUserDto model)
+        public async Task<AdminUserEditUserResponseDto> EditUserAsync(Guid userId, EditUserDto model)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            if (user != null)
+            if (user == null)
             {
-                user.Email = model.Email ?? user.Email;
-                user.UserName = model.UserName ?? user.UserName;
-                user.Surname = model.Surname ?? user.Surname;
-                user.PhoneNumber = model.Phone ?? user.PhoneNumber;
-                user.Password = model.Password ?? user.Password;
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+            }
 
-                IdentityResult result = await _userManager.UpdateAsync(user);
+            user.Email = model.Email ?? user.Email;
+            user.UserName = model.UserName ?? user.UserName;
+            user.Surname = model.Surname ?? user.Surname;
+            user.PhoneNumber = model.Phone ?? user.PhoneNumber;
+            user.Password = model.Password ?? user.Password;
 
-                if (result.Succeeded)
-                {
-                    return _mapper.Map<AdminUserEditUserResponceDto>(user);
-                }
-                else
-                {
-                    throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
-                }
+            IdentityResult result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return _mapper.Map<AdminUserEditUserResponseDto>(user);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
             }
         }
 
@@ -101,14 +99,12 @@ namespace Application.Services.Implementations
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            if (user != null)
-            {
-                return _mapper.Map<AdminUserGetByIdUsersResponseDto>(user);
-            }
-            else
+            if (user == null)
             {
                 throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
             }
+
+            return _mapper.Map<AdminUserGetByIdUsersResponseDto>(user);
         }
     }
 }

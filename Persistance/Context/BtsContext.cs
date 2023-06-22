@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Persistance.EntityFluentAPI;
+using System.Reflection;
 
 namespace WebApi.Models;
 
 public partial class BtsContext : IdentityDbContext<User>
-{ 
+{
     public BtsContext() { }
 
     public BtsContext(DbContextOptions<BtsContext> options)

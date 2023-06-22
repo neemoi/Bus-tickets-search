@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi.Models;
 
 namespace Persistance.EntityFluentAPI
@@ -35,7 +30,7 @@ namespace Persistance.EntityFluentAPI
                 .HasForeignKey(d => d.FkRouteT)
                 .HasConstraintName("fk_route_t");
 
-            entity.HasOne(d => d.User) 
+            entity.HasOne(d => d.User)
                 .WithMany(p => p.Tickets)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("fk_user_id");

@@ -1,6 +1,7 @@
 ﻿using Application.Services.Helper;
 using Application.Services.Interfaces;
 using Domain.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
@@ -8,7 +9,7 @@ using WebApi.RequestError;
 
 namespace WebApi.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminUserController : Controller
     {
         private readonly IAdminUserService _adminService;

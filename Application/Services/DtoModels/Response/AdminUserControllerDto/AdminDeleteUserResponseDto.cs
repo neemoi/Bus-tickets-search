@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.DtoModels.Response.AdminControllerDto
 {
-    public class AdminUserDeleteUserResponceDto
+    public class AdminUserDeleteUserResponseDto
     {
         public string? Id { get; set; }
 

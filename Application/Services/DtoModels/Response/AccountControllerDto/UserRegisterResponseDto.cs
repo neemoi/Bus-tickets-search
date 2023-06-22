@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.DtoModels.Response.AccountController
 {
-    public class UserLogoutResponceDto
+    public class UserRegisterResponseDto
     {
         public string? Id { get; set; }
 

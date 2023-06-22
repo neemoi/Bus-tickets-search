@@ -7,22 +7,21 @@ using WebApi.Models;
 
 namespace Application.Services.MappingProfile
 {
-    //может разделить на разные классы? 
     public class AppMappingProfile : Profile
     {
         public AppMappingProfile()
         {
             //AccountController
-            CreateMap<User, UserLoginResponceDto>();
+            CreateMap<User, UserLoginResponseDto>();
 
-            CreateMap<User, UserRegisterResponceDto>();
+            CreateMap<User, UserRegisterResponseDto>();
 
-            CreateMap<User, UserRegisterResponceDto>();
+            CreateMap<User, UserLogoutResponseDto>();
 
             //AdminUserController
-            CreateMap<User, AdminUserDeleteUserResponceDto>();
+            CreateMap<User, AdminUserDeleteUserResponseDto>();
 
-            CreateMap<User, AdminUserEditUserResponceDto>();
+            CreateMap<User, AdminUserEditUserResponseDto>();
 
             CreateMap<User, AdminUserGetAllUsersResponseDto>();
 

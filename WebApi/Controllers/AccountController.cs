@@ -3,7 +3,6 @@ using Application.Services.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MySqlX.XDevAPI.Common;
 using WebApi.Models;
 using WebApi.RequestError;
 

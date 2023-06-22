@@ -34,6 +34,7 @@ namespace Application.Services.Implementations
             {
                 return _mapper.Map<AdminRolesCreateRoleDto>(role);
             }
+            else
             {
                 throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
             }
@@ -43,22 +44,20 @@ namespace Application.Services.Implementations
         {
             IdentityRole? role = await _roleManager.FindByIdAsync(roleId.ToString());
 
-            if (role != null)
+            if (role == null)
             {
-                IdentityResult result = await _roleManager.DeleteAsync(role);
+                throw new ApiRequestErrorException(StatusCodes.Status404NotFound, "Role not found");
+            }
 
-                if (result.Succeeded)
-                {
-                    return _mapper.Map<AdminRolesDeleteRoleDto>(role);
-                }
-                else
-                {
-                    throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
-                }
+            IdentityResult result = await _roleManager.DeleteAsync(role);
+
+            if (result.Succeeded)
+            {
+                return _mapper.Map<AdminRolesDeleteRoleDto>(role);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status404NotFound, "Role not found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, result.GetErrorString());
             }
         }
 
@@ -66,29 +65,20 @@ namespace Application.Services.Implementations
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            if (user != null)
-            {
-                IdentityRole role = await _roleManager.FindByNameAsync(roleName);
+            IdentityRole? role = await _roleManager.FindByNameAsync(roleName);
 
-                if (role != null)
-                {
-                    await _userManager.AddToRoleAsync(user, role.Name);
-
-                    return new AdminRolesAssignUserRoleDto
-                    {
-                        Name = role.Name,
-                        Id = user.Id
-                    };
-                }
-                else
-                {
-                    throw new ApiRequestErrorException(StatusCodes.Status404NotFound, "Role not found");
-                }
-            }
-            else
+            if (user == null || role == null)
             {
-                throw new ApiRequestErrorException(StatusCodes.Status404NotFound, "User not found");
+                throw new ApiRequestErrorException(StatusCodes.Status404NotFound, "User or role not found");
             }
+
+            await _userManager.AddToRoleAsync(user, role.Name);
+
+            return new AdminRolesAssignUserRoleDto
+            {
+                Name = role.Name,
+                Id = user.Id
+            };
         }
 
         public async Task<List<AdminRolesGetAllRolesDto>> GetAllRolesAsync()
