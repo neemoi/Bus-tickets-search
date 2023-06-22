@@ -1,15 +1,8 @@
-﻿using Application.Services.Helper;
+﻿using Application.Services.DtoModels.Response.AccountController;
+using Application.Services.Helper;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using MySqlX.XDevAPI.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebApi;
 using WebApi.Models;
 using WebApi.RequestError;
@@ -20,14 +13,16 @@ namespace Application.Services.Implementations
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IMapper _mapper;
 
-        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager, IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
 
-        public async Task<User> LoginAsync(LoginDto model)
+        public async Task<UserLoginResponceDto> LoginAsync(LoginDto model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
 
@@ -35,7 +30,7 @@ namespace Application.Services.Implementations
 
             if (result.Succeeded && user != null)
             {
-                return user;
+                return _mapper.Map<UserLoginResponceDto>(user);
             }
             else
             {
@@ -43,22 +38,24 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<IActionResult> LogoutAsync()
+        public async Task<UserLogoutResponceDto> LogoutAsync(HttpContext httpContext)
         {
+            var user = await _userManager.GetUserAsync(httpContext.User);
+
             await _signInManager.SignOutAsync();
 
-            return new StatusCodeResult(StatusCodes.Status200OK);
+            return _mapper.Map<UserLogoutResponceDto>(user);
         }
 
-        public async Task<User> RegisterAsync(RegisterDto model)
+        public async Task<UserRegisterResponceDto> RegisterAsync(RegisterDto model)
         {
             var user = new User()
             {
+                UserName = model.Email,
                 Email = model.Email,
-                UserName = model.Name,
+                Password = model.Password,
                 Surname = model.Surname,
                 PhoneNumber = model.Phone,
-                Password = model.Password,
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -69,7 +66,7 @@ namespace Application.Services.Implementations
 
                 await _userManager.AddToRoleAsync(user, "User");
 
-                return user;
+                return _mapper.Map<UserRegisterResponceDto>(user);
             }
             else
             {

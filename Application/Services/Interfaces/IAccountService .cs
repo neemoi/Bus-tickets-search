@@ -1,21 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Services.DtoModels.Response.AccountController;
+using Microsoft.AspNetCore.Http;
 using WebApi;
-using WebApi.Models;
 
 namespace Application.Services
 {
     public interface IAccountService
     {
-        Task<User> LoginAsync(LoginDto model);
+        Task<UserLoginResponceDto> LoginAsync(LoginDto model);
 
-        Task<User> RegisterAsync(RegisterDto model);
+        Task<UserRegisterResponceDto> RegisterAsync(RegisterDto model);
 
-        Task<IActionResult> LogoutAsync();
+        Task<UserLogoutResponceDto> LogoutAsync(HttpContext httpContext);
     }
 }

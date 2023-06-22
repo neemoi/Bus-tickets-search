@@ -1,13 +1,10 @@
 using Application.Services;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System.Configuration;
-using System.Data;
-using System.Reflection.Emit;
-using WebApi.Controllers;
-using WebApi.Models;
 using Application.Services.Implementations;
 using Application.Services.Interfaces;
+using Application.Services.MappingProfile;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using WebApi.Models;
 
 namespace WebApi
 {
@@ -24,12 +21,12 @@ namespace WebApi
 
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAutoMapper(typeof(AppMappingProfile));
             builder.Services.AddScoped<UserManager<User>>();
             builder.Services.AddScoped<UserManager<User>, UserManager<User>>();
-
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IAdminRolesService, AdminRolesService>();
-            builder.Services.AddScoped<IAdminService, AdminService>();
+            builder.Services.AddScoped<IAdminUserService, AdminUserService>();
 
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<BtsContext>()

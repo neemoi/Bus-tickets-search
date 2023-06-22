@@ -1,11 +1,6 @@
-﻿using Application.Services;
-using Application.Services.Helper;
-using Application.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
+﻿using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Xml.Linq;
 using WebApi.Models;
-using WebApi.RequestError;
 
 namespace WebApi.Controllers
 {
@@ -19,52 +14,40 @@ namespace WebApi.Controllers
             _adminRolesService = adminRolesService;
         }
 
-        //[Route("api/AssignUserRole")]
-        //[HttpPost]
-        //public async Task<IActionResult> AssignUserRole([FromBody] string userId)
-        //{
-        //    return Ok();
-        //}
-
-        [Route("api/RoleList")]
+        [Route("api/GetAllRoles")]
         [HttpGet]
-        public IActionResult RoleList()
+        public async Task<IActionResult> GetAllRolesAsync()
         {
-            var result = _adminRolesService.RoleList();
+            var result = await _adminRolesService.GetAllRolesAsync();
 
             return Ok(result);
         }
 
         [Route("api/CreateRole")]
         [HttpPost]
-        public async Task<IActionResult> CreateRoleAsync([FromBody] string name)
+        public async Task<IActionResult> CreateRoleAsync(string name)
         {
-            if (ModelState.IsValid)
-            {
-                await _adminRolesService.CreateRoleAsync(name);
-            }
-            else
-            {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
-            }
+            var result = await _adminRolesService.CreateRoleAsync(name);
 
-            return Ok();
+            return Ok(result);
         }
 
         [Route("api/DeleteRole")]
         [HttpPost]
-        public async Task<IActionResult> DeleteRoleAsync([FromBody] Guid roleId)
+        public async Task<IActionResult> DeleteRoleAsync(Guid roleId)
         {
-            if (ModelState.IsValid)
-            {
-                await _adminRolesService.DeleteRoleAsync(roleId);
-            }
-            else
-            {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
-            }
+            var result = await _adminRolesService.DeleteRoleAsync(roleId);
 
-            return Ok();
+            return Ok(result);
+        }
+
+        [Route("api/AssignUserRole")]
+        [HttpPost]
+        public async Task<IActionResult> AssignUserRoleAsync(Guid userId, string role)
+        {
+            var result = await _adminRolesService.AssignUserRoleAsync(userId, role);
+
+            return Ok(result);
         }
     }
 }

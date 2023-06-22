@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace WebApi
 {
@@ -8,9 +7,6 @@ namespace WebApi
         [Required]
         [EmailAddress]
         public string Email { get; set; } = null!;
-
-        [Required]
-        public string? Name { get; set; } = null!;
 
         [Required]
         public string? Surname { get; set; } = null!;

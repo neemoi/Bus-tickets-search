@@ -1,5 +1,7 @@
-﻿using Application.Services.Helper;
+﻿using Application.Services.DtoModels.Response.AdminControllerDto;
+using Application.Services.Helper;
 using Application.Services.Interfaces;
+using AutoMapper;
 using Domain.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -9,22 +11,24 @@ using WebApi.RequestError;
 
 namespace Application.Services.Implementations
 {
-    public class AdminService : IAdminService
+    public class AdminUserService : IAdminUserService
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IMapper _mapper;
 
-        public AdminService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public AdminUserService(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _mapper = mapper;
         }
 
-        public async Task<User> DeleteUserAsync(Guid userId)
+        public async Task<AdminUserDeleteUserResponceDto> DeleteUserAsync(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            if (user != null && userId.ToString() != "e1035f07-bb12-493d-b4a1-715e8eeba867")
+            if (user != null && userId.ToString() != "e1035f07-bb12-493d-b4a1-715e8eeba867") //id Администратора 
             {
                 var roleNames = await _userManager.GetRolesAsync(user);
 
@@ -42,7 +46,7 @@ namespace Application.Services.Implementations
 
                 if (result.Succeeded)
                 {
-                    return user;
+                    return _mapper.Map<AdminUserDeleteUserResponceDto>(user);
                 }
                 else
                 {
@@ -55,7 +59,7 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<User> EditUserAsync(Guid userId, EditUserDto model)
+        public async Task<AdminUserEditUserResponceDto> EditUserAsync(Guid userId, EditUserDto model)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
@@ -71,7 +75,7 @@ namespace Application.Services.Implementations
 
                 if (result.Succeeded)
                 {
-                    return user;
+                    return _mapper.Map<AdminUserEditUserResponceDto>(user);
                 }
                 else
                 {
@@ -84,20 +88,22 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<List<User>> GetAllUsersAsync()
+        public async Task<List<AdminUserGetAllUsersResponseDto>> GetAllUsersAsync()
         {
-            var result = await _userManager.Users.ToListAsync();
+            var users = await _userManager.Users.ToListAsync();
+
+            var result = users.Select(u => _mapper.Map<AdminUserGetAllUsersResponseDto>(u)).ToList();
 
             return result;
         }
 
-        public async Task<User> GetUserByIdAsync(Guid userId)
+        public async Task<AdminUserGetByIdUsersResponseDto> GetUserByIdAsync(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
             if (user != null)
             {
-                return user;
+                return _mapper.Map<AdminUserGetByIdUsersResponseDto>(user);
             }
             else
             {

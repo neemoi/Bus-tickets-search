@@ -23,24 +23,27 @@ namespace WebApi.Controllers
         [Route("api/Login")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<User> LoginAsync(LoginDto model)
+        public async Task<IActionResult> LoginAsync(LoginDto model)
         {
-            return await _accountService.LoginAsync(model);
+            var userLoginDto = await _accountService.LoginAsync(model);
+
+            return Ok(userLoginDto);
         }
 
         [Route("api/Register")]
         [AllowAnonymous]
         [HttpPost]
-        public async Task<User> RegisterAsync(RegisterDto model)
+        public async Task<IActionResult> RegisterAsync(RegisterDto model)
         {
             if (ModelState.IsValid)
             {
-                return await _accountService.RegisterAsync(model);
+                var userRegisterDto = await _accountService.RegisterAsync(model);
+
+                return Ok(userRegisterDto);
             }
             else
             {
                 throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
-
             }
         }
 
@@ -49,7 +52,9 @@ namespace WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> LogoutAsync()
         {
-            return await _accountService.LogoutAsync();
+            var userLogoutDto = await _accountService.LogoutAsync(HttpContext);
+
+            return Ok(userLogoutDto);
         }
     }
 }

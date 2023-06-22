@@ -1,22 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Services.DtoModels.Response.AdminRolesControllerDto;
 
 namespace Application.Services.Interfaces
 {
     public interface IAdminRolesService
     {
-        public IActionResult RoleList();
+        Task<List<AdminRolesGetAllRolesDto>> GetAllRolesAsync();
 
-        Task<IActionResult> AssignUserRole([FromBody] Guid userId);
+        Task<AdminRolesAssignUserRoleDto> AssignUserRoleAsync(Guid userId, string roleName);
 
-        Task<IActionResult> CreateRoleAsync([FromBody] string name);
+        Task<AdminRolesCreateRoleDto> CreateRoleAsync(string roleName);
 
-        Task<IActionResult> DeleteRoleAsync([FromBody] Guid roleId);
+        Task<AdminRolesDeleteRoleDto> DeleteRoleAsync(Guid roleId);
 
     }
 }
