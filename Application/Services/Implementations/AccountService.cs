@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels;
+﻿using Application.Services.DtoModels.DtoModels.LoginAndRegister;
 using Application.Services.DtoModels.Response.AccountController;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices;

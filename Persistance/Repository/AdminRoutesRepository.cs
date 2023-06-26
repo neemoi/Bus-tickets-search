@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels;
+﻿using Application.Services.DtoModels.DtoModels.Route;
 using Application.Services.DtoModels.Response.AdminRoutesControllerDto;
 using Application.Services.Interfaces.Repository;
 using AutoMapper;
@@ -21,7 +21,7 @@ namespace Persistance.Repository
             _mapper = mapper;
         }
 
-        public async Task<AdminCreatiNewRouteDto> CreatNewRouteAsync(CreateRouteDto model)
+        public async Task<AdminCreatNewRouteDto> CreatNewRouteAsync(CreateRouteDto model)
         {
             var route = new Route
             {
@@ -36,7 +36,7 @@ namespace Persistance.Repository
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminCreatiNewRouteDto>(route);
+                return _mapper.Map<AdminCreatNewRouteDto>(route);
             }
             else
             {

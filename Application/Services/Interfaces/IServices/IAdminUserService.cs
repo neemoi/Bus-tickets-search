@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels;
+﻿using Application.Services.DtoModels.DtoModels.AdminUser;
 using Application.Services.DtoModels.Response.AdminControllerDto;
 
 namespace Application.Services.Interfaces.IServices

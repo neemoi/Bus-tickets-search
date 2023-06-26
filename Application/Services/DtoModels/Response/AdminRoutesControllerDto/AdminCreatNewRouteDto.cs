@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services.DtoModels.Response.AdminRoutesControllerDto
 {
-    public class AdminCreatiNewRouteDto
+    public class AdminCreatNewRouteDto
     {
         public string? Id { get; set; } 
 

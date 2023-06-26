@@ -5,6 +5,7 @@ using Application.Services.Interfaces.IServices;
 using Application.Services.MappingProfile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Persistance.Repository;
 using WebApi.Models;
 
 namespace WebApi
@@ -28,6 +29,8 @@ namespace WebApi
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IAdminRolesService, AdminRolesService>();
             builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+            builder.Services.AddScoped<AdminRoutesRepository>();
+            builder.Services.AddScoped<AdminDriversRepository>();
 
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<BtsContext>()

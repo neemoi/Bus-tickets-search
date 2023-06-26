@@ -1,5 +1,6 @@
 ﻿using Application.Services.DtoModels.Response.AccountController;
 using Application.Services.DtoModels.Response.AdminControllerDto;
+using Application.Services.DtoModels.Response.AdminDriverControllerDto;
 using Application.Services.DtoModels.Response.AdminRolesControllerDto;
 using Application.Services.DtoModels.Response.AdminRoutesControllerDto;
 using AutoMapper;
@@ -38,7 +39,10 @@ namespace Application.Services.MappingProfile
             CreateMap<IdentityRole, AdminRolesAssignUserRoleDto>();
 
             //AdminRoute
-            CreateMap<Route, AdminCreatiNewRouteDto>();
+            CreateMap<Route, AdminCreatNewRouteDto>();
+
+            //AdminDriver
+            CreateMap<Driver, AdminCreateNewDriverDto>();
         }
     }
 }
