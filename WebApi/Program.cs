@@ -1,6 +1,7 @@
 using Application.Services;
 using Application.Services.Implementations;
 using Application.Services.Interfaces;
+using Application.Services.Interfaces.IServices;
 using Application.Services.MappingProfile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

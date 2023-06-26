@@ -1,6 +1,7 @@
 ﻿using Application.Services.DtoModels.Response.AccountController;
 using Application.Services.DtoModels.Response.AdminControllerDto;
 using Application.Services.DtoModels.Response.AdminRolesControllerDto;
+using Application.Services.DtoModels.Response.AdminRoutesControllerDto;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Models;
@@ -11,14 +12,14 @@ namespace Application.Services.MappingProfile
     {
         public AppMappingProfile()
         {
-            //AccountController
+            //Account
             CreateMap<User, UserLoginResponseDto>();
 
             CreateMap<User, UserRegisterResponseDto>();
 
             CreateMap<User, UserLogoutResponseDto>();
 
-            //AdminUserController
+            //AdminUser
             CreateMap<User, AdminUserDeleteUserResponseDto>();
 
             CreateMap<User, AdminUserEditUserResponseDto>();
@@ -27,7 +28,7 @@ namespace Application.Services.MappingProfile
 
             CreateMap<User, AdminUserGetByIdUsersResponseDto>();
 
-            //AdminRolesController
+            //AdminRoles
             CreateMap<IdentityRole, AdminRolesCreateRoleDto>();
 
             CreateMap<IdentityRole, AdminRolesDeleteRoleDto>();
@@ -35,6 +36,9 @@ namespace Application.Services.MappingProfile
             CreateMap<IdentityRole, AdminRolesGetAllRolesDto>();
 
             CreateMap<IdentityRole, AdminRolesAssignUserRoleDto>();
+
+            //AdminRoute
+            CreateMap<Route, AdminCreatiNewRouteDto>();
         }
     }
 }

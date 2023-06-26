@@ -1,6 +1,6 @@
-﻿using Application.Services.Helper;
-using Application.Services.Interfaces;
-using Domain.ViewModels;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.Helper;
+using Application.Services.Interfaces.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +9,7 @@ using WebApi.RequestError;
 
 namespace WebApi.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class AdminUserController : Controller
     {
         private readonly IAdminUserService _adminService;
@@ -19,8 +19,7 @@ namespace WebApi.Controllers
             _adminService = adminService;
         }
 
-        [Route("api/GetAllUsers")]
-        [HttpGet]
+        [HttpGet("api/GetAllUsers")]
         public async Task<IActionResult> GetAllUsersAsync()
         {
             var result = await _adminService.GetAllUsersAsync();
@@ -39,11 +38,11 @@ namespace WebApi.Controllers
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
         }
 
-        [HttpPost("api/DeleteUser")]
+        [HttpDelete("api/DeleteUser")]
         public async Task<IActionResult> DeleteUserAsync(Guid userId)
         {
             if (ModelState.IsValid)
@@ -54,7 +53,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
         }
 
@@ -69,7 +68,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
         }
     }

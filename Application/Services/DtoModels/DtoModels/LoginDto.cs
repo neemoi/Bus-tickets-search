@@ -1,4 +1,4 @@
-﻿namespace WebApi
+﻿namespace Application.Services.DtoModels.DtoModels
 {
     public class LoginDto
     {

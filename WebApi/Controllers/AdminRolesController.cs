@@ -1,4 +1,4 @@
-﻿using Application.Services.Interfaces;
+﻿using Application.Services.Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 
@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         }
 
         [Route("api/DeleteRole")]
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> DeleteRoleAsync(Guid roleId)
         {
             var result = await _adminRolesService.DeleteRoleAsync(roleId);

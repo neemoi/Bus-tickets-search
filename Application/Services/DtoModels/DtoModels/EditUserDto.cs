@@ -1,4 +1,4 @@
-﻿namespace Domain.ViewModels
+﻿namespace Application.Services.DtoModels.DtoModels
 {
     public class EditUserDto
     {

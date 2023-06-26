@@ -1,8 +1,8 @@
-﻿using Application.Services.DtoModels.Response.AccountController;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response.AccountController;
 using Microsoft.AspNetCore.Http;
-using WebApi;
 
-namespace Application.Services
+namespace Application.Services.Interfaces.IServices
 {
     public interface IAccountService
     {

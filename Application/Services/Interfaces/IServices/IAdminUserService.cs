@@ -1,7 +1,7 @@
-﻿using Application.Services.DtoModels.Response.AdminControllerDto;
-using Domain.ViewModels;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response.AdminControllerDto;
 
-namespace Application.Services.Interfaces
+namespace Application.Services.Interfaces.IServices
 {
     public interface IAdminUserService
     {

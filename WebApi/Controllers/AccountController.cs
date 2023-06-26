@@ -1,5 +1,6 @@
-﻿using Application.Services;
+﻿using Application.Services.DtoModels.DtoModels;
 using Application.Services.Helper;
+using Application.Services.Interfaces.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@ namespace WebApi.Controllers
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
         }
 

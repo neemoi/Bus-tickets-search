@@ -1,6 +1,6 @@
 ﻿using Application.Services.DtoModels.Response.AdminRolesControllerDto;
 
-namespace Application.Services.Interfaces
+namespace Application.Services.Interfaces.IServices
 {
     public interface IAdminRolesService
     {

@@ -1,9 +1,10 @@
-﻿using Application.Services.DtoModels.Response.AccountController;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response.AccountController;
 using Application.Services.Helper;
+using Application.Services.Interfaces.IServices;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using WebApi;
 using WebApi.Models;
 using WebApi.RequestError;
 
@@ -34,7 +35,7 @@ namespace Application.Services.Implementations
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
         }
 

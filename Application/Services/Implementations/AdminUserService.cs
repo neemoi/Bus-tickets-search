@@ -1,8 +1,8 @@
-﻿using Application.Services.DtoModels.Response.AdminControllerDto;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response.AdminControllerDto;
 using Application.Services.Helper;
-using Application.Services.Interfaces;
+using Application.Services.Interfaces.IServices;
 using AutoMapper;
-using Domain.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +32,7 @@ namespace Application.Services.Implementations
 
             if (userId.ToString() == adminId || user == null)
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
 
             var roleNames = await _userManager.GetRolesAsync(user);
@@ -65,7 +65,7 @@ namespace Application.Services.Implementations
 
             if (user == null)
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
 
             user.Email = model.Email ?? user.Email;
@@ -101,7 +101,7 @@ namespace Application.Services.Implementations
 
             if (user == null)
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
 
             return _mapper.Map<AdminUserGetByIdUsersResponseDto>(user);
