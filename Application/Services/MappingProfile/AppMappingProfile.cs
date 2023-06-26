@@ -43,6 +43,14 @@ namespace Application.Services.MappingProfile
 
             //AdminDriver
             CreateMap<Driver, AdminCreateNewDriverDto>();
+         
+            CreateMap<Driver, AdminDeleteDriverById>();
+
+            CreateMap<Driver, AdminGetAllDriverDto>();
+
+            CreateMap<Driver, AdminGetByIdDriverDto>();
+
+            CreateMap<Driver, AdminEditDriverDto>();
         }
     }
 }

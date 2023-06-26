@@ -7,13 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using WebApi.Models;
 using WebApi.RequestError;
 
-namespace WebApi.Controllers
+namespace WebApi.Controllers.User
 {
     [Route("api/[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        // MAPPER PROFILE ADD 
         private readonly IAccountService _accountService;
 
         public AccountController(IAccountService accountService)
@@ -21,26 +20,13 @@ namespace WebApi.Controllers
             _accountService = accountService;
         }
 
-        [Route("api/Login")]
+        [HttpPost("api/Login")]
         [AllowAnonymous]
-        [HttpPost]
         public async Task<IActionResult> LoginAsync(LoginDto model)
-        {
-            var userLoginDto = await _accountService.LoginAsync(model);
-
-            return Ok(userLoginDto);
-        }
-
-        [Route("api/Register")]
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> RegisterAsync(RegisterDto model)
         {
             if (ModelState.IsValid)
             {
-                var userRegisterDto = await _accountService.RegisterAsync(model);
-
-                return Ok(userRegisterDto);
+                return Ok(await _accountService.LoginAsync(model));
             }
             else
             {
@@ -48,14 +34,25 @@ namespace WebApi.Controllers
             }
         }
 
-        [Route("api/Logout")]
+        [HttpPost("api/Register")]
         [AllowAnonymous]
-        [HttpPost]
+        public async Task<IActionResult> RegisterAsync(RegisterDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                return Ok(await _accountService.RegisterAsync(model));
+            }
+            else
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
+            }
+        }
+
+        [HttpPost("api/Logout")]
+        [AllowAnonymous]
         public async Task<IActionResult> LogoutAsync()
         {
-            var userLogoutDto = await _accountService.LogoutAsync(HttpContext);
-
-            return Ok(userLogoutDto);
+            return Ok(await _accountService.LogoutAsync(HttpContext));
         }
     }
 }

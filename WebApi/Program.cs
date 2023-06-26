@@ -5,7 +5,7 @@ using Application.Services.Interfaces.IServices;
 using Application.Services.MappingProfile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Persistance.Repository;
+using Persistance.Repository.Admin;
 using WebApi.Models;
 
 namespace WebApi

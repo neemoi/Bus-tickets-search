@@ -1,14 +1,15 @@
 ﻿using Application.Services.DtoModels.DtoModels.Route;
 using Microsoft.AspNetCore.Mvc;
-using Persistance.Repository;
+using Persistance.Repository.Admin;
 
-namespace WebApi.Controllers
+namespace WebApi.Controllers.Admin
 {
-    public class AdminRoutesController : ControllerBase
+    //[Authorize(Roles = "Admin")]
+    public class RoutesController : ControllerBase
     {
         private readonly AdminRoutesRepository _controller;
 
-        public AdminRoutesController(AdminRoutesRepository routesController)
+        public RoutesController(AdminRoutesRepository routesController)
         {
             _controller = routesController;
         }
@@ -16,18 +17,14 @@ namespace WebApi.Controllers
         [HttpPost("/api/CreatNewRoute")]
         public async Task<IActionResult> CreatNewRouteAsync(CreateRouteDto model)
         {
-            var result = await _controller.CreatNewRouteAsync(model);
-
-            return Ok(result);
+            return Ok(await _controller.CreatNewRouteAsync(model));
         }
 
 
         [HttpDelete("/api/DeleteRoute")]
         public async Task<IActionResult> DeleteRoute(CreateRouteDto model)
         {
-            var result = await _controller.CreatNewRouteAsync(model);
-
-            return Ok(result);
+            return Ok(await _controller.CreatNewRouteAsync(model));
         }
     }
 }

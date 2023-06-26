@@ -1,6 +1,6 @@
-﻿namespace Application.Services.DtoModels.DtoModels.Driver
+﻿namespace Application.Services.DtoModels.Response.AdminDriverControllerDto
 {
-    public class GetAllDriverDto
+    public class AdminDeleteDriverById
     {
         public uint DriverId { get; set; }
 

@@ -8,7 +8,7 @@ using MySqlX.XDevAPI.Common;
 using WebApi.Models;
 using WebApi.RequestError;
 
-namespace Persistance.Repository
+namespace Persistance.Repository.Admin
 {
     public class AdminRoutesRepository : IRepositoryRoute
     {
