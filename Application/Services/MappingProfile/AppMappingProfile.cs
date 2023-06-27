@@ -41,7 +41,15 @@ namespace Application.Services.MappingProfile
             CreateMap<IdentityRole, AdminRolesAssignUserRoleDto>();
 
             //AdminRoute
-            CreateMap<Route, AdminCreatNewRouteDto>();
+            CreateMap<Route, CreatNewRouteDto>();
+
+            CreateMap<Route, DeleteRouteDto>();
+
+            CreateMap<Route, EdtitRoutesDto>();
+            
+            CreateMap<Route, GetByIdRoutesDto>();
+            
+            CreateMap<Route, GetAllRouteDto>();
 
             //AdminDriver
             CreateMap<Driver, AdminCreateDriverDto>();
@@ -70,6 +78,11 @@ namespace Application.Services.MappingProfile
             
             CreateMap<Shedule, AdminGetAllSheduleDto>();
 
+            CreateMap<Shedule, AdminGetByIdSheduleDto>();
+
+            CreateMap<Shedule, AdminDeleteSheduleByIdDto>();
+
+            CreateMap<Shedule, AdminEditSheduleDto>();
         }
     }
 }

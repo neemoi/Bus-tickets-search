@@ -1,8 +1,8 @@
 ﻿namespace Application.Services.DtoModels.Response.AdminRoutesControllerDto
 {
-    public class AdminCreatNewRouteDto
+    public class CreatNewRouteDto
     {
-        public string? Id { get; set; }
+        public uint RouteId { get; set; }
 
         public string? StartLocation { get; set; }
 

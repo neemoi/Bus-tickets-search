@@ -1,11 +1,11 @@
-﻿namespace Application.Services.DtoModels.DtoModels.Shedule
+﻿namespace Application.Services.DtoModels.DtoModels.Shedule    
 {
     public class CreateSheduleDto
     {
-        public TimeOnly DepartureTime { get; set; }
-
-        public TimeOnly ArrivalTime { get; set; }
+        public string? DepartureTime { get; set; }
         
-        public DateOnly Date { get; set; }
+        public string? ArrivalTime { get; set; }  
+        
+        public string? Date { get; set; }
     }
 }

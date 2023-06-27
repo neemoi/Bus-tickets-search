@@ -24,12 +24,22 @@ namespace Persistance.Repository.Admin
 
         public async Task<AdminCreateSheduleDto> CreateSheduleAsync(CreateSheduleDto model)
         {
-            var shedule = new Shedule
+            Shedule shedule = new();
+
+            if (!string.IsNullOrEmpty(model.ArrivalTime))
             {
-                ArrivalTime = model.ArrivalTime,
-                DepartureTime = model.DepartureTime,
-                Date= model.Date
-            };
+                shedule.ArrivalTime = TimeOnly.Parse(model.ArrivalTime);
+            }
+
+            if (!string.IsNullOrEmpty(model.DepartureTime))
+            {
+                shedule.DepartureTime = TimeOnly.Parse(model.DepartureTime);
+            }
+
+            if (!string.IsNullOrEmpty(model.Date))
+            {
+                shedule.Date = DateOnly.Parse(model.Date);
+            }
 
             var result = await _btsContext.Shedules.AddAsync(shedule);
 
@@ -45,14 +55,54 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public Task<AdminDeleteSheduleByIdDto> DeleteSheduleByIdAsync(uint idShedule)
+        public async Task<AdminDeleteSheduleByIdDto> DeleteSheduleByIdAsync(uint idShedule)
         {
+            var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idShedule);
+
+            if (result != null) 
+            {
+                _btsContext.Shedules.Remove(result);
+
+                await _btsContext.SaveChangesAsync();
+
+                return _mapper.Map<AdminDeleteSheduleByIdDto>(result);
+            }
             throw new NotImplementedException();
         }
 
-        public Task<AdminEditSheduleDto> EditSheduleAsync(uint idShedule, EditSheduleDto model)
+        public async Task<AdminEditSheduleDto> EditSheduleAsync(uint idShedule, EditSheduleDto model)
         {
-            throw new NotImplementedException();
+            var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idShedule);
+
+            if (result != null)
+            {
+                var newShedule = result;
+
+                if (!string.IsNullOrEmpty(model.ArrivalTime))
+                {
+                    newShedule.ArrivalTime = TimeOnly.Parse(model.ArrivalTime);
+                }
+
+                if (!string.IsNullOrEmpty(model.DepartureTime))
+                {
+                    newShedule.DepartureTime = TimeOnly.Parse(model.DepartureTime);
+                }
+
+                if (!string.IsNullOrEmpty(model.Date))
+                {
+                    newShedule.Date = DateOnly.Parse(model.Date);
+                }
+
+                _btsContext.Shedules.Update(newShedule);
+
+                await _btsContext.SaveChangesAsync();
+
+                return _mapper.Map<AdminEditSheduleDto>(newShedule);
+            }
+            else
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Shedule not found");
+            }
         }
 
         public async Task<List<AdminGetAllSheduleDto>> GetAllSheduleAsync()
@@ -78,9 +128,18 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public Task<AdminGetByIdSheduleDto> GetByIdSheduleAsync(uint idShedule)
+        public async Task<AdminGetByIdSheduleDto> GetByIdSheduleAsync(uint idShedule)
         {
-            throw new NotImplementedException();
+            var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idShedule);
+
+            if (result != null)
+            {
+                return _mapper.Map<AdminGetByIdSheduleDto>(result);
+            }
+            else
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Shedule not found");
+            }
         }
     }
 }

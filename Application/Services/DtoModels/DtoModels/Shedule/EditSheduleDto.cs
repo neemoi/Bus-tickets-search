@@ -2,10 +2,10 @@
 {
     public class EditSheduleDto
     {
-        public TimeOnly DepartureTime { get; set; }
+        public string? DepartureTime { get; set; }
 
-        public TimeOnly ArrivalTime { get; set; }
+        public string? ArrivalTime { get; set; }
 
-        public DateOnly Date { get; set; }
+        public string? Date { get; set; }
     }
 }

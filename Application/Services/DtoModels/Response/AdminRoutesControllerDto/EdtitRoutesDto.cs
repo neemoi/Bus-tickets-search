@@ -1,7 +1,9 @@
-﻿namespace Application.Services.DtoModels.DtoModels.Route
+﻿namespace Application.Services.DtoModels.Response.AdminRoutesControllerDto
 {
-    public class CreateRouteDto
+    public class EdtitRoutesDto
     {
+        public uint RouteId { get; set; }
+
         public string StartLocation { get; set; } = null!;
 
         public string EndLocation { get; set; } = null!;
