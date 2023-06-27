@@ -26,14 +26,13 @@ namespace WebApi.Controllers.Admin
         }
 
         [HttpPost("api/Transports")]
-        public async Task<IActionResult> CreateTransportAsync([FromQuery]TransportDto model)
+        public async Task<IActionResult> CreateTransportAsync([FromBody]TransportDto model)
         {
             return Ok(await _controller.CreateTransportAsync(model));
         }
 
-        //не пашет бедалага
         [HttpPut("api/EditTransport/{id}")]
-        public async Task<IActionResult> EditTransportAsync(uint id, TransportDto model)
+        public async Task<IActionResult> EditTransportAsync(uint id, [FromBody]TransportDto model)
         {
             return Ok(await _controller.EditTransportAsync(id, model));
         }
