@@ -1,4 +1,4 @@
-﻿namespace Application.Services.DtoModels.Response
+﻿namespace Application.Services.DtoModels.Response.User
 {
     public class UserLoginResponseDto
     {

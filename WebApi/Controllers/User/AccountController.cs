@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels;
+﻿using Application.Services.DtoModels.Models.User;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices;
 using Microsoft.AspNetCore.Authorization;

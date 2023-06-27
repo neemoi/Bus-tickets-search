@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels;
+﻿using Application.Services.DtoModels.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
 using Persistance.Repository.Admin;
 

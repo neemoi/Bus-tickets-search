@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Response.Admin;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices;
 using AutoMapper;
@@ -74,11 +74,7 @@ namespace Application.Services.Implementations
 
             await _userManager.AddToRoleAsync(user, role.Name);
 
-            return new AdminRoleDto
-            {
-                Name = role.Name,
-                Id = user.Id
-            };
+            return _mapper.Map<AdminRoleDto>(user);
         }
 
         public async Task<List<AdminRoleDto>> GetAllRolesAsync()

@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels;
-using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Models.User;
+using Application.Services.DtoModels.Response.User;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Services.Interfaces.IServices

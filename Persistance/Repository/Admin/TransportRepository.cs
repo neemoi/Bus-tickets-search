@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels;
-using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Models.Admin;
+using Application.Services.DtoModels.Response.Admin;
 using Application.Services.Interfaces.IRepository;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -23,12 +23,7 @@ namespace Persistance.Repository.Admin
         //не пашет
         public async Task<AdminTransportDto> CreateTransportAsync(TransportDto model)
         {
-            var transport = new Transport
-            {
-                Color = model.Color,
-                Model = model.Model,
-                Number = model.Number
-            };
+            var transport = _mapper.Map<Transport>(model);
 
             var result = await _btsContext.Transports.AddAsync(transport);
 
@@ -68,9 +63,7 @@ namespace Persistance.Repository.Admin
 
             if (transport != null)
             {
-                transport.Number = model.Number ?? transport.Number;
-                transport.Model = model.Model ?? transport.Model;
-                transport.Color = model.Color ?? transport.Color;
+                _mapper.Map(model, transport);
 
                 _btsContext.Transports.Update(transport);
 

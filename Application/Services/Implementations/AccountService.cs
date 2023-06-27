@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels;
-using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Models.User;
+using Application.Services.DtoModels.Response.User;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices;
 using AutoMapper;
@@ -50,14 +50,7 @@ namespace Application.Services.Implementations
 
         public async Task<UserRegisterResponseDto> RegisterAsync(RegisterDto model)
         {
-            var user = new User()
-            {
-                UserName = model.Email,
-                Email = model.Email,
-                Password = model.Password,
-                Surname = model.Surname,
-                PhoneNumber = model.Phone,
-            };
+            var user = _mapper.Map<User>(model);
 
             var result = await _userManager.CreateAsync(user, model.Password);
 

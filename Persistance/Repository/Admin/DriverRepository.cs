@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels;
-using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Models.Admin;
+using Application.Services.DtoModels.Response.Admin;
 using Application.Services.Interfaces.IRepository;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -23,11 +23,7 @@ namespace Persistance.Repository.Admin
 
         public async Task<AdminDriverDto> CreateDriverAsync(DriverDto model)
         {
-            var driver = new Driver
-            {
-                Name = model.Name,
-                Surname = model.Surname
-            };
+            var driver = _mapper.Map<Driver>(model);
 
             var result = await _btsContext.Drivers.AddAsync(driver);
 
@@ -67,8 +63,7 @@ namespace Persistance.Repository.Admin
 
             if (driver != null)
             {
-                driver.Name = model.Name ?? driver.Name;
-                driver.Surname = model.Surname ?? driver.Surname;
+                _mapper.Map(model, driver);
 
                 _btsContext.Drivers.Update(driver);
 

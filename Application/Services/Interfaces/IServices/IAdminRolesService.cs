@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Response.Admin;
 
 namespace Application.Services.Interfaces.IServices
 {

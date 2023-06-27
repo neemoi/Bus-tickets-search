@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels;
-using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Models.Admin;
+using Application.Services.DtoModels.Response.Admin;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices;
 using AutoMapper;
@@ -63,21 +63,12 @@ namespace Application.Services.Implementations
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
-            if (user == null)
-            {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
-            }
-
-            user.Email = model.Email ?? user.Email;
-            user.UserName = model.UserName ?? user.UserName;
-            user.Surname = model.Surname ?? user.Surname;
-            user.PhoneNumber = model.Phone ?? user.PhoneNumber;
-            user.Password = model.Password ?? user.Password;
-
             IdentityResult result = await _userManager.UpdateAsync(user);
 
-            if (result.Succeeded)
+            if (result.Succeeded && user != null)
             {
+                _mapper.Map(model, user);
+
                 return _mapper.Map<AdminUserResponseDto>(user);
             }
             else

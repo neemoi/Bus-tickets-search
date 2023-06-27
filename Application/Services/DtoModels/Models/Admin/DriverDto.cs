@@ -1,4 +1,4 @@
-﻿namespace Application.Services.DtoModels.DtoModels
+﻿namespace Application.Services.DtoModels.Models.Admin
 {
     public class DriverDto
     {

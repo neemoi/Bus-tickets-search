@@ -26,7 +26,7 @@ namespace WebApi.Controllers.Admin
             return Ok(await _adminRolesService.CreateRoleAsync(name));
         }
 
-        [HttpPost("api/Role/{id}")]
+        [HttpPut("api/Role/{id}")]
         public async Task<IActionResult> AssignUserRoleAsync(Guid id, string role)
         {
             return Ok(await _adminRolesService.AssignUserRoleAsync(id, role));

@@ -1,6 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels;
-using Application.Services.DtoModels.Response;
-using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Models.Admin;
+using Application.Services.DtoModels.Response.Admin;
 using Application.Services.Interfaces.IRepository;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -24,22 +23,7 @@ namespace Persistance.Repository.Admin
 
         public async Task<AdminSheduleDto> CreateSheduleAsync(ScheduleDto model)
         {
-            Shedule shedule = new();
-
-            if (!string.IsNullOrEmpty(model.ArrivalTime))
-            {
-                shedule.ArrivalTime = TimeOnly.Parse(model.ArrivalTime);
-            }
-
-            if (!string.IsNullOrEmpty(model.DepartureTime))
-            {
-                shedule.DepartureTime = TimeOnly.Parse(model.DepartureTime);
-            }
-
-            if (!string.IsNullOrEmpty(model.Date))
-            {
-                shedule.Date = DateOnly.Parse(model.Date);
-            }
+            var shedule = _mapper.Map<Shedule>(model);
 
             var result = await _btsContext.Shedules.AddAsync(shedule);
 
@@ -59,7 +43,7 @@ namespace Persistance.Repository.Admin
         {
             var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idShedule);
 
-            if (result != null) 
+            if (result != null)
             {
                 _btsContext.Shedules.Remove(result);
 
@@ -76,28 +60,13 @@ namespace Persistance.Repository.Admin
 
             if (result != null)
             {
-                var newShedule = result;
+                _mapper.Map(model, result);
 
-                if (!string.IsNullOrEmpty(model.ArrivalTime))
-                {
-                    newShedule.ArrivalTime = TimeOnly.Parse(model.ArrivalTime);
-                }
-
-                if (!string.IsNullOrEmpty(model.DepartureTime))
-                {
-                    newShedule.DepartureTime = TimeOnly.Parse(model.DepartureTime);
-                }
-
-                if (!string.IsNullOrEmpty(model.Date))
-                {
-                    newShedule.Date = DateOnly.Parse(model.Date);
-                }
-
-                _btsContext.Shedules.Update(newShedule);
+                _btsContext.Shedules.Update(result);
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminSheduleDto>(newShedule);
+                return _mapper.Map<AdminSheduleDto>(result);
             }
             else
             {

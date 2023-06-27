@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels;
-using Application.Services.DtoModels.Response;
+﻿using Application.Services.DtoModels.Models.Admin;
+using Application.Services.DtoModels.Response.Admin;
 using Application.Services.Interfaces.Repository;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -22,15 +22,7 @@ namespace Persistance.Repository.Admin
 
         public async Task<AdminRouteDto> CreatNewRouteAsync(RouteDto model)
         {
-            var route = new Route
-            {
-                StartLocation = model.StartLocation,
-                EndLocation = model.EndLocation,
-                Distance = model.Distance,
-                FkDriver = model.FkDriver,
-                FkShedule = model.FkShedule,
-                FkTransport = model.FkTransport
-            };
+            var route = _mapper.Map<Route>(model);
 
             var result = await _btsContext.Routes.AddAsync(route);
 
@@ -70,12 +62,7 @@ namespace Persistance.Repository.Admin
 
             if (result != null)
             {
-                result.StartLocation = model.StartLocation;
-                result.EndLocation = model.EndLocation;
-                result.Distance = model.Distance;
-                result.FkDriver = model.FkDriver;
-                result.FkTransport = model.FkTransport;
-                result.FkShedule = model.FkShedule;
+                _mapper.Map(model, result);
 
                 _btsContext.Routes.Update(result);
 
@@ -91,7 +78,7 @@ namespace Persistance.Repository.Admin
 
         public async Task<List<AdminRouteDto>> GetAllRouteAsync()
         {
-            var result = await _btsContext.Shedules.ToListAsync();
+            var result = await _btsContext.Routes.ToListAsync();
 
             if (result != null)
             {
@@ -114,7 +101,7 @@ namespace Persistance.Repository.Admin
 
         public async Task<AdminRouteDto> GetByIdRouteAsync(uint idRoute)
         {
-            var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idRoute);
+            var result = await _btsContext.Routes.FirstOrDefaultAsync(s => s.RouteId == idRoute);
 
             if (result != null)
             {
