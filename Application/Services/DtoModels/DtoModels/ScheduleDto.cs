@@ -1,6 +1,6 @@
-﻿namespace Application.Services.DtoModels.DtoModels.Shedule
+﻿namespace Application.Services.DtoModels.DtoModels
 {
-    public class EditSheduleDto
+    public class ScheduleDto
     {
         public string? DepartureTime { get; set; }
 

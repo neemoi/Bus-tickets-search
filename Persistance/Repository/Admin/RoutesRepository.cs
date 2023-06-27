@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels.Route;
-using Application.Services.DtoModels.Response.AdminRoutesControllerDto;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response;
 using Application.Services.Interfaces.Repository;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +20,7 @@ namespace Persistance.Repository.Admin
             _mapper = mapper;
         }
 
-        public async Task<CreatNewRouteDto> CreatNewRouteAsync(CreateRouteDto model)
+        public async Task<AdminRouteDto> CreatNewRouteAsync(RouteDto model)
         {
             var route = new Route
             {
@@ -38,7 +38,7 @@ namespace Persistance.Repository.Admin
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<CreatNewRouteDto>(route);
+                return _mapper.Map<AdminRouteDto>(route);
             }
             else
             {
@@ -46,7 +46,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<DeleteRouteDto> DeleteRouteAsync(uint idRoute)
+        public async Task<AdminRouteDto> DeleteRouteAsync(uint idRoute)
         {
             var result = await _btsContext.Routes.FirstOrDefaultAsync(r => r.RouteId == idRoute);
 
@@ -56,7 +56,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<DeleteRouteDto>(result);
+                return _mapper.Map<AdminRouteDto>(result);
             }
             else
             {
@@ -64,7 +64,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<EdtitRoutesDto> EditRouteAsync(uint idRoute, EditRoutesDto model)
+        public async Task<AdminRouteDto> EditRouteAsync(uint idRoute, RouteDto model)
         {
             var result = await _btsContext.Routes.FirstOrDefaultAsync(r => r.RouteId == idRoute);
 
@@ -81,7 +81,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<EdtitRoutesDto>(result);
+                return _mapper.Map<AdminRouteDto>(result);
             }
             else
             {
@@ -89,17 +89,17 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<GetAllRouteDto>> GetAllRouteAsync()
+        public async Task<List<AdminRouteDto>> GetAllRouteAsync()
         {
             var result = await _btsContext.Shedules.ToListAsync();
 
             if (result != null)
             {
-                var mappedShedules = new List<GetAllRouteDto>();
+                var mappedShedules = new List<AdminRouteDto>();
 
                 foreach (var shedule in result)
                 {
-                    var mappedShedule = _mapper.Map<GetAllRouteDto>(shedule);
+                    var mappedShedule = _mapper.Map<AdminRouteDto>(shedule);
 
                     mappedShedules.Add(mappedShedule);
                 }
@@ -112,13 +112,13 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<GetByIdRoutesDto> GetByIdRouteAsync(uint idRoute)
+        public async Task<AdminRouteDto> GetByIdRouteAsync(uint idRoute)
         {
             var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idRoute);
 
             if (result != null)
             {
-                return _mapper.Map<GetByIdRoutesDto>(result);
+                return _mapper.Map<AdminRouteDto>(result);
             }
             else
             {

@@ -1,4 +1,4 @@
-﻿namespace Application.Services.DtoModels.Response.AccountController
+﻿namespace Application.Services.DtoModels.Response
 {
     public class UserRegisterResponseDto
     {

@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.Response.AdminRolesControllerDto;
+﻿using Application.Services.DtoModels.Response;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices;
 using AutoMapper;
@@ -24,7 +24,7 @@ namespace Application.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<AdminRolesCreateRoleDto> CreateRoleAsync(string roleName)
+        public async Task<AdminRoleDto> CreateRoleAsync(string roleName)
         {
             var role = new IdentityRole(roleName);
 
@@ -32,7 +32,7 @@ namespace Application.Services.Implementations
 
             if (result.Succeeded)
             {
-                return _mapper.Map<AdminRolesCreateRoleDto>(role);
+                return _mapper.Map<AdminRoleDto>(role);
             }
             else
             {
@@ -40,7 +40,7 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<AdminRolesDeleteRoleDto> DeleteRoleAsync(Guid roleId)
+        public async Task<AdminRoleDto> DeleteRoleAsync(Guid roleId)
         {
             IdentityRole? role = await _roleManager.FindByIdAsync(roleId.ToString());
 
@@ -53,7 +53,7 @@ namespace Application.Services.Implementations
 
             if (result.Succeeded)
             {
-                return _mapper.Map<AdminRolesDeleteRoleDto>(role);
+                return _mapper.Map<AdminRoleDto>(role);
             }
             else
             {
@@ -61,7 +61,7 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<AdminRolesAssignUserRoleDto> AssignUserRoleAsync(Guid userId, string roleName)
+        public async Task<AdminRoleDto> AssignUserRoleAsync(Guid userId, string roleName)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
@@ -74,18 +74,18 @@ namespace Application.Services.Implementations
 
             await _userManager.AddToRoleAsync(user, role.Name);
 
-            return new AdminRolesAssignUserRoleDto
+            return new AdminRoleDto
             {
                 Name = role.Name,
                 Id = user.Id
             };
         }
 
-        public async Task<List<AdminRolesGetAllRolesDto>> GetAllRolesAsync()
+        public async Task<List<AdminRoleDto>> GetAllRolesAsync()
         {
             List<IdentityRole> roles = await _roleManager.Roles.ToListAsync();
 
-            var result = roles.Select(u => _mapper.Map<AdminRolesGetAllRolesDto>(u)).ToList();
+            var result = roles.Select(u => _mapper.Map<AdminRoleDto>(u)).ToList();
 
             return result;
         }

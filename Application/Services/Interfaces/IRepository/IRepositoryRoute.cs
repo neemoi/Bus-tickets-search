@@ -1,18 +1,18 @@
-﻿using Application.Services.DtoModels.DtoModels.Route;
-using Application.Services.DtoModels.Response.AdminRoutesControllerDto;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response;
 
 namespace Application.Services.Interfaces.Repository
 {
     public interface IRepositoryRoute
     {
-        Task<CreatNewRouteDto> CreatNewRouteAsync(CreateRouteDto model);
+        Task<AdminRouteDto> CreatNewRouteAsync(RouteDto model);
 
-        Task<EdtitRoutesDto> EditRouteAsync(uint idRoute, EditRoutesDto model);
+        Task<AdminRouteDto> EditRouteAsync(uint idRoute, RouteDto model);
 
-        Task<DeleteRouteDto> DeleteRouteAsync(uint idRoute);
+        Task<AdminRouteDto> DeleteRouteAsync(uint idRoute);
 
-        Task<GetByIdRoutesDto> GetByIdRouteAsync(uint idRoute);
+        Task<AdminRouteDto> GetByIdRouteAsync(uint idRoute);
 
-        Task<List<GetAllRouteDto>> GetAllRouteAsync();
+        Task<List<AdminRouteDto>> GetAllRouteAsync();
     }
 }

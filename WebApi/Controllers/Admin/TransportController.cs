@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels.Transport;
+﻿using Application.Services.DtoModels.DtoModels;
 using Microsoft.AspNetCore.Mvc;
 using Persistance.Repository.Admin;
 
@@ -13,34 +13,35 @@ namespace WebApi.Controllers.Admin
             _controller = repository;
         }
 
-        [HttpGet("/api/GetAllTransport")]
+        [HttpGet("api/Transports")]
         public async Task<IActionResult> GetAllTransportAsync()
         {
             return Ok(await _controller.GetAllTransportAsync());
         }
 
-        [HttpGet("/api/GetByIdTransport")]
-        public async Task<IActionResult> GetByIdTransportAsync(uint idTransport)
+        [HttpGet("api/Transport/{id}")]
+        public async Task<IActionResult> GetByIdTransportAsync(uint id)
         {
-            return Ok(await _controller.GetByIdTransportAsync(idTransport));
+            return Ok(await _controller.GetByIdTransportAsync(id));
         }
 
-        [HttpPost("/api/CreateTransport")]
-        public async Task<IActionResult> CreatTransportAsync(CreateTransportDto model)
+        [HttpPost("api/Transports")]
+        public async Task<IActionResult> CreateTransportAsync([FromQuery]TransportDto model)
         {
             return Ok(await _controller.CreateTransportAsync(model));
         }
 
-        [HttpPost("/api/EditTransport")]
-        public async Task<IActionResult> EditTransportAsync(uint idTransport, EditTransportDto model)
+        //не пашет бедалага
+        [HttpPut("api/EditTransport/{id}")]
+        public async Task<IActionResult> EditTransportAsync(uint id, TransportDto model)
         {
-            return Ok(await _controller.EditTransportAsync(idTransport, model));
+            return Ok(await _controller.EditTransportAsync(id, model));
         }
 
-        [HttpDelete("/api/DeleteTransportById")]
-        public async Task<IActionResult> DeleteTransportByIdAsync(uint idTransport)
+        [HttpDelete("api/Transport/{id}")]
+        public async Task<IActionResult> DeleteTransportByIdAsync(uint id)
         {
-            return Ok(await _controller.DeleteTransportByIdAsync(idTransport));
+            return Ok(await _controller.DeleteTransportByIdAsync(id));
         }
     }
 }

@@ -1,16 +1,16 @@
-﻿using Application.Services.DtoModels.Response.AdminRolesControllerDto;
+﻿using Application.Services.DtoModels.Response;
 
 namespace Application.Services.Interfaces.IServices
 {
     public interface IAdminRolesService
     {
-        Task<List<AdminRolesGetAllRolesDto>> GetAllRolesAsync();
+        Task<List<AdminRoleDto>> GetAllRolesAsync();
 
-        Task<AdminRolesAssignUserRoleDto> AssignUserRoleAsync(Guid userId, string roleName);
+        Task<AdminRoleDto> AssignUserRoleAsync(Guid userId, string roleName);
 
-        Task<AdminRolesCreateRoleDto> CreateRoleAsync(string roleName);
+        Task<AdminRoleDto> CreateRoleAsync(string roleName);
 
-        Task<AdminRolesDeleteRoleDto> DeleteRoleAsync(Guid roleId);
+        Task<AdminRoleDto> DeleteRoleAsync(Guid roleId);
 
     }
 }

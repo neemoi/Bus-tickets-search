@@ -1,6 +1,6 @@
-﻿namespace Application.Services.DtoModels.DtoModels.Driver
+﻿namespace Application.Services.DtoModels.DtoModels
 {
-    public class EditDriverDto
+    public class DriverDto
     {
         public string? Name { get; set; }
 

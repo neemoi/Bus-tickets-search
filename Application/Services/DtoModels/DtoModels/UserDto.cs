@@ -1,6 +1,6 @@
-﻿namespace Application.Services.DtoModels.DtoModels.AdminUser
+﻿namespace Application.Services.DtoModels.DtoModels
 {
-    public class EditUserDto
+    public class UserDto
     {
         public string? Email { get; set; }
 

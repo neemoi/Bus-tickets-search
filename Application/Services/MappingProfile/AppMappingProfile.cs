@@ -1,10 +1,5 @@
-﻿using Application.Services.DtoModels.Response.AccountController;
-using Application.Services.DtoModels.Response.AdminControllerDto;
-using Application.Services.DtoModels.Response.AdminDriverControllerDto;
-using Application.Services.DtoModels.Response.AdminRolesControllerDto;
-using Application.Services.DtoModels.Response.AdminRoutesControllerDto;
-using Application.Services.DtoModels.Response.AdminSheduleControllerDto;
-using Application.Services.DtoModels.Response.AdminTransportControllerDto;
+﻿using Application.Services.DtoModels.Response;
+using Application.Services.DtoModels.DtoModels;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Models;
@@ -23,66 +18,22 @@ namespace Application.Services.MappingProfile
             CreateMap<User, UserLogoutResponseDto>();
 
             //AdminUser
-            CreateMap<User, AdminUserDeleteUserResponseDto>();
-
-            CreateMap<User, AdminUserEditUserResponseDto>();
-
-            CreateMap<User, AdminUserGetAllUsersResponseDto>();
-
-            CreateMap<User, AdminUserGetByIdUsersResponseDto>();
+            CreateMap<User, AdminUserResponseDto>();
 
             //AdminRoles
-            CreateMap<IdentityRole, AdminRolesCreateRoleDto>();
-
-            CreateMap<IdentityRole, AdminRolesDeleteRoleDto>();
-
-            CreateMap<IdentityRole, AdminRolesGetAllRolesDto>();
-
-            CreateMap<IdentityRole, AdminRolesAssignUserRoleDto>();
+            CreateMap<IdentityRole, AdminRoleDto>();
 
             //AdminRoute
-            CreateMap<Route, CreatNewRouteDto>();
-
-            CreateMap<Route, DeleteRouteDto>();
-
-            CreateMap<Route, EdtitRoutesDto>();
-            
-            CreateMap<Route, GetByIdRoutesDto>();
-            
-            CreateMap<Route, GetAllRouteDto>();
+            CreateMap<Route, AdminRouteDto>();
 
             //AdminDriver
-            CreateMap<Driver, AdminCreateDriverDto>();
+            CreateMap<Driver, AdminDriverDto>();
          
-            CreateMap<Driver, AdminDeleteDriverById>();
-
-            CreateMap<Driver, AdminGetAllDriverDto>();
-
-            CreateMap<Driver, AdminGetByIdDriverDto>();
-
-            CreateMap<Driver, AdminEditDriverDto>();
-
             //AdminTransport
-            CreateMap<Transport, AdminCreateTransportDto>();
-
-            CreateMap<Transport, AdminGetAllTransportDto>();
-
-            CreateMap<Transport, AdminGetByIdTransportDto>();
-
-            CreateMap<Transport, AdminEditTransportDto>();
-
-            CreateMap<Transport, AdminDeleteTransportByIdDto>();
+            CreateMap<Transport, AdminTransportDto>();
 
             //AdminShedule
-            CreateMap<Shedule, AdminCreateSheduleDto>();
-            
-            CreateMap<Shedule, AdminGetAllSheduleDto>();
-
-            CreateMap<Shedule, AdminGetByIdSheduleDto>();
-
-            CreateMap<Shedule, AdminDeleteSheduleByIdDto>();
-
-            CreateMap<Shedule, AdminEditSheduleDto>();
+            CreateMap<Shedule, AdminSheduleDto>();
         }
     }
 }

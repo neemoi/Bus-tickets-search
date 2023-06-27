@@ -1,18 +1,18 @@
-﻿using Application.Services.DtoModels.DtoModels.Transport;
-using Application.Services.DtoModels.Response.AdminTransportControllerDto;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response;
 
 namespace Application.Services.Interfaces.IRepository
 {
     public interface IRepositoryTransport
     {
-        Task<AdminCreateTransportDto> CreateTransportAsync(CreateTransportDto model);
+        Task<AdminTransportDto> CreateTransportAsync(TransportDto model);
 
-        Task<AdminEditTransportDto> EditTransportAsync(uint idTransport, EditTransportDto model);
+        Task<AdminTransportDto> EditTransportAsync(uint idTransport, TransportDto model);
 
-        Task<AdminDeleteTransportByIdDto> DeleteTransportByIdAsync(uint idTransport);
+        Task<AdminTransportDto> DeleteTransportByIdAsync(uint idTransport);
 
-        Task<AdminGetByIdTransportDto> GetByIdTransportAsync(uint idTransport);
+        Task<AdminTransportDto> GetByIdTransportAsync(uint idTransport);
 
-        Task<List<AdminGetAllTransportDto>> GetAllTransportAsync();
+        Task<List<AdminTransportDto>> GetAllTransportAsync();
     }
 }

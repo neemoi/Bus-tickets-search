@@ -1,6 +1,6 @@
-﻿namespace Application.Services.DtoModels.DtoModels.Transport
+﻿namespace Application.Services.DtoModels.DtoModels
 {
-    public class EditTransportDto
+    public class TransportDto
     {
         public string? Model { get; set; }
 

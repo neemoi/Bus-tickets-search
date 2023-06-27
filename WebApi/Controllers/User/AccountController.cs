@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels.LoginAndRegister;
+﻿using Application.Services.DtoModels.DtoModels;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +20,7 @@ namespace WebApi.Controllers.User
             _accountService = accountService;
         }
 
-        [HttpPost("api/Login")]
+        [HttpPost("Login")]
         [AllowAnonymous]
         public async Task<IActionResult> LoginAsync(LoginDto model)
         {
@@ -34,9 +34,9 @@ namespace WebApi.Controllers.User
             }
         }
 
-        [HttpPost("api/Register")]
+        [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterAsync(RegisterDto model)
+        public async Task<IActionResult> RegisterAsync([FromQuery] RegisterDto model)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace WebApi.Controllers.User
             }
         }
 
-        [HttpPost("api/Logout")]
+        [HttpPost("Logout")]
         [AllowAnonymous]
         public async Task<IActionResult> LogoutAsync()
         {

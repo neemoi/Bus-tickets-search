@@ -1,16 +1,16 @@
-﻿using Application.Services.DtoModels.DtoModels.AdminUser;
-using Application.Services.DtoModels.Response.AdminControllerDto;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response;
 
 namespace Application.Services.Interfaces.IServices
 {
     public interface IAdminUserService
     {
-        Task<AdminUserEditUserResponseDto> EditUserAsync(Guid userId, EditUserDto model);
+        Task<AdminUserResponseDto> EditUserAsync(Guid userId, UserDto model);
 
-        Task<List<AdminUserGetAllUsersResponseDto>> GetAllUsersAsync();
+        Task<List<AdminUserResponseDto>> GetAllUsersAsync();
 
-        Task<AdminUserGetByIdUsersResponseDto> GetUserByIdAsync(Guid userId);
+        Task<AdminUserResponseDto> GetUserByIdAsync(Guid userId);
 
-        Task<AdminUserDeleteUserResponseDto> DeleteUserAsync(Guid userId);
+        Task<AdminUserResponseDto> DeleteUserAsync(Guid userId);
     }
 }

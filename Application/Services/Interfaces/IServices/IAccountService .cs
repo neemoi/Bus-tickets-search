@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.DtoModels.LoginAndRegister;
-using Application.Services.DtoModels.Response.AccountController;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Services.Interfaces.IServices

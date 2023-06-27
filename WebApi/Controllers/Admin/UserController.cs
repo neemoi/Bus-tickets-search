@@ -1,10 +1,8 @@
-﻿using Application.Services.DtoModels.DtoModels.AdminUser;
+﻿using Application.Services.DtoModels.DtoModels;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Models;
 using WebApi.RequestError;
 
 namespace WebApi.Controllers.Admin
@@ -19,49 +17,28 @@ namespace WebApi.Controllers.Admin
             _adminService = adminService;
         }
 
-        [HttpGet("api/GetAllUsers")]
+        [HttpGet("api/Users")]
         public async Task<IActionResult> GetAllUsersAsync()
         {
             return Ok(await _adminService.GetAllUsersAsync());
         }
 
-        [HttpGet("api/GetUserById")]
-        public async Task<IActionResult> GetUserByIdAsync(Guid userId)
+        [HttpGet("api/user/{id}")]
+        public async Task<IActionResult> GetUserByIdAsync(Guid id)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(await _adminService.GetUserByIdAsync(userId));
-            }
-            else
-            {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
-            }
+            return Ok(await _adminService.GetUserByIdAsync(id));
         }
 
-        [HttpPost("api/EditUser")]
-        public async Task<IActionResult> EditUserAsync(Guid userId, EditUserDto model)
+        [HttpPut("api/user/{id}")]
+        public async Task<IActionResult> EditUserAsync(Guid id, UserDto model)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(await _adminService.EditUserAsync(userId, model));
-            }
-            else
-            {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
-            }
+            return Ok(await _adminService.EditUserAsync(id, model));
         }
 
-        [HttpDelete("api/DeleteUser")]
-        public async Task<IActionResult> DeleteUserAsync(Guid userId)
+        [HttpDelete("api/user/{id}")]
+        public async Task<IActionResult> DeleteUserAsync(Guid id)
         {
-            if (ModelState.IsValid)
-            {
-                return Ok(await _adminService.DeleteUserAsync(userId));
-            }
-            else
-            {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
-            }
+            return Ok(await _adminService.DeleteUserAsync(id));
         }
     }
 }

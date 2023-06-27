@@ -1,6 +1,6 @@
-﻿using Application.Services.DtoModels.DtoModels.Shedule;
-using Application.Services.DtoModels.Response.AdminDriverControllerDto;
-using Application.Services.DtoModels.Response.AdminSheduleControllerDto;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response;
+using Application.Services.DtoModels.Response;
 using Application.Services.Interfaces.IRepository;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -11,18 +11,18 @@ using WebApi.RequestError;
 namespace Persistance.Repository.Admin
 {
     //[Authorize(Roles = "Admin")]
-    public class SheduleRepository : IRepositoryShedule
+    public class ScheduleRepository : IRepositoryShedule
     {
         private readonly BtsContext _btsContext;
         private readonly IMapper _mapper;
 
-        public SheduleRepository(BtsContext btsContext, IMapper mapper)
+        public ScheduleRepository(BtsContext btsContext, IMapper mapper)
         {
             _btsContext = btsContext;
             _mapper = mapper;
         }
 
-        public async Task<AdminCreateSheduleDto> CreateSheduleAsync(CreateSheduleDto model)
+        public async Task<AdminSheduleDto> CreateSheduleAsync(ScheduleDto model)
         {
             Shedule shedule = new();
 
@@ -47,7 +47,7 @@ namespace Persistance.Repository.Admin
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminCreateSheduleDto>(shedule);
+                return _mapper.Map<AdminSheduleDto>(shedule);
             }
             else
             {
@@ -55,7 +55,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<AdminDeleteSheduleByIdDto> DeleteSheduleByIdAsync(uint idShedule)
+        public async Task<AdminSheduleDto> DeleteSheduleByIdAsync(uint idShedule)
         {
             var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idShedule);
 
@@ -65,12 +65,12 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminDeleteSheduleByIdDto>(result);
+                return _mapper.Map<AdminSheduleDto>(result);
             }
             throw new NotImplementedException();
         }
 
-        public async Task<AdminEditSheduleDto> EditSheduleAsync(uint idShedule, EditSheduleDto model)
+        public async Task<AdminSheduleDto> EditSheduleAsync(uint idShedule, ScheduleDto model)
         {
             var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idShedule);
 
@@ -97,7 +97,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminEditSheduleDto>(newShedule);
+                return _mapper.Map<AdminSheduleDto>(newShedule);
             }
             else
             {
@@ -105,17 +105,17 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<AdminGetAllSheduleDto>> GetAllSheduleAsync()
+        public async Task<List<AdminSheduleDto>> GetAllSheduleAsync()
         {
             var result = await _btsContext.Shedules.ToListAsync();
 
             if (result != null)
             {
-                var mappedShedules = new List<AdminGetAllSheduleDto>();
+                var mappedShedules = new List<AdminSheduleDto>();
 
                 foreach (var shedule in result)
                 {
-                    var mappedShedule = _mapper.Map<AdminGetAllSheduleDto>(shedule);
+                    var mappedShedule = _mapper.Map<AdminSheduleDto>(shedule);
 
                     mappedShedules.Add(mappedShedule);
                 }
@@ -128,13 +128,13 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<AdminGetByIdSheduleDto> GetByIdSheduleAsync(uint idShedule)
+        public async Task<AdminSheduleDto> GetByIdSheduleAsync(uint idShedule)
         {
             var result = await _btsContext.Shedules.FirstOrDefaultAsync(s => s.SheduleId == idShedule);
 
             if (result != null)
             {
-                return _mapper.Map<AdminGetByIdSheduleDto>(result);
+                return _mapper.Map<AdminSheduleDto>(result);
             }
             else
             {

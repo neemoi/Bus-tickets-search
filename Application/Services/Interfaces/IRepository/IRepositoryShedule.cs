@@ -1,18 +1,18 @@
-﻿using Application.Services.DtoModels.DtoModels.Shedule;
-using Application.Services.DtoModels.Response.AdminSheduleControllerDto;
+﻿using Application.Services.DtoModels.DtoModels;
+using Application.Services.DtoModels.Response;
 
 namespace Application.Services.Interfaces.IRepository
 {
     public interface IRepositoryShedule
     {
-        Task<AdminCreateSheduleDto> CreateSheduleAsync(CreateSheduleDto model);
+        Task<AdminSheduleDto> CreateSheduleAsync(ScheduleDto model);
 
-        Task<AdminEditSheduleDto> EditSheduleAsync(uint idShedule, EditSheduleDto model);
+        Task<AdminSheduleDto> EditSheduleAsync(uint idShedule, ScheduleDto model);
 
-        Task<AdminDeleteSheduleByIdDto> DeleteSheduleByIdAsync(uint idShedule);
+        Task<AdminSheduleDto> DeleteSheduleByIdAsync(uint idShedule);
 
-        Task<AdminGetByIdSheduleDto> GetByIdSheduleAsync(uint idShedule);
+        Task<AdminSheduleDto> GetByIdSheduleAsync(uint idShedule);
 
-        Task<List<AdminGetAllSheduleDto>> GetAllSheduleAsync();
+        Task<List<AdminSheduleDto>> GetAllSheduleAsync();
     }
 }

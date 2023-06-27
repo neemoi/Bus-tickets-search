@@ -1,6 +1,6 @@
-﻿namespace Application.Services.DtoModels.Response.AdminSheduleControllerDto
+﻿namespace Application.Services.DtoModels.Response
 {
-    public class AdminEditSheduleDto
+    public class AdminSheduleDto
     {
         public uint SheduleId { get; set; }
 

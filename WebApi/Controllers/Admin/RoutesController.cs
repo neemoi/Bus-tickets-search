@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels.Route;
+﻿using Application.Services.DtoModels.DtoModels;
 using Microsoft.AspNetCore.Mvc;
 using Persistance.Repository.Admin;
 
@@ -14,34 +14,34 @@ namespace WebApi.Controllers.Admin
             _controller = routesController;
         }
 
-        [HttpGet("/api/GetAllRoute")]
+        [HttpGet("api/Routes")]
         public async Task<IActionResult> GetAllRouteAsync()
         {
             return Ok(await _controller.GetAllRouteAsync());
         }
 
-        [HttpGet("/api/GetByIdRoute")]
-        public async Task<IActionResult> GetByIdRouteAsync(uint idRoute)
+        [HttpGet("api/Route/{id}")]
+        public async Task<IActionResult> GetByIdRouteAsync(uint id)
         {
-            return Ok(await _controller.GetByIdRouteAsync(idRoute));
+            return Ok(await _controller.GetByIdRouteAsync(id));
         }
 
-        [HttpPost("/api/CreatNewRoute")]
-        public async Task<IActionResult> CreatNewRouteAsync(CreateRouteDto model)
+        [HttpPost("api/Routes")]
+        public async Task<IActionResult> CreatNewRouteAsync([FromQuery]RouteDto model)
         {
             return Ok(await _controller.CreatNewRouteAsync(model));
         }
 
-        [HttpPost("/api/EditRoute")]
-        public async Task<IActionResult> EditRouteAsync(uint idRoute, EditRoutesDto model)
+        [HttpPut("api/Route{id}")]
+        public async Task<IActionResult> EditRouteAsync(uint id, RouteDto model)
         {
-            return Ok(await _controller.EditRouteAsync(idRoute, model));
+            return Ok(await _controller.EditRouteAsync(id, model));
         }
 
-        [HttpDelete("/api/DeleteRoute")]
-        public async Task<IActionResult> DeleteRoute(uint idRoute)
+        [HttpDelete("api/Route{id}")]
+        public async Task<IActionResult> DeleteRoute(uint id)
         {
-            return Ok(await _controller.DeleteRouteAsync(idRoute));
+            return Ok(await _controller.DeleteRouteAsync(id));
         }
     }
 }

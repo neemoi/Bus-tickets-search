@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.DtoModels.Driver;
+﻿using Application.Services.DtoModels.DtoModels;
 using Microsoft.AspNetCore.Mvc;
 using Persistance.Repository.Admin;
 
@@ -13,34 +13,34 @@ namespace WebApi.Controllers.Admin
             _controller = repository;
         }
 
-        [HttpGet("/api/GetAllDriver")]
+        [HttpGet("api/Drivers")]
         public async Task<IActionResult> GetAllDriverAsync()
         {
             return Ok(await _controller.GetAllDriverAsync());
         }
 
-        [HttpGet("/api/GetByIdDriver")]
-        public async Task<IActionResult> GetByIdDriverAsync(uint idDriver)
+        [HttpGet("api/Driver/{id}")]
+        public async Task<IActionResult> GetByIdDriverAsync(uint id)
         {
-            return Ok(await _controller.GetByIdDriverAsync(idDriver));
+            return Ok(await _controller.GetByIdDriverAsync(id));
         }
 
-        [HttpPost("/api/CreatNewDriver")]
-        public async Task<IActionResult> CreatNewDriverAsync(CreateDriverDto model)
+        [HttpPost("api/Drivers")]
+        public async Task<IActionResult> CreatNewDriverAsync([FromQuery]DriverDto model)
         {
             return Ok(await _controller.CreateDriverAsync(model));
         }
 
-        [HttpPost("/api/EditDriver")]
-        public async Task<IActionResult> EditDriverAsync(uint idDriver, EditDriverDto model)
+        [HttpPut("api/Driver/{id}")]
+        public async Task<IActionResult> EditDriverAsync(uint id, DriverDto model)
         {
-            return Ok(await _controller.EditDriverAsync(idDriver, model));
+            return Ok(await _controller.EditDriverAsync(id, model));
         }
 
-        [HttpDelete("/api/DeleteDriverById")]
-        public async Task<IActionResult> DeleteDriverByIdAsync(uint idDriver)
+        [HttpDelete("api/Driver/{id}")]
+        public async Task<IActionResult> DeleteDriverByIdAsync(uint id)
         {
-            return Ok(await _controller.DeleteDriverByIdAsync(idDriver));
+            return Ok(await _controller.DeleteDriverByIdAsync(id));
         }
     }
 }
