@@ -3,6 +3,8 @@ using Application.Services.DtoModels.Response.AdminControllerDto;
 using Application.Services.DtoModels.Response.AdminDriverControllerDto;
 using Application.Services.DtoModels.Response.AdminRolesControllerDto;
 using Application.Services.DtoModels.Response.AdminRoutesControllerDto;
+using Application.Services.DtoModels.Response.AdminSheduleControllerDto;
+using Application.Services.DtoModels.Response.AdminTransportControllerDto;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Models;
@@ -10,7 +12,7 @@ using WebApi.Models;
 namespace Application.Services.MappingProfile
 {
     public class AppMappingProfile : Profile
-    {
+    { 
         public AppMappingProfile()
         {
             //Account
@@ -42,7 +44,7 @@ namespace Application.Services.MappingProfile
             CreateMap<Route, AdminCreatNewRouteDto>();
 
             //AdminDriver
-            CreateMap<Driver, AdminCreateNewDriverDto>();
+            CreateMap<Driver, AdminCreateDriverDto>();
          
             CreateMap<Driver, AdminDeleteDriverById>();
 
@@ -51,6 +53,23 @@ namespace Application.Services.MappingProfile
             CreateMap<Driver, AdminGetByIdDriverDto>();
 
             CreateMap<Driver, AdminEditDriverDto>();
+
+            //AdminTransport
+            CreateMap<Transport, AdminCreateTransportDto>();
+
+            CreateMap<Transport, AdminGetAllTransportDto>();
+
+            CreateMap<Transport, AdminGetByIdTransportDto>();
+
+            CreateMap<Transport, AdminEditTransportDto>();
+
+            CreateMap<Transport, AdminDeleteTransportByIdDto>();
+
+            //AdminShedule
+            CreateMap<Shedule, AdminCreateSheduleDto>();
+            
+            CreateMap<Shedule, AdminGetAllSheduleDto>();
+
         }
     }
 }

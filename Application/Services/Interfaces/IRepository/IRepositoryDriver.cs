@@ -5,7 +5,7 @@ namespace Application.Services.Interfaces.IRepository
 {
     public interface IRepositoryDriver
     {
-        Task<AdminCreateNewDriverDto> CreatNewDriverAsync(CreateNewDriverDto model);
+        Task<AdminCreateDriverDto> CreateDriverAsync(CreateDriverDto model);
 
         Task<AdminEditDriverDto> EditDriverAsync(uint idDriver, EditDriverDto model);
 
@@ -14,6 +14,5 @@ namespace Application.Services.Interfaces.IRepository
         Task<AdminGetByIdDriverDto> GetByIdDriverAsync(uint idDriver);
 
         Task<List<AdminGetAllDriverDto>> GetAllDriverAsync();
-
     }
 }

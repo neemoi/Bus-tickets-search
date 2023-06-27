@@ -10,18 +10,18 @@ using WebApi.RequestError;
 namespace Persistance.Repository.Admin
 {
     //[Authorize(Roles = "Admin")]
-    public class AdminDriversRepository : IRepositoryDriver
+    public class DriverRepository : IRepositoryDriver
     {
         private readonly BtsContext _btsContext;
         private readonly IMapper _mapper;
 
-        public AdminDriversRepository(BtsContext btsContext, IMapper mapper)
+        public DriverRepository(BtsContext btsContext, IMapper mapper)
         {
             _btsContext = btsContext;
             _mapper = mapper;
         }
 
-        public async Task<AdminCreateNewDriverDto> CreatNewDriverAsync(CreateNewDriverDto model)
+        public async Task<AdminCreateDriverDto> CreateDriverAsync(CreateDriverDto model)
         {
             var driver = new Driver
             {
@@ -35,13 +35,12 @@ namespace Persistance.Repository.Admin
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminCreateNewDriverDto>(driver);
+                return _mapper.Map<AdminCreateDriverDto>(driver);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Driver note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Driver not found");
             }
-
         }
 
         public async Task<AdminDeleteDriverById> DeleteDriverByIdAsync(uint idDriver)
@@ -58,7 +57,7 @@ namespace Persistance.Repository.Admin
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Driver note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Driver not found");
             }
         }
 
@@ -79,7 +78,7 @@ namespace Persistance.Repository.Admin
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver not found");
             }
         }
 
@@ -102,7 +101,7 @@ namespace Persistance.Repository.Admin
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver not found");
             }
         }
 
@@ -116,7 +115,7 @@ namespace Persistance.Repository.Admin
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver not found");
             }
         }
     }

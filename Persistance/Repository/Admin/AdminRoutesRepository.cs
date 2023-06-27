@@ -27,7 +27,10 @@ namespace Persistance.Repository.Admin
             {
                 StartLocation = model.StartLocation,
                 EndLocation = model.EndLocation,
-                Distance = model.Distance
+                Distance = model.Distance,
+                FkDriver= model.FkDriver,
+                FkShedule= model.FkShedule,
+                FkTransport = model.FkTransport
             };
 
             var result = await _btsContext.Routes.AddAsync(route);

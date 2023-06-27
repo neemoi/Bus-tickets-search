@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.DtoModels.DtoModels.Driver
 {
-    public class CreateNewDriverDto
+    public class CreateDriverDto
     {
         public string? Name { get; set; } = null!;
 

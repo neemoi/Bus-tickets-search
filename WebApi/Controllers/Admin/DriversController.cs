@@ -6,9 +6,9 @@ namespace WebApi.Controllers.Admin
 {
     public class DriversController : ControllerBase
     {
-        private readonly AdminDriversRepository _controller;
+        private readonly DriverRepository _controller;
 
-        public DriversController(AdminDriversRepository repository)
+        public DriversController(DriverRepository repository)
         {
             _controller = repository;
         }
@@ -26,9 +26,9 @@ namespace WebApi.Controllers.Admin
         }
 
         [HttpPost("/api/CreatNewDriver")]
-        public async Task<IActionResult> CreatNewDriverAsync(CreateNewDriverDto model)
+        public async Task<IActionResult> CreatNewDriverAsync(CreateDriverDto model)
         {
-            return Ok(await _controller.CreatNewDriverAsync(model));
+            return Ok(await _controller.CreateDriverAsync(model));
         }
 
         [HttpPost("/api/EditDriver")]
