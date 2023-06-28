@@ -3,7 +3,7 @@ using Application.Services.DtoModels.Response.Admin;
 
 namespace Application.Services.Interfaces.IRepository
 {
-    public interface IRepositoryTransport
+    public interface ITransportRepository
     {
         Task<TransportResponseDto> CreateTransportAsync(TransportDto model);
 

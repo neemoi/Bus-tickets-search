@@ -10,7 +10,7 @@ using WebApi.RequestError;
 namespace Persistance.Repository.Admin
 {
     //[Authorize(Roles = "Admin")]
-    public class DriverRepository : IRepositoryDriver
+    public class DriverRepository : IDriverRepository
     {
         private readonly BtsContext _btsContext;
         private readonly IMapper _mapper;

@@ -3,7 +3,7 @@ using Application.Services.DtoModels.Response.Admin;
 
 namespace Application.Services.Interfaces.IRepository
 {
-    public interface IRepositorySсhedule
+    public interface ISсheduleRepository
     {
         Task<ScheduleResponseDto> CreateSсheduleAsync(ScheduleDto model);
 

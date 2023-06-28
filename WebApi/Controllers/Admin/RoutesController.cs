@@ -7,9 +7,9 @@ namespace WebApi.Controllers.Admin
     //[Authorize(Roles = "Admin")]
     public class RoutesController : ControllerBase
     {
-        private readonly RoutesRepository _controller;
+        private readonly RouteRepository _controller;
 
-        public RoutesController(RoutesRepository routesController)
+        public RoutesController(RouteRepository routesController)
         {
             _controller = routesController;
         }

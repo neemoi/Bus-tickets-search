@@ -3,7 +3,7 @@ using Application.Services.DtoModels.Response.Admin;
 
 namespace Application.Services.Interfaces.IRepository
 {
-    public interface IRepositoryDriver
+    public interface IDriverRepository
     {
         Task<DriverResponseDto> CreateDriverAsync(DriverDto model);
 

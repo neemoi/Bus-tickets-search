@@ -3,7 +3,7 @@ using Application.Services.DtoModels.Response.Admin;
 
 namespace Application.Services.Interfaces.Repository
 {
-    public interface IRepositoryRoute
+    public interface IRouteRepository
     {
         Task<RouteResponseDto> CreatNewRouteAsync(RouteDto model);
 

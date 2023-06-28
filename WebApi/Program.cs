@@ -30,7 +30,7 @@ namespace WebApi
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IAdminRoleService, AdminRoleService>();
             builder.Services.AddScoped<IAdminUserService, AdminUserService>();
-            builder.Services.AddScoped<RoutesRepository>();
+            builder.Services.AddScoped<RouteRepository>();
             builder.Services.AddScoped<DriverRepository>();
             builder.Services.AddScoped<TransportRepository>();
             builder.Services.AddScoped<ScheduleRepository>(); 

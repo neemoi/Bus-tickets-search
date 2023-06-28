@@ -10,7 +10,7 @@ using WebApi.RequestError;
 namespace Persistance.Repository.Admin
 {
     //[Authorize(Roles = "Admin")]
-    public class TransportRepository : IRepositoryTransport
+    public class TransportRepository : ITransportRepository
     {
         private readonly BtsContext _btsContext;
         private readonly IMapper _mapper;

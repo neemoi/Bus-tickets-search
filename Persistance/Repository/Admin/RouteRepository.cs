@@ -9,7 +9,7 @@ using WebApi.RequestError;
 
 namespace Persistance.Repository.Admin
 {
-    public class RouteRepository : IRepositoryRoute
+    public class RouteRepository : IRouteRepository
     {
         private readonly BtsContext _btsContext;
         private readonly IMapper _mapper;
