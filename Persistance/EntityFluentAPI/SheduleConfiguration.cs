@@ -4,17 +4,17 @@ using WebApi.Models;
 
 namespace Persistance.EntityFluentAPI
 {
-    internal class SheduleConfiguration : IEntityTypeConfiguration<Shedule>
+    internal class SheduleConfiguration : IEntityTypeConfiguration<Sсhedule>
     {
-        public void Configure(EntityTypeBuilder<Shedule> entity)
+        public void Configure(EntityTypeBuilder<Sсhedule> entity)
         {
-            entity.HasKey(e => e.SheduleId).HasName("PRIMARY");
+            entity.HasKey(e => e.SсheduleId).HasName("PRIMARY");
 
             entity.ToTable("shedule");
 
-            entity.HasIndex(e => e.SheduleId, "shedule_id_UNIQUE").IsUnique();
+            entity.HasIndex(e => e.SсheduleId, "shedule_id_UNIQUE").IsUnique();
 
-            entity.Property(e => e.SheduleId).HasColumnName("shedule_id");
+            entity.Property(e => e.SсheduleId).HasColumnName("shedule_id");
             entity.Property(e => e.ArrivalTime)
                 .HasColumnType("time")
                 .HasColumnName("arrival_time");

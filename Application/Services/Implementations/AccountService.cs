@@ -23,7 +23,7 @@ namespace Application.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<UserLoginResponseDto> LoginAsync(LoginDto model)
+        public async Task<LoginResponseDto> LoginAsync(LoginDto model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
 
@@ -31,7 +31,7 @@ namespace Application.Services.Implementations
 
             if (result.Succeeded && user != null)
             {
-                return _mapper.Map<UserLoginResponseDto>(user);
+                return _mapper.Map<LoginResponseDto>(user);
             }
             else
             {
@@ -39,16 +39,16 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<UserLogoutResponseDto> LogoutAsync(HttpContext httpContext)
+        public async Task<LogoutResponseDto> LogoutAsync(HttpContext httpContext)
         {
             var user = await _userManager.GetUserAsync(httpContext.User);
 
             await _signInManager.SignOutAsync();
 
-            return _mapper.Map<UserLogoutResponseDto>(user);
+            return _mapper.Map<LogoutResponseDto>(user);
         }
 
-        public async Task<UserRegisterResponseDto> RegisterAsync(RegisterDto model)
+        public async Task<RegisterResponseDto> RegisterAsync(RegisterDto model)
         {
             var user = _mapper.Map<User>(model);
 
@@ -60,7 +60,7 @@ namespace Application.Services.Implementations
 
                 await _userManager.AddToRoleAsync(user, "User");
 
-                return _mapper.Map<UserRegisterResponseDto>(user);
+                return _mapper.Map<RegisterResponseDto>(user);
             }
             else
             {

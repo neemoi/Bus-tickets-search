@@ -11,20 +11,20 @@ using WebApi.RequestError;
 
 namespace Application.Services.Implementations
 {
-    public class AdminRolesService : IAdminRolesService
+    public class AdminRoleService : IAdminRoleService
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public AdminRolesService(RoleManager<IdentityRole> roleManager, IMapper mapper, UserManager<User> userManager)
+        public AdminRoleService(RoleManager<IdentityRole> roleManager, IMapper mapper, UserManager<User> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _mapper = mapper;
         }
 
-        public async Task<AdminRoleDto> CreateRoleAsync(string roleName)
+        public async Task<RoleResponseDto> CreateRoleAsync(string roleName)
         {
             var role = new IdentityRole(roleName);
 
@@ -32,7 +32,7 @@ namespace Application.Services.Implementations
 
             if (result.Succeeded)
             {
-                return _mapper.Map<AdminRoleDto>(role);
+                return _mapper.Map<RoleResponseDto>(role);
             }
             else
             {
@@ -40,7 +40,7 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<AdminRoleDto> DeleteRoleAsync(Guid roleId)
+        public async Task<RoleResponseDto> DeleteRoleAsync(Guid roleId)
         {
             IdentityRole? role = await _roleManager.FindByIdAsync(roleId.ToString());
 
@@ -53,7 +53,7 @@ namespace Application.Services.Implementations
 
             if (result.Succeeded)
             {
-                return _mapper.Map<AdminRoleDto>(role);
+                return _mapper.Map<RoleResponseDto>(role);
             }
             else
             {
@@ -61,7 +61,7 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<AdminRoleDto> AssignUserRoleAsync(Guid userId, string roleName)
+        public async Task<RoleResponseDto> AssignUserRoleAsync(Guid userId, string roleName)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
@@ -74,14 +74,14 @@ namespace Application.Services.Implementations
 
             await _userManager.AddToRoleAsync(user, role.Name);
 
-            return _mapper.Map<AdminRoleDto>(user);
+            return _mapper.Map<RoleResponseDto>(user);
         }
 
-        public async Task<List<AdminRoleDto>> GetAllRolesAsync()
+        public async Task<List<RoleResponseDto>> GetAllRolesAsync()
         {
             List<IdentityRole> roles = await _roleManager.Roles.ToListAsync();
 
-            var result = roles.Select(u => _mapper.Map<AdminRoleDto>(u)).ToList();
+            var result = roles.Select(u => _mapper.Map<RoleResponseDto>(u)).ToList();
 
             return result;
         }

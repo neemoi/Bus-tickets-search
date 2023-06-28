@@ -15,7 +15,7 @@ public partial class BtsContext : IdentityDbContext<User>
 
     public virtual DbSet<Route> Routes { get; set; }
 
-    public virtual DbSet<Shedule> Shedules { get; set; }
+    public virtual DbSet<Sсhedule> Sсhedules { get; set; }
 
     public virtual DbSet<Ticket> Tickets { get; set; }
 

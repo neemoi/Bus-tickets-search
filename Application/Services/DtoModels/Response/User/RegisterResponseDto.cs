@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.DtoModels.Response.User
 {
-    public class UserRegisterResponseDto
+    public class RegisterResponseDto
     {
         public string? Id { get; set; }
 

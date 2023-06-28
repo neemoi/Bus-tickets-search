@@ -13,7 +13,7 @@ namespace WebApi.Controllers.Admin
             _controller = repository;
         }
 
-        [HttpGet("api/Drivers")]
+        [HttpGet("api/Driver")]
         public async Task<IActionResult> GetAllDriverAsync()
         {
             return Ok(await _controller.GetAllDriverAsync());
@@ -25,7 +25,7 @@ namespace WebApi.Controllers.Admin
             return Ok(await _controller.GetByIdDriverAsync(id));
         }
 
-        [HttpPost("api/Drivers")]
+        [HttpPost("api/Driver")]
         public async Task<IActionResult> CreatNewDriverAsync([FromQuery]DriverDto model)
         {
             return Ok(await _controller.CreateDriverAsync(model));

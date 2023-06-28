@@ -7,20 +7,20 @@ namespace WebApi.Controllers.Admin
     //[Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
-        private readonly IAdminRolesService _adminRolesService;
+        private readonly IAdminRoleService _adminRolesService;
 
-        public RolesController(IAdminRolesService adminRolesService)
+        public RolesController(IAdminRoleService adminRolesService)
         {
             _adminRolesService = adminRolesService;
         }
 
-        [HttpGet("api/Roles")]
+        [HttpGet("api/Role")]
         public async Task<IActionResult> GetAllRolesAsync()
         {
             return Ok(await _adminRolesService.GetAllRolesAsync());
         }
 
-        [HttpPost("api/Roles")]
+        [HttpPost("api/Role")]
         public async Task<IActionResult> CreateRoleAsync(string name)
         {
             return Ok(await _adminRolesService.CreateRoleAsync(name));

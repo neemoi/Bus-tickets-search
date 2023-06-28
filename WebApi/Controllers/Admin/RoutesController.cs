@@ -14,7 +14,7 @@ namespace WebApi.Controllers.Admin
             _controller = routesController;
         }
 
-        [HttpGet("api/Routes")]
+        [HttpGet("api/Route")]
         public async Task<IActionResult> GetAllRouteAsync()
         {
             return Ok(await _controller.GetAllRouteAsync());
@@ -26,19 +26,19 @@ namespace WebApi.Controllers.Admin
             return Ok(await _controller.GetByIdRouteAsync(id));
         }
 
-        [HttpPost("api/Routes")]
+        [HttpPost("api/Route")]
         public async Task<IActionResult> CreatNewRouteAsync([FromQuery]RouteDto model)
         {
             return Ok(await _controller.CreatNewRouteAsync(model));
         }
 
-        [HttpPut("api/Route{id}")]
+        [HttpPut("api/Route/{id}")]
         public async Task<IActionResult> EditRouteAsync(uint id, RouteDto model)
         {
             return Ok(await _controller.EditRouteAsync(id, model));
         }
 
-        [HttpDelete("api/Route{id}")]
+        [HttpDelete("api/Route/{id}")]
         public async Task<IActionResult> DeleteRoute(uint id)
         {
             return Ok(await _controller.DeleteRouteAsync(id));

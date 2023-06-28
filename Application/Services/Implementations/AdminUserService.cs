@@ -24,8 +24,9 @@ namespace Application.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<AdminUserResponseDto> DeleteUserAsync(Guid userId)
+        public async Task<UserResponseDto> DeleteUserAsync(Guid userId)
         {
+            //уберем
             var adminId = "e1035f07-bb12-493d-b4a1-715e8eeba867";
 
             var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -51,7 +52,7 @@ namespace Application.Services.Implementations
 
             if (result.Succeeded)
             {
-                return _mapper.Map<AdminUserResponseDto>(user);
+                return _mapper.Map<UserResponseDto>(user);
             }
             else
             {
@@ -59,7 +60,7 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<AdminUserResponseDto> EditUserAsync(Guid userId, UserDto model)
+        public async Task<UserResponseDto> EditUserAsync(Guid userId, UserDto model)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
@@ -69,7 +70,7 @@ namespace Application.Services.Implementations
             {
                 _mapper.Map(model, user);
 
-                return _mapper.Map<AdminUserResponseDto>(user);
+                return _mapper.Map<UserResponseDto>(user);
             }
             else
             {
@@ -77,16 +78,16 @@ namespace Application.Services.Implementations
             }
         }
 
-        public async Task<List<AdminUserResponseDto>> GetAllUsersAsync()
+        public async Task<List<UserResponseDto>> GetAllUsersAsync()
         {
             var users = await _userManager.Users.ToListAsync();
 
-            var result = users.Select(u => _mapper.Map<AdminUserResponseDto>(u)).ToList();
+            var result = users.Select(u => _mapper.Map<UserResponseDto>(u)).ToList();
 
             return result;
         }
 
-        public async Task<AdminUserResponseDto> GetUserByIdAsync(Guid userId)
+        public async Task<UserResponseDto> GetUserByIdAsync(Guid userId)
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
@@ -95,7 +96,7 @@ namespace Application.Services.Implementations
                 throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
             }
 
-            return _mapper.Map<AdminUserResponseDto>(user);
+            return _mapper.Map<UserResponseDto>(user);
         }
     }
 }

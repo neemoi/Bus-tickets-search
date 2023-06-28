@@ -9,18 +9,18 @@ using WebApi.RequestError;
 
 namespace Persistance.Repository.Admin
 {
-    public class RoutesRepository : IRepositoryRoute
+    public class RouteRepository : IRepositoryRoute
     {
         private readonly BtsContext _btsContext;
         private readonly IMapper _mapper;
 
-        public RoutesRepository(BtsContext btsContext, IMapper mapper)
+        public RouteRepository(BtsContext btsContext, IMapper mapper)
         {
             _btsContext = btsContext;
             _mapper = mapper;
         }
 
-        public async Task<AdminRouteDto> CreatNewRouteAsync(RouteDto model)
+        public async Task<RouteResponseDto> CreatNewRouteAsync(RouteDto model)
         {
             var route = _mapper.Map<Route>(model);
 
@@ -30,15 +30,15 @@ namespace Persistance.Repository.Admin
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminRouteDto>(route);
+                return _mapper.Map<RouteResponseDto>(route);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route not found");
             }
         }
 
-        public async Task<AdminRouteDto> DeleteRouteAsync(uint idRoute)
+        public async Task<RouteResponseDto> DeleteRouteAsync(uint idRoute)
         {
             var result = await _btsContext.Routes.FirstOrDefaultAsync(r => r.RouteId == idRoute);
 
@@ -48,15 +48,15 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminRouteDto>(result);
+                return _mapper.Map<RouteResponseDto>(result);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route not found");
             }
         }
 
-        public async Task<AdminRouteDto> EditRouteAsync(uint idRoute, RouteDto model)
+        public async Task<RouteResponseDto> EditRouteAsync(uint idRoute, RouteDto model)
         {
             var result = await _btsContext.Routes.FirstOrDefaultAsync(r => r.RouteId == idRoute);
 
@@ -68,25 +68,25 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminRouteDto>(result);
+                return _mapper.Map<RouteResponseDto>(result);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route not found");
             }
         }
 
-        public async Task<List<AdminRouteDto>> GetAllRouteAsync()
+        public async Task<List<RouteResponseDto>> GetAllRouteAsync()
         {
             var result = await _btsContext.Routes.ToListAsync();
 
             if (result != null)
             {
-                var mappedShedules = new List<AdminRouteDto>();
+                var mappedShedules = new List<RouteResponseDto>();
 
                 foreach (var shedule in result)
                 {
-                    var mappedShedule = _mapper.Map<AdminRouteDto>(shedule);
+                    var mappedShedule = _mapper.Map<RouteResponseDto>(shedule);
 
                     mappedShedules.Add(mappedShedule);
                 }
@@ -95,21 +95,21 @@ namespace Persistance.Repository.Admin
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route not found");
             }
         }
 
-        public async Task<AdminRouteDto> GetByIdRouteAsync(uint idRoute)
+        public async Task<RouteResponseDto> GetByIdRouteAsync(uint idRoute)
         {
             var result = await _btsContext.Routes.FirstOrDefaultAsync(s => s.RouteId == idRoute);
 
             if (result != null)
             {
-                return _mapper.Map<AdminRouteDto>(result);
+                return _mapper.Map<RouteResponseDto>(result);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route note found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Route not found");
             }
         }
     }

@@ -18,7 +18,7 @@ public partial class Route
 
     public virtual Driver FkDriverNavigation { get; set; } = null!;
 
-    public virtual Shedule FkSheduleNavigation { get; set; } = null!;
+    public virtual Sсhedule FkSheduleNavigation { get; set; } = null!;
 
     public virtual Transport FkTransportNavigation { get; set; } = null!;
 

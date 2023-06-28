@@ -1,8 +1,8 @@
 ﻿namespace WebApi.Models;
 
-public partial class Shedule
+public partial class Sсhedule
 {
-    public uint SheduleId { get; set; }
+    public uint SсheduleId { get; set; }
 
     public TimeOnly DepartureTime { get; set; }
 

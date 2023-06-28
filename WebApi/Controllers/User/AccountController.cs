@@ -36,7 +36,7 @@ namespace WebApi.Controllers.User
 
         [HttpPost("Register")]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterAsync([FromQuery] RegisterDto model)
+        public async Task<IActionResult> RegisterAsync([FromQuery]RegisterDto model)
         {
             if (ModelState.IsValid)
             {

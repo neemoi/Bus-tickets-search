@@ -28,7 +28,7 @@ namespace WebApi
             builder.Services.AddScoped<UserManager<User>>();
             builder.Services.AddScoped<UserManager<User>, UserManager<User>>();
             builder.Services.AddScoped<IAccountService, AccountService>();
-            builder.Services.AddScoped<IAdminRolesService, AdminRolesService>();
+            builder.Services.AddScoped<IAdminRoleService, AdminRoleService>();
             builder.Services.AddScoped<IAdminUserService, AdminUserService>();
             builder.Services.AddScoped<RoutesRepository>();
             builder.Services.AddScoped<DriverRepository>();

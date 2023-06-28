@@ -4,43 +4,43 @@ using Persistance.Repository.Admin;
 
 namespace WebApi.Controllers.Admin
 {
-    public class ScheduleController : ControllerBase
+    public class SchedulesController : ControllerBase
     {
         private readonly ScheduleRepository _controller;
 
-        public ScheduleController(ScheduleRepository repository)
+        public SchedulesController(ScheduleRepository repository)
         {
             _controller = repository;
         }
 
-        [HttpGet("api/Schedules")]
+        [HttpGet("api/Schedule")]
         public async Task<IActionResult> GetAllSheduleAsync()
         {
-            return Ok(await _controller.GetAllSheduleAsync());
+            return Ok(await _controller.GetAllSсheduleAsync());
         }
 
         [HttpGet("api/Schedule/{id}")]
         public async Task<IActionResult> GetByIdSheduleAsync(uint id)
         {
-            return Ok(await _controller.GetByIdSheduleAsync(id));
+            return Ok(await _controller.GetByIdSсheduleAsync(id));
         }
 
-        [HttpPost("api/Schedules")]
+        [HttpPost("api/Schedule")]
         public async Task<IActionResult> CreateSheduleAsync([FromQuery]ScheduleDto model)
         {
-            return Ok(await _controller.CreateSheduleAsync(model));
+            return Ok(await _controller.CreateSсheduleAsync(model));
         }
 
         [HttpPut("api/Schedule/{id}")]
         public async Task<IActionResult> EditSheduleAsync(uint id, ScheduleDto model)
         {
-            return Ok(await _controller.EditSheduleAsync(id, model));
+            return Ok(await _controller.EditSсheduleAsync(id, model));
         }
 
         [HttpDelete("api/Schedule/{id}")]
         public async Task<IActionResult> DeleteSheduleByIdAsync(uint id)
         {
-            return Ok(await _controller.DeleteSheduleByIdAsync(id));
+            return Ok(await _controller.DeleteSсheduleByIdAsync(id));
         }
     }
 }

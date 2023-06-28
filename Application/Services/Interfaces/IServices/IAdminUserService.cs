@@ -5,12 +5,12 @@ namespace Application.Services.Interfaces.IServices
 {
     public interface IAdminUserService
     {
-        Task<AdminUserResponseDto> EditUserAsync(Guid userId, UserDto model);
+        Task<UserResponseDto> EditUserAsync(Guid userId, UserDto model);
 
-        Task<List<AdminUserResponseDto>> GetAllUsersAsync();
+        Task<List<UserResponseDto>> GetAllUsersAsync();
 
-        Task<AdminUserResponseDto> GetUserByIdAsync(Guid userId);
+        Task<UserResponseDto> GetUserByIdAsync(Guid userId);
 
-        Task<AdminUserResponseDto> DeleteUserAsync(Guid userId);
+        Task<UserResponseDto> DeleteUserAsync(Guid userId);
     }
 }

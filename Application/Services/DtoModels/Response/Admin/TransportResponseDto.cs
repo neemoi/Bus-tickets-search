@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.DtoModels.Response.Admin
 {
-    public class AdminTransportDto
+    public class TransportResponseDto
     {
         public uint TransportId { get; set; }
 

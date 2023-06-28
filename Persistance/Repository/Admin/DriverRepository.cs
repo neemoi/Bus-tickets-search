@@ -21,7 +21,7 @@ namespace Persistance.Repository.Admin
             _mapper = mapper;
         }
 
-        public async Task<AdminDriverDto> CreateDriverAsync(DriverDto model)
+        public async Task<DriverResponseDto> CreateDriverAsync(DriverDto model)
         {
             var driver = _mapper.Map<Driver>(model);
 
@@ -31,15 +31,15 @@ namespace Persistance.Repository.Admin
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminDriverDto>(driver);
+                return _mapper.Map<DriverResponseDto>(driver);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Driver not found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver not found");
             }
         }
 
-        public async Task<AdminDriverDto> DeleteDriverByIdAsync(uint idDriver)
+        public async Task<DriverResponseDto> DeleteDriverByIdAsync(uint idDriver)
         {
             var result = await _btsContext.Drivers.FirstOrDefaultAsync(p => p.DriverId == idDriver);
 
@@ -49,15 +49,15 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminDriverDto>(result);
+                return _mapper.Map<DriverResponseDto>(result);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Driver not found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver not found");
             }
         }
 
-        public async Task<AdminDriverDto> EditDriverAsync(uint idDriver, DriverDto model)
+        public async Task<DriverResponseDto> EditDriverAsync(uint idDriver, DriverDto model)
         {
             var driver = await _btsContext.Drivers.FirstOrDefaultAsync(p => p.DriverId == idDriver);
 
@@ -69,7 +69,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminDriverDto>(driver);
+                return _mapper.Map<DriverResponseDto>(driver);
             }
             else
             {
@@ -77,17 +77,17 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<AdminDriverDto>> GetAllDriverAsync()
+        public async Task<List<DriverResponseDto>> GetAllDriverAsync()
         {
             var result = await _btsContext.Drivers.ToListAsync();
 
             if (result != null)
             {
-                var mappedDrivers = new List<AdminDriverDto>();
+                var mappedDrivers = new List<DriverResponseDto>();
 
                 foreach (var driver in result)
                 {
-                    var mappedDriver = _mapper.Map<AdminDriverDto>(driver);
+                    var mappedDriver = _mapper.Map<DriverResponseDto>(driver);
 
                     mappedDrivers.Add(mappedDriver);
                 }
@@ -100,13 +100,13 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<AdminDriverDto> GetByIdDriverAsync(uint idDriver)
+        public async Task<DriverResponseDto> GetByIdDriverAsync(uint idDriver)
         {
             var result = await _btsContext.Drivers.FirstOrDefaultAsync(p => p.DriverId == idDriver);
 
             if (result != null)
             {
-                return _mapper.Map<AdminDriverDto>(result);
+                return _mapper.Map<DriverResponseDto>(result);
             }
             else
             {

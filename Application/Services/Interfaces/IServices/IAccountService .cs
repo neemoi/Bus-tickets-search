@@ -6,10 +6,10 @@ namespace Application.Services.Interfaces.IServices
 {
     public interface IAccountService
     {
-        Task<UserLoginResponseDto> LoginAsync(LoginDto model);
+        Task<LoginResponseDto> LoginAsync(LoginDto model);
 
-        Task<UserRegisterResponseDto> RegisterAsync(RegisterDto model);
+        Task<RegisterResponseDto> RegisterAsync(RegisterDto model);
 
-        Task<UserLogoutResponseDto> LogoutAsync(HttpContext httpContext);
+        Task<LogoutResponseDto> LogoutAsync(HttpContext httpContext);
     }
 }

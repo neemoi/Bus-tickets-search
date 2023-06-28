@@ -14,39 +14,39 @@ namespace Application.Services.MappingProfile
         {
             //Account
             CreateMap<RegisterDto, User>();
-            CreateMap<User, UserLoginResponseDto>();
-            CreateMap<User, UserRegisterResponseDto>();
-            CreateMap<User, UserLogoutResponseDto>();
+            CreateMap<User, LoginResponseDto>();
+            CreateMap<User, RegisterResponseDto>();
+            CreateMap<User, LogoutResponseDto>();
 
             //AdminUser
             CreateMap<User, UserDto>();
-            CreateMap<User, AdminUserResponseDto>();
+            CreateMap<User, UserResponseDto>();
 
             //AdminRoles
-            CreateMap<User, AdminRoleDto>();
-            CreateMap<IdentityRole, AdminRoleDto>();
+            CreateMap<User, RoleResponseDto>();
+            CreateMap<IdentityRole, RoleResponseDto>();
 
             //AdminRoute
             CreateMap<RouteDto, Route>();
             CreateMap<Route, RouteDto>();
-            CreateMap<Route, AdminRouteDto>();
+            CreateMap<Route, RouteResponseDto>();
 
             //AdminDriver
             CreateMap<DriverDto, Driver>();
-            CreateMap<Driver, AdminDriverDto>();
+            CreateMap<Driver, DriverResponseDto>();
 
             //AdminTransport
             CreateMap<TransportDto, Transport>();
-            CreateMap<Transport, AdminTransportDto>();
+            CreateMap<Transport, TransportResponseDto>();
 
-            //AdminShedule
+            //AdminSсhedule
             CreateMap<string, TimeOnly>()
              .ConvertUsing(src => TimeOnly.Parse(src));
             CreateMap<string, DateOnly>()
              .ConvertUsing(src => DateOnly.Parse(src));
 
-            CreateMap<ScheduleDto, Shedule>();
-            CreateMap<Shedule, AdminSheduleDto>();
+            CreateMap<ScheduleDto, Sсhedule>();
+            CreateMap<Sсhedule, ScheduleResponseDto>();
         }
     }
 }

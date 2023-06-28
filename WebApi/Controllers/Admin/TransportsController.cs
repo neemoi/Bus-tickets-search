@@ -4,16 +4,16 @@ using Persistance.Repository.Admin;
 
 namespace WebApi.Controllers.Admin
 {
-    public class TransportController : ControllerBase
+    public class TransportsController : ControllerBase
     {
         private readonly TransportRepository _controller;
 
-        public TransportController(TransportRepository repository)
+        public TransportsController(TransportRepository repository)
         {
             _controller = repository;
         }
 
-        [HttpGet("api/Transports")]
+        [HttpGet("api/Transport")]
         public async Task<IActionResult> GetAllTransportAsync()
         {
             return Ok(await _controller.GetAllTransportAsync());
@@ -25,7 +25,7 @@ namespace WebApi.Controllers.Admin
             return Ok(await _controller.GetByIdTransportAsync(id));
         }
 
-        [HttpPost("api/Transports")]
+        [HttpPost("api/Transport")]
         public async Task<IActionResult> CreateTransportAsync([FromBody]TransportDto model)
         {
             return Ok(await _controller.CreateTransportAsync(model));

@@ -20,8 +20,8 @@ namespace Persistance.Repository.Admin
             _btsContext = btsContext;
             _mapper = mapper;
         }
-        //не пашет
-        public async Task<AdminTransportDto> CreateTransportAsync(TransportDto model)
+        
+        public async Task<TransportResponseDto> CreateTransportAsync(TransportDto model)
         {
             var transport = _mapper.Map<Transport>(model);
 
@@ -31,15 +31,15 @@ namespace Persistance.Repository.Admin
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminTransportDto>(transport);
+                return _mapper.Map<TransportResponseDto>(transport);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Transport not found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Transport not found");
             }
         }
 
-        public async Task<AdminTransportDto> DeleteTransportByIdAsync(uint idTransport)
+        public async Task<TransportResponseDto> DeleteTransportByIdAsync(uint idTransport)
         {
             var result = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 
@@ -49,15 +49,15 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminTransportDto>(result);
+                return _mapper.Map<TransportResponseDto>(result);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Result = 0 or Transport not found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Transport not found");
             }
         }
-        //не пашет
-        public async Task<AdminTransportDto> EditTransportAsync(uint idTransport, TransportDto model)
+
+        public async Task<TransportResponseDto> EditTransportAsync(uint idTransport, TransportDto model)
         {
             var transport = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 
@@ -69,7 +69,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<AdminTransportDto>(transport);
+                return _mapper.Map<TransportResponseDto>(transport);
             }
             else
             {
@@ -77,17 +77,17 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<AdminTransportDto>> GetAllTransportAsync()
+        public async Task<List<TransportResponseDto>> GetAllTransportAsync()
         {
             var result = await _btsContext.Transports.ToListAsync();
 
             if (result != null)
             {
-                var mappedTransports = new List<AdminTransportDto>();
+                var mappedTransports = new List<TransportResponseDto>();
 
                 foreach (var transport in result)
                 {
-                    var mappedTransport = _mapper.Map<AdminTransportDto>(transport);
+                    var mappedTransport = _mapper.Map<TransportResponseDto>(transport);
 
                     mappedTransports.Add(mappedTransport);
                 }
@@ -100,13 +100,13 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<AdminTransportDto> GetByIdTransportAsync(uint idTransport)
+        public async Task<TransportResponseDto> GetByIdTransportAsync(uint idTransport)
         {
             var result = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 
             if (result != null)
             {
-                return _mapper.Map<AdminTransportDto>(result);
+                return _mapper.Map<TransportResponseDto>(result);
             }
             else
             {

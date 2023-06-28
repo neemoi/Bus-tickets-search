@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.DtoModels.Response.Admin
 {
-    public class AdminDriverDto
+    public class DriverResponseDto
     {
         public uint DriverId { get; set; }
 
