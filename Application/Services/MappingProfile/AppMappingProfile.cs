@@ -19,11 +19,11 @@ namespace Application.Services.MappingProfile
             CreateMap<User, LogoutResponseDto>();
 
             //AdminUser
-            CreateMap<User, UserDto>();
+            CreateMap<UserDto, User>();
             CreateMap<User, UserResponseDto>();
 
             //AdminRoles
-            CreateMap<User, RoleResponseDto>();
+            CreateMap<RoleResponseDto, User>();
             CreateMap<IdentityRole, RoleResponseDto>();
 
             //AdminRoute

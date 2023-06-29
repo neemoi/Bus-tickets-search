@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MySqlX.XDevAPI.Common;
 using WebApi.Models;
 using WebApi.RequestError;
 
@@ -64,12 +65,12 @@ namespace Application.Services.Implementations
         {
             var user = await _userManager.FindByIdAsync(userId.ToString());
 
+            _mapper.Map(model, user);
+
             IdentityResult result = await _userManager.UpdateAsync(user);
 
             if (result.Succeeded && user != null)
             {
-                _mapper.Map(model, user);
-
                 return _mapper.Map<UserResponseDto>(user);
             }
             else

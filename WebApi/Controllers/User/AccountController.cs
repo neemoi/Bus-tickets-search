@@ -22,8 +22,8 @@ namespace WebApi.Controllers.User
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoginAsync(LoginDto model)
-        {
+        public async Task<IActionResult> LoginAsync([FromQuery]LoginDto model)
+        { 
             if (ModelState.IsValid)
             {
                 return Ok(await _accountService.LoginAsync(model));

@@ -1,4 +1,6 @@
-﻿namespace Application.Services.DtoModels.Models.Admin
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Application.Services.DtoModels.Models.Admin
 {
     public class UserDto
     {
@@ -12,6 +14,6 @@
 
         public string? Surname { get; set; }
 
-        public string? Phone { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }

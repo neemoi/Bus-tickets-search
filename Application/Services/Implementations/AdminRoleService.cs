@@ -44,14 +44,9 @@ namespace Application.Services.Implementations
         {
             IdentityRole? role = await _roleManager.FindByIdAsync(roleId.ToString());
 
-            if (role == null)
-            {
-                throw new ApiRequestErrorException(StatusCodes.Status404NotFound, "Role not found");
-            }
-
             IdentityResult result = await _roleManager.DeleteAsync(role);
 
-            if (result.Succeeded)
+            if (result.Succeeded && role != null)
             {
                 return _mapper.Map<RoleResponseDto>(role);
             }

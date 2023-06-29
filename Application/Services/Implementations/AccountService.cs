@@ -25,9 +25,9 @@ namespace Application.Services.Implementations
 
         public async Task<LoginResponseDto> LoginAsync(LoginDto model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, lockoutOnFailure: false);
 
-            var user = await _signInManager.UserManager.FindByNameAsync(model.Email);
+            var user = await _signInManager.UserManager.FindByNameAsync(model.UserName);
 
             if (result.Succeeded && user != null)
             {
@@ -35,7 +35,7 @@ namespace Application.Services.Implementations
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, new IdentityResult().GetErrorString());
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Logi");
             }
         }
 
@@ -51,6 +51,13 @@ namespace Application.Services.Implementations
         public async Task<RegisterResponseDto> RegisterAsync(RegisterDto model)
         {
             var user = _mapper.Map<User>(model);
+
+            var emailAlreadyExists = await _userManager.FindByEmailAsync(user.Email);
+
+            if (emailAlreadyExists != null)
+            {
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "A user with this email already exists");
+            }
 
             var result = await _userManager.CreateAsync(user, model.Password);
 

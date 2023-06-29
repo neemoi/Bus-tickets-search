@@ -2,7 +2,7 @@
 {
     public class ScheduleResponseDto
     {
-        public uint SheduleId { get; set; }
+        public uint SсheduleId { get; set; }
 
         public string? DepartureTime { get; set; }
 

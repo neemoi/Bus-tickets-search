@@ -110,7 +110,7 @@ namespace Persistance.Repository.Admin
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Driver not found");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Transport not found");
             }
         }
     }
