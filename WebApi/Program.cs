@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Repository;
 using Persistance.Repository.Admin;
+using WebApi.CustomExceptionMiddleware;
 using WebApi.Models;
 
 namespace WebApi
@@ -56,6 +57,8 @@ namespace WebApi
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.ConfigureCustomExceptionMiddleware();
 
             app.Run();
         }
