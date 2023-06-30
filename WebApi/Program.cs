@@ -35,6 +35,7 @@ namespace WebApi
             builder.Services.AddScoped<DriverRepository>();
             builder.Services.AddScoped<TransportRepository>();
             builder.Services.AddScoped<ScheduleRepository>(); 
+            builder.Services.AddScoped<TicketRepository>(); 
 
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<BtsContext>()

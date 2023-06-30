@@ -47,6 +47,10 @@ namespace Application.Services.MappingProfile
 
             CreateMap<ScheduleDto, Sсhedule>();
             CreateMap<Sсhedule, ScheduleResponseDto>();
+
+            //AdminTicket
+            CreateMap<TicketDto, Ticket>();
+            CreateMap<Ticket, TicketResponseDto>(); 
         }
     }
 }

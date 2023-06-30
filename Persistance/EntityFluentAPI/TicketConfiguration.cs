@@ -19,7 +19,6 @@ namespace Persistance.EntityFluentAPI
             entity.Property(e => e.TicketId).HasColumnName("ticket_id");
             entity.Property(e => e.FkRouteT).HasColumnName("fk_route_t");
             entity.Property(e => e.Price).HasColumnName("price");
-            entity.Property(e => e.Seat).HasColumnName("seat");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.FkRouteTNavigation).WithMany(p => p.Tickets)
