@@ -1,7 +1,7 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
 using Application.Services.DtoModels.Response.Admin;
 
-namespace Application.Services.Interfaces.IServices
+namespace Application.Services.Interfaces.IServices.Admin
 {
     public interface IAdminUserService
     {

@@ -1,9 +1,11 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistance.Repository.Admin;
 
 namespace WebApi.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class TicketsController : Controller
     {
         private readonly TicketRepository _ticketRepository;
@@ -12,32 +14,32 @@ namespace WebApi.Controllers.Admin
         {
             _ticketRepository = ticketRepository;
         }
-        
-        [HttpGet("api/GetAllTickets")]
+
+        [HttpGet("api/Ticket")]
         public async Task<IActionResult> GetAllTicketsAsync()
         {
             return Ok(await _ticketRepository.GetAllTicketsAsync());
         }
 
-        [HttpGet("api/GetByIdTicket")]
+        [HttpGet("api/Ticket/id")]
         public async Task<IActionResult> GetByIdTicketAsync(uint idTicket)
         {
             return Ok(await _ticketRepository.GetByIdTicketAsync(idTicket));
         }
 
-        [HttpPost("api/CreateTicket")]
+        [HttpPost("api/Ticket")]
         public async Task<IActionResult> CreateTicketAsync(TicketDto model)
         {
             return Ok(await _ticketRepository.CreateTicketAsync(model));
         }
 
-        [HttpPut("api/EditTicket")]
+        [HttpPut("api/Ticket/id")]
         public async Task<IActionResult> EditTicketAsync(uint idTicket, TicketDto model)
         {
             return Ok(await _ticketRepository.EditTicketAsync(idTicket, model));
         }
 
-        [HttpDelete("api/DeleteTicketById")]
+        [HttpDelete("api/Ticket/id")]
         public async Task<IActionResult> DeleteTicketByIdAsync(uint idTicket)
         {
             return Ok(await _ticketRepository.DeleteTicketByIdAsync(idTicket));

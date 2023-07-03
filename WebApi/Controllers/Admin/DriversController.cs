@@ -1,9 +1,11 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistance.Repository.Admin;
 
 namespace WebApi.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class DriversController : ControllerBase
     {
         private readonly DriverRepository _controller;

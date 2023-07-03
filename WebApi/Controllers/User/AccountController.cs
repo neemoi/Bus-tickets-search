@@ -1,6 +1,6 @@
 ﻿using Application.Services.DtoModels.Models.User;
 using Application.Services.Helper;
-using Application.Services.Interfaces.IServices;
+using Application.Services.Interfaces.IServices.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

@@ -1,10 +1,9 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
 using Application.Services.DtoModels.Response.Admin;
-using Application.Services.Interfaces.IRepository;
+using Application.Services.Interfaces.IRepository.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using MySqlX.XDevAPI.Common;
 using WebApi.Models;
 using WebApi.RequestError;
 
@@ -43,7 +42,7 @@ namespace Persistance.Repository.Admin
         {
             var ticket = await _btsContext.Tickets.FirstOrDefaultAsync(t => t.TicketId == idTicket);
 
-            if (ticket != null) 
+            if (ticket != null)
             {
                 _btsContext.Tickets.Remove(ticket);
 

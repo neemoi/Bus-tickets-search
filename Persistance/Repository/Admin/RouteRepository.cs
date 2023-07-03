@@ -1,6 +1,6 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
 using Application.Services.DtoModels.Response.Admin;
-using Application.Services.Interfaces.Repository;
+using Application.Services.Interfaces.IRepository.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;

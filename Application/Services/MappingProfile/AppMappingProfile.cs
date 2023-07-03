@@ -50,7 +50,12 @@ namespace Application.Services.MappingProfile
 
             //AdminTicket
             CreateMap<TicketDto, Ticket>();
-            CreateMap<Ticket, TicketResponseDto>(); 
+            CreateMap<Ticket, TicketResponseDto>();
+
+            //UserEdit
+            CreateMap<EditProfileDto, User>()
+                .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<User, EditProfileResposneDto>();
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.Interfaces.IServices;
+using Application.Services.Interfaces.IServices.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.Admin
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly IAdminUserService _adminService;

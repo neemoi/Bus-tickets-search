@@ -1,7 +1,7 @@
 ﻿using Application.Services.DtoModels.Models.User;
 using Application.Services.DtoModels.Response.User;
 using Application.Services.Helper;
-using Application.Services.Interfaces.IServices;
+using Application.Services.Interfaces.IServices.User;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -35,7 +35,7 @@ namespace Application.Services.Implementations
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Logi");
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Login");
             }
         }
 

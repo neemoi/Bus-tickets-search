@@ -1,6 +1,6 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
 using Application.Services.DtoModels.Response.Admin;
-using Application.Services.Interfaces.IRepository;
+using Application.Services.Interfaces.IRepository.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,6 @@ using WebApi.RequestError;
 
 namespace Persistance.Repository.Admin
 {
-    //[Authorize(Roles = "Admin")]
     public class TransportRepository : ITransportRepository
     {
         private readonly BtsContext _btsContext;
@@ -20,7 +19,7 @@ namespace Persistance.Repository.Admin
             _btsContext = btsContext;
             _mapper = mapper;
         }
-        
+
         public async Task<TransportResponseDto> CreateTransportAsync(TransportDto model)
         {
             var transport = _mapper.Map<Transport>(model);

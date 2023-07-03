@@ -1,11 +1,12 @@
 using Application.Services;
 using Application.Services.Implementations;
+using Application.Services.Implementations.Admin;
 using Application.Services.Interfaces;
-using Application.Services.Interfaces.IServices;
+using Application.Services.Interfaces.IServices.Admin;
+using Application.Services.Interfaces.IServices.User;
 using Application.Services.MappingProfile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Persistance.Repository;
 using Persistance.Repository.Admin;
 using WebApi.CustomExceptionMiddleware;
 using WebApi.Models;
@@ -31,6 +32,7 @@ namespace WebApi
             builder.Services.AddScoped<IAccountService, AccountService>();
             builder.Services.AddScoped<IAdminRoleService, AdminRoleService>();
             builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+            builder.Services.AddScoped<IProfileService, ProfileService>();
             builder.Services.AddScoped<RouteRepository>();
             builder.Services.AddScoped<DriverRepository>();
             builder.Services.AddScoped<TransportRepository>();

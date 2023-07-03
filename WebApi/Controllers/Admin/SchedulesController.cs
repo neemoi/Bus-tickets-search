@@ -1,9 +1,11 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Persistance.Repository.Admin;
 
 namespace WebApi.Controllers.Admin
 {
+    [Authorize(Roles = "Admin")]
     public class SchedulesController : ControllerBase
     {
         private readonly ScheduleRepository _controller;
@@ -26,7 +28,7 @@ namespace WebApi.Controllers.Admin
         }
 
         [HttpPost("api/Schedule")]
-        public async Task<IActionResult> CreateSheduleAsync([FromQuery]ScheduleDto model)
+        public async Task<IActionResult> CreateSheduleAsync([FromQuery] ScheduleDto model)
         {
             return Ok(await _controller.CreateSсheduleAsync(model));
         }

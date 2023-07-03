@@ -1,6 +1,6 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
 using Application.Services.DtoModels.Response.Admin;
-using Application.Services.Interfaces.IRepository;
+using Application.Services.Interfaces.IRepository.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,6 @@ using WebApi.RequestError;
 
 namespace Persistance.Repository.Admin
 {
-    //[Authorize(Roles = "Admin")]
     public class DriverRepository : IDriverRepository
     {
         private readonly BtsContext _btsContext;

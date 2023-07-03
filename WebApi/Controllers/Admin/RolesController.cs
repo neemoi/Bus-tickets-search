@@ -1,10 +1,10 @@
-﻿using Application.Services.Interfaces.IServices;
+﻿using Application.Services.Interfaces.IServices.Admin;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Models;
 
 namespace WebApi.Controllers.Admin
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
         private readonly IAdminRoleService _adminRolesService;

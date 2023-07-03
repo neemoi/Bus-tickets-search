@@ -1,6 +1,6 @@
 ﻿using Application.Services.DtoModels.Response.Admin;
 using Application.Services.Helper;
-using Application.Services.Interfaces.IServices;
+using Application.Services.Interfaces.IServices.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +9,7 @@ using System.Data;
 using WebApi.Models;
 using WebApi.RequestError;
 
-namespace Application.Services.Implementations
+namespace Application.Services.Implementations.Admin
 {
     public class AdminRoleService : IAdminRoleService
     {

@@ -1,7 +1,7 @@
 ﻿using Application.Services.DtoModels.Models.Admin;
 using Application.Services.DtoModels.Response.Admin;
 
-namespace Application.Services.Interfaces.IRepository
+namespace Application.Services.Interfaces.IRepository.Admin
 {
     public interface ISсheduleRepository
     {
