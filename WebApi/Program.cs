@@ -8,6 +8,7 @@ using Application.Services.MappingProfile;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Persistance.Repository.Admin;
+using Persistance.Repository.User;
 using WebApi.CustomExceptionMiddleware;
 using WebApi.Models;
 
@@ -38,6 +39,7 @@ namespace WebApi
             builder.Services.AddScoped<TransportRepository>();
             builder.Services.AddScoped<ScheduleRepository>(); 
             builder.Services.AddScoped<TicketRepository>(); 
+            builder.Services.AddScoped<OrderManagementRepository>();
 
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<BtsContext>()

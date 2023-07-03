@@ -56,6 +56,9 @@ namespace Application.Services.MappingProfile
             CreateMap<EditProfileDto, User>()
                 .ForAllMembers(opt => opt.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<User, EditProfileResposneDto>();
+
+            //OrderManagment
+            CreateMap<Ticket, InfoTicketResponseDto>();
         }
     }
 }
