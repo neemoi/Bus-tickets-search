@@ -10,10 +10,10 @@
 
         public uint? Distance { get; set; }
 
-        public uint? FkDriver { get; set; }
+        public uint? DriverId { get; set; }
 
-        public uint? FkTransport { get; set; }
+        public uint? TransportId { get; set; }
 
-        public uint? FkShedule { get; set; }
+        public uint? SheduleId { get; set; }
     }
 }

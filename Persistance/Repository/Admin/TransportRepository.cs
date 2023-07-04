@@ -20,7 +20,7 @@ namespace Persistance.Repository.Admin
             _mapper = mapper;
         }
 
-        public async Task<TransportResponseDto> CreateTransportAsync(TransportDto model)
+        public async Task<TransportResponseDto> CreateTransportsAsync(TransportDto model)
         {
             var transport = _mapper.Map<Transport>(model);
 
@@ -38,7 +38,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<TransportResponseDto> DeleteTransportByIdAsync(uint idTransport)
+        public async Task<TransportResponseDto> DeleteTransportsByIdAsync(uint idTransport)
         {
             var result = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 
@@ -56,7 +56,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<TransportResponseDto> EditTransportAsync(uint idTransport, TransportDto model)
+        public async Task<TransportResponseDto> EditTransportsAsync(uint idTransport, TransportDto model)
         {
             var transport = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 
@@ -76,7 +76,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<TransportResponseDto>> GetAllTransportAsync()
+        public async Task<List<TransportResponseDto>> GetAllTransportsAsync()
         {
             var result = await _btsContext.Transports.ToListAsync();
 
@@ -99,7 +99,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<TransportResponseDto> GetByIdTransportAsync(uint idTransport)
+        public async Task<TransportResponseDto> GetByIdTransportsAsync(uint idTransport)
         {
             var result = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 

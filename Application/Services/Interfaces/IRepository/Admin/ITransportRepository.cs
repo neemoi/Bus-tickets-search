@@ -5,14 +5,14 @@ namespace Application.Services.Interfaces.IRepository.Admin
 {
     public interface ITransportRepository
     {
-        Task<TransportResponseDto> CreateTransportAsync(TransportDto model);
+        Task<TransportResponseDto> CreateTransportsAsync(TransportDto model);
 
-        Task<TransportResponseDto> EditTransportAsync(uint idTransport, TransportDto model);
+        Task<TransportResponseDto> EditTransportsAsync(uint idTransport, TransportDto model);
 
-        Task<TransportResponseDto> DeleteTransportByIdAsync(uint idTransport);
+        Task<TransportResponseDto> DeleteTransportsByIdAsync(uint idTransport);
 
-        Task<TransportResponseDto> GetByIdTransportAsync(uint idTransport);
+        Task<TransportResponseDto> GetByIdTransportsAsync(uint idTransport);
 
-        Task<List<TransportResponseDto>> GetAllTransportAsync();
+        Task<List<TransportResponseDto>> GetAllTransportsAsync();
     }
 }

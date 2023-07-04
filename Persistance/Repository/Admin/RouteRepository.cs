@@ -20,7 +20,7 @@ namespace Persistance.Repository.Admin
             _mapper = mapper;
         }
 
-        public async Task<RouteResponseDto> CreatNewRouteAsync(RouteDto model)
+        public async Task<RouteResponseDto> CreatNewRoutesAsync(RouteDto model)
         {
             var route = _mapper.Map<Route>(model);
 
@@ -38,7 +38,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<RouteResponseDto> DeleteRouteAsync(uint idRoute)
+        public async Task<RouteResponseDto> DeleteRoutesAsync(uint idRoute)
         {
             var result = await _btsContext.Routes.FirstOrDefaultAsync(r => r.RouteId == idRoute);
 
@@ -56,7 +56,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<RouteResponseDto> EditRouteAsync(uint idRoute, RouteDto model)
+        public async Task<RouteResponseDto> EditRoutesAsync(uint idRoute, RouteDto model)
         {
             var result = await _btsContext.Routes.FirstOrDefaultAsync(r => r.RouteId == idRoute);
 
@@ -76,7 +76,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<RouteResponseDto>> GetAllRouteAsync()
+        public async Task<List<RouteResponseDto>> GetAllRoutesAsync()
         {
             var result = await _btsContext.Routes.ToListAsync();
 
@@ -99,7 +99,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<RouteResponseDto> GetByIdRouteAsync(uint idRoute)
+        public async Task<RouteResponseDto> GetByIdRoutesAsync(uint idRoute)
         {
             var result = await _btsContext.Routes.FirstOrDefaultAsync(s => s.RouteId == idRoute);
 

@@ -38,7 +38,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<DriverResponseDto> DeleteDriverByIdAsync(uint idDriver)
+        public async Task<DriverResponseDto> DeleteDriversByIdAsync(uint idDriver)
         {
             var result = await _btsContext.Drivers.FirstOrDefaultAsync(p => p.DriverId == idDriver);
 
@@ -56,7 +56,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<DriverResponseDto> EditDriverAsync(uint idDriver, DriverDto model)
+        public async Task<DriverResponseDto> EditDriversAsync(uint idDriver, DriverDto model)
         {
             var driver = await _btsContext.Drivers.FirstOrDefaultAsync(p => p.DriverId == idDriver);
 
@@ -76,7 +76,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<DriverResponseDto>> GetAllDriverAsync()
+        public async Task<List<DriverResponseDto>> GetAllDriversAsync()
         {
             var result = await _btsContext.Drivers.ToListAsync();
 
@@ -99,7 +99,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<DriverResponseDto> GetByIdDriverAsync(uint idDriver)
+        public async Task<DriverResponseDto> GetByIdDriversAsync(uint idDriver)
         {
             var result = await _btsContext.Drivers.FirstOrDefaultAsync(p => p.DriverId == idDriver);
 

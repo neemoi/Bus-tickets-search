@@ -18,31 +18,31 @@ namespace WebApi.Controllers.Admin
         [HttpGet("api/Transport")]
         public async Task<IActionResult> GetAllTransportAsync()
         {
-            return Ok(await _controller.GetAllTransportAsync());
+            return Ok(await _controller.GetAllTransportsAsync());
         }
 
         [HttpGet("api/Transport/{id}")]
         public async Task<IActionResult> GetByIdTransportAsync(uint id)
         {
-            return Ok(await _controller.GetByIdTransportAsync(id));
+            return Ok(await _controller.GetByIdTransportsAsync(id));
         }
 
         [HttpPost("api/Transport")]
         public async Task<IActionResult> CreateTransportAsync([FromBody]TransportDto model)
         {
-            return Ok(await _controller.CreateTransportAsync(model));
+            return Ok(await _controller.CreateTransportsAsync(model));
         }
 
-        [HttpPut("api/EditTransport/{id}")]
+        [HttpPut("api/Transport/{id}")]
         public async Task<IActionResult> EditTransportAsync(uint id, [FromBody]TransportDto model)
         {
-            return Ok(await _controller.EditTransportAsync(id, model));
+            return Ok(await _controller.EditTransportsAsync(id, model));
         }
 
         [HttpDelete("api/Transport/{id}")]
         public async Task<IActionResult> DeleteTransportByIdAsync(uint id)
         {
-            return Ok(await _controller.DeleteTransportByIdAsync(id));
+            return Ok(await _controller.DeleteTransportsByIdAsync(id));
         }
     }
 }

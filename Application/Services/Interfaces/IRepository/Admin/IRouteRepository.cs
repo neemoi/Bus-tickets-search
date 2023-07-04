@@ -5,14 +5,14 @@ namespace Application.Services.Interfaces.IRepository.Admin
 {
     public interface IRouteRepository
     {
-        Task<RouteResponseDto> CreatNewRouteAsync(RouteDto model);
+        Task<RouteResponseDto> CreatNewRoutesAsync(RouteDto model);
 
-        Task<RouteResponseDto> EditRouteAsync(uint idRoute, RouteDto model);
+        Task<RouteResponseDto> EditRoutesAsync(uint idRoute, RouteDto model);
 
-        Task<RouteResponseDto> DeleteRouteAsync(uint idRoute);
+        Task<RouteResponseDto> DeleteRoutesAsync(uint idRoute);
 
-        Task<RouteResponseDto> GetByIdRouteAsync(uint idRoute);
+        Task<RouteResponseDto> GetByIdRoutesAsync(uint idRoute);
 
-        Task<List<RouteResponseDto>> GetAllRouteAsync();
+        Task<List<RouteResponseDto>> GetAllRoutesAsync();
     }
 }

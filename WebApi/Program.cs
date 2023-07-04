@@ -1,7 +1,5 @@
-using Application.Services;
 using Application.Services.Implementations;
 using Application.Services.Implementations.Admin;
-using Application.Services.Interfaces;
 using Application.Services.Interfaces.IServices.Admin;
 using Application.Services.Interfaces.IServices.User;
 using Application.Services.MappingProfile;
@@ -37,8 +35,8 @@ namespace WebApi
             builder.Services.AddScoped<RouteRepository>();
             builder.Services.AddScoped<DriverRepository>();
             builder.Services.AddScoped<TransportRepository>();
-            builder.Services.AddScoped<ScheduleRepository>(); 
-            builder.Services.AddScoped<TicketRepository>(); 
+            builder.Services.AddScoped<ScheduleRepository>();
+            builder.Services.AddScoped<TicketRepository>();
             builder.Services.AddScoped<OrderManagementRepository>();
 
             builder.Services.AddIdentity<User, IdentityRole>()

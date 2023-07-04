@@ -20,7 +20,7 @@ namespace Persistance.Repository.Admin
             _mapper = mapper;
         }
 
-        public async Task<ScheduleResponseDto> CreateSсheduleAsync(ScheduleDto model)
+        public async Task<ScheduleResponseDto> CreateSсhedulesAsync(ScheduleDto model)
         {
             var schedule = _mapper.Map<Sсhedule>(model);
 
@@ -38,7 +38,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<ScheduleResponseDto> DeleteSсheduleByIdAsync(uint idSchedule)
+        public async Task<ScheduleResponseDto> DeleteSсhedulesByIdAsync(uint idSchedule)
         {
             var result = await _btsContext.Sсhedules.FirstOrDefaultAsync(s => s.SсheduleId == idSchedule);
 
@@ -56,7 +56,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<ScheduleResponseDto> EditSсheduleAsync(uint idSchedule, ScheduleDto model)
+        public async Task<ScheduleResponseDto> EditSсhedulesAsync(uint idSchedule, ScheduleDto model)
         {
             var result = await _btsContext.Sсhedules.FirstOrDefaultAsync(s => s.SсheduleId == idSchedule);
 
@@ -76,7 +76,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<ScheduleResponseDto>> GetAllSсheduleAsync()
+        public async Task<List<ScheduleResponseDto>> GetAllSсhedulesAsync()
         {
             var result = await _btsContext.Sсhedules.ToListAsync();
 
@@ -99,7 +99,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<ScheduleResponseDto> GetByIdSсheduleAsync(uint idSchedule)
+        public async Task<ScheduleResponseDto> GetByIdSсhedulesAsync(uint idSchedule)
         {
             var result = await _btsContext.Sсhedules.FirstOrDefaultAsync(s => s.SсheduleId == idSchedule);
 

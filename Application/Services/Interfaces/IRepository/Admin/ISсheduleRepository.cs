@@ -5,14 +5,14 @@ namespace Application.Services.Interfaces.IRepository.Admin
 {
     public interface ISсheduleRepository
     {
-        Task<ScheduleResponseDto> CreateSсheduleAsync(ScheduleDto model);
+        Task<ScheduleResponseDto> CreateSсhedulesAsync(ScheduleDto model);
 
-        Task<ScheduleResponseDto> EditSсheduleAsync(uint idSсhedule, ScheduleDto model);
+        Task<ScheduleResponseDto> EditSсhedulesAsync(uint idSсhedule, ScheduleDto model);
 
-        Task<ScheduleResponseDto> DeleteSсheduleByIdAsync(uint idSсhedule);
+        Task<ScheduleResponseDto> DeleteSсhedulesByIdAsync(uint idSсhedule);
 
-        Task<ScheduleResponseDto> GetByIdSсheduleAsync(uint idSсhedule);
+        Task<ScheduleResponseDto> GetByIdSсhedulesAsync(uint idSсhedule);
 
-        Task<List<ScheduleResponseDto>> GetAllSсheduleAsync();
+        Task<List<ScheduleResponseDto>> GetAllSсhedulesAsync();
     }
 }

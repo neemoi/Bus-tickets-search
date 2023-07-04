@@ -12,21 +12,21 @@ namespace Persistance.EntityFluentAPI
 
             entity.ToTable("ticket");
 
-            entity.HasIndex(e => e.FkRouteT, "fk_route_idx");
+            entity.HasIndex(e => e.RouteId, "fk_route_idx");
 
             entity.HasIndex(e => e.TicketId, "ticket_id_UNIQUE").IsUnique();
 
             entity.Property(e => e.TicketId).HasColumnName("ticket_id");
-            entity.Property(e => e.FkRouteT).HasColumnName("fk_route_t");
+            entity.Property(e => e.RouteId).HasColumnName("fk_route_t");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
             entity.HasOne(d => d.FkRouteTNavigation).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.FkRouteT)
+                .HasForeignKey(d => d.RouteId)
                 .HasConstraintName("fk_route_t");
 
             entity.HasOne(d => d.FkRouteTNavigation).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.FkRouteT)
+                .HasForeignKey(d => d.RouteId)
                 .HasConstraintName("fk_route_t");
 
             entity.HasOne(d => d.User)
