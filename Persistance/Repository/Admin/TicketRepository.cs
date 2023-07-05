@@ -1,5 +1,4 @@
-﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.DtoModels.Response.Admin;
+﻿using Application.DtoModels.Models.Admin;
 using Application.Services.Interfaces.IRepository.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -20,17 +19,15 @@ namespace Persistance.Repository.Admin
             _mapper = mapper;
         }
 
-        public async Task<TicketResponseDto> CreateTicketAsync(TicketDto model)
+        public async Task<Ticket> CreateTicketAsync(Ticket ticket)
         {
-            var ticket = _mapper.Map<Ticket>(model);
-
             var result = await _btsContext.Tickets.AddAsync(ticket);
 
             if (result != null && ticket != null)
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<TicketResponseDto>(ticket);
+                return ticket;
             }
             else
             {
@@ -38,7 +35,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<TicketResponseDto> DeleteTicketByIdAsync(uint idTicket)
+        public async Task<Ticket> DeleteTicketByIdAsync(uint idTicket)
         {
             var ticket = await _btsContext.Tickets.FirstOrDefaultAsync(t => t.TicketId == idTicket);
 
@@ -48,7 +45,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<TicketResponseDto>(ticket);
+                return ticket;
             }
             else
             {
@@ -56,17 +53,17 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<TicketResponseDto> EditTicketAsync(uint idTicket, TicketDto model)
+        public async Task<Ticket> EditTicketAsync(uint idTicket, TicketDto model)
         {
-            var ticket = await _btsContext.Tickets.FirstOrDefaultAsync(t => t.TicketId == idTicket);
+            var result = await _btsContext.Tickets.FirstOrDefaultAsync(t => t.TicketId == idTicket);
 
-            if (ticket != null)
+            if (result != null)
             {
-                _mapper.Map(model, ticket);
+                _mapper.Map(model, result);
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<TicketResponseDto>(ticket);
+                return result;
             }
             else
             {
@@ -74,44 +71,32 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<TicketResponseDto>> GetAllTicketsAsync()
+        public async Task<List<Ticket>> GetAllTicketsAsync()
         {
             var result = await _btsContext.Tickets.ToListAsync();
 
             if (result != null)
             {
-                var mappedTickets = new List<TicketResponseDto>();
-
-                foreach (var ticket in result)
-                {
-                    var mappedTicket = _mapper.Map<TicketResponseDto>(ticket);
-
-                    mappedTickets.Add(mappedTicket);
-                }
-
-                return mappedTickets;
+                return result;
             }
             else
             {
                 throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Ticket not found");
-
             }
         }
 
-        public async Task<TicketResponseDto> GetByIdTicketAsync(uint idTicket)
+        public async Task<Ticket> GetByIdTicketAsync(uint idTicket)
         {
             var ticket = await _btsContext.Tickets.FirstOrDefaultAsync(t => t.TicketId == idTicket);
 
             if (ticket != null)
             {
-                return _mapper.Map<TicketResponseDto>(ticket);
+                return ticket;
             }
             else
             {
                 throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Ticket not found");
             }
-
-            throw new NotImplementedException();
         }
     }
 }

@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\MappingProfile\User\" />
+    <Folder Include="MappingProfile\User\" />
   </ItemGroup>
 
 </Project>

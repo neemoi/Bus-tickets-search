@@ -1,18 +1,19 @@
-﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.DtoModels.Response.Admin;
+﻿using Application.DtoModels.Models.Admin;
+using Application.DtoModels.Response.Admin;
+using WebApi.Models;
 
 namespace Application.Services.Interfaces.IRepository.Admin
 {
     public interface IDriverRepository
     {
-        Task<DriverResponseDto> CreateDriverAsync(DriverDto model);
+        Task<Driver> CreateDriverAsync(Driver driver);
 
-        Task<DriverResponseDto> EditDriversAsync(uint idDriver, DriverDto model);
+        Task<Driver> EditDriversAsync(uint idDriver, DriverDto model);
 
-        Task<DriverResponseDto> DeleteDriversByIdAsync(uint idDriver);
+        Task<Driver> DeleteDriversByIdAsync(uint idDriver);
 
-        Task<DriverResponseDto> GetByIdDriversAsync(uint idDriver);
+        Task<Driver> GetByIdDriversAsync(uint idDriver);
 
-        Task<List<DriverResponseDto>> GetAllDriversAsync();
+        Task<List<Driver>> GetAllDriversAsync();
     }
 }

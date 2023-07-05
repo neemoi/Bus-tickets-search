@@ -1,18 +1,19 @@
-﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.DtoModels.Response.Admin;
+﻿using Application.DtoModels.Models.Admin;
+using Application.DtoModels.Response.Admin;
+using WebApi.Models;
 
 namespace Application.Services.Interfaces.IRepository.Admin
 {
     public interface ISсheduleRepository
     {
-        Task<ScheduleResponseDto> CreateSсhedulesAsync(ScheduleDto model);
+        Task<Sсhedule> CreateSсhedulesAsync(Sсhedule sсhedule);
 
-        Task<ScheduleResponseDto> EditSсhedulesAsync(uint idSсhedule, ScheduleDto model);
+        Task<Sсhedule> EditSсhedulesAsync(uint idSсhedule, ScheduleDto model);
 
-        Task<ScheduleResponseDto> DeleteSсhedulesByIdAsync(uint idSсhedule);
+        Task<Sсhedule> DeleteSсhedulesByIdAsync(uint idSсhedule);
 
-        Task<ScheduleResponseDto> GetByIdSсhedulesAsync(uint idSсhedule);
+        Task<Sсhedule> GetByIdSсhedulesAsync(uint idSсhedule);
 
-        Task<List<ScheduleResponseDto>> GetAllSсhedulesAsync();
+        Task<List<Sсhedule>> GetAllSсhedulesAsync();
     }
 }

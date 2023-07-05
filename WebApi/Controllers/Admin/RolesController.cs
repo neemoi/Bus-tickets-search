@@ -7,9 +7,9 @@ namespace WebApi.Controllers.Admin
     [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
-        private readonly IAdminRoleService _adminRolesService;
+        private readonly IRoleService _adminRolesService;
 
-        public RolesController(IAdminRoleService adminRolesService)
+        public RolesController(IRoleService adminRolesService)
         {
             _adminRolesService = adminRolesService;
         }

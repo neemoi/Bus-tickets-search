@@ -1,48 +1,48 @@
-﻿using Application.Services.DtoModels.Models.Admin;
+﻿using Application.DtoModels.Models.Admin;
+using Application.Services.Interfaces.IServices.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Persistance.Repository.Admin;
 
 namespace WebApi.Controllers.Admin
 {
     [Authorize(Roles = "Admin")]
     public class TicketsController : Controller
     {
-        private readonly TicketRepository _ticketRepository;
+        private readonly ITicketService _ticketService;
 
-        public TicketsController(TicketRepository ticketRepository)
+        public TicketsController(ITicketService ticketService)
         {
-            _ticketRepository = ticketRepository;
+            _ticketService = ticketService;
         }
 
         [HttpGet("api/Ticket")]
         public async Task<IActionResult> GetAllTicketsAsync()
         {
-            return Ok(await _ticketRepository.GetAllTicketsAsync());
+            return Ok(await _ticketService.GetAllTicketsAsync());
         }
 
         [HttpGet("api/Ticket/{id}")]
         public async Task<IActionResult> GetByIdTicketAsync(uint idTicket)
         {
-            return Ok(await _ticketRepository.GetByIdTicketAsync(idTicket));
+            return Ok(await _ticketService.GetByIdTicketAsync(idTicket));
         }
 
         [HttpPost("api/Ticket")]
         public async Task<IActionResult> CreateTicketAsync(TicketDto model)
         {
-            return Ok(await _ticketRepository.CreateTicketAsync(model));
+            return Ok(await _ticketService.CreateTicketAsync(model));
         }
 
         [HttpPut("api/Ticket/{id}")]
         public async Task<IActionResult> EditTicketAsync(uint idTicket, TicketDto model)
         {
-            return Ok(await _ticketRepository.EditTicketAsync(idTicket, model));
+            return Ok(await _ticketService.EditTicketAsync(idTicket, model));
         }
 
         [HttpDelete("api/Ticket/{id}")]
         public async Task<IActionResult> DeleteTicketByIdAsync(uint idTicket)
         {
-            return Ok(await _ticketRepository.DeleteTicketByIdAsync(idTicket));
+            return Ok(await _ticketService.DeleteTicketByIdAsync(idTicket));
         }
     }
 }

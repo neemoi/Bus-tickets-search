@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.DtoModels.Response.Admin;
+﻿using Application.DtoModels.Models.Admin;
+using Application.DtoModels.Response.Admin;
 using Application.Services.Interfaces.IRepository.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -20,17 +20,15 @@ namespace Persistance.Repository.Admin
             _mapper = mapper;
         }
 
-        public async Task<TransportResponseDto> CreateTransportsAsync(TransportDto model)
+        public async Task<Transport> CreateTransportsAsync(Transport transport)
         {
-            var transport = _mapper.Map<Transport>(model);
-
             var result = await _btsContext.Transports.AddAsync(transport);
 
             if (result != null && transport != null)
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<TransportResponseDto>(transport);
+                return transport;
             }
             else
             {
@@ -38,7 +36,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<TransportResponseDto> DeleteTransportsByIdAsync(uint idTransport)
+        public async Task<Transport> DeleteTransportsByIdAsync(uint idTransport)
         {
             var result = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 
@@ -48,7 +46,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<TransportResponseDto>(result);
+                return result;
             }
             else
             {
@@ -56,7 +54,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<TransportResponseDto> EditTransportsAsync(uint idTransport, TransportDto model)
+        public async Task<Transport> EditTransportsAsync(uint idTransport, TransportDto model)
         {
             var transport = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 
@@ -68,7 +66,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<TransportResponseDto>(transport);
+                return transport;
             }
             else
             {
@@ -76,22 +74,13 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<TransportResponseDto>> GetAllTransportsAsync()
+        public async Task<List<Transport>> GetAllTransportsAsync()
         {
             var result = await _btsContext.Transports.ToListAsync();
 
             if (result != null)
             {
-                var mappedTransports = new List<TransportResponseDto>();
-
-                foreach (var transport in result)
-                {
-                    var mappedTransport = _mapper.Map<TransportResponseDto>(transport);
-
-                    mappedTransports.Add(mappedTransport);
-                }
-
-                return mappedTransports;
+                return result;
             }
             else
             {
@@ -99,13 +88,13 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<TransportResponseDto> GetByIdTransportsAsync(uint idTransport)
+        public async Task<Transport> GetByIdTransportsAsync(uint idTransport)
         {
             var result = await _btsContext.Transports.FirstOrDefaultAsync(p => p.TransportId == idTransport);
 
             if (result != null)
             {
-                return _mapper.Map<TransportResponseDto>(result);
+                return result;
             }
             else
             {

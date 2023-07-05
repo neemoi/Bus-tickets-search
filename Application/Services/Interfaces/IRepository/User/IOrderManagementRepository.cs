@@ -1,4 +1,4 @@
-﻿using Application.Services.DtoModels.Response.User;
+﻿using Application.DtoModels.Response.User;
 
 namespace Application.Services.Interfaces.IRepository.User
 {

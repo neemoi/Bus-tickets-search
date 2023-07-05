@@ -1,5 +1,5 @@
-﻿using Application.Services.DtoModels.Models.User;
-using Application.Services.DtoModels.Response.User;
+﻿using Application.DtoModels.Models.User;
+using Application.DtoModels.Response.User;
 
 namespace Application.Services.Interfaces.IServices.User
 {

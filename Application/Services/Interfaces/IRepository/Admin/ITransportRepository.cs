@@ -1,18 +1,19 @@
-﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.DtoModels.Response.Admin;
+﻿using Application.DtoModels.Models.Admin;
+using Application.DtoModels.Response.Admin;
+using WebApi.Models;
 
 namespace Application.Services.Interfaces.IRepository.Admin
 {
     public interface ITransportRepository
     {
-        Task<TransportResponseDto> CreateTransportsAsync(TransportDto model);
+        Task<Transport> CreateTransportsAsync(Transport transport);
 
-        Task<TransportResponseDto> EditTransportsAsync(uint idTransport, TransportDto model);
+        Task<Transport> EditTransportsAsync(uint idTransport, TransportDto model);
 
-        Task<TransportResponseDto> DeleteTransportsByIdAsync(uint idTransport);
+        Task<Transport> DeleteTransportsByIdAsync(uint idTransport);
 
-        Task<TransportResponseDto> GetByIdTransportsAsync(uint idTransport);
+        Task<Transport> GetByIdTransportsAsync(uint idTransport);
 
-        Task<List<TransportResponseDto>> GetAllTransportsAsync();
+        Task<List<Transport>> GetAllTransportsAsync();
     }
 }

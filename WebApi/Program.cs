@@ -1,13 +1,18 @@
+using Application.MappingProfile;
+using Application.MappingProfile.Admin;
 using Application.Services.Implementations;
 using Application.Services.Implementations.Admin;
+using Application.Services.Interfaces.IRepository.Admin;
+using Application.Services.Interfaces.IRepository.User;
+using Application.Services.Interfaces.IServices;
 using Application.Services.Interfaces.IServices.Admin;
 using Application.Services.Interfaces.IServices.User;
-using Application.Services.MappingProfile;
-using Application.Services.MappingProfile.Admin;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Persistance.Repository;
 using Persistance.Repository.Admin;
 using Persistance.Repository.User;
+using WebApi.Controllers.Admin;
 using WebApi.CustomExceptionMiddleware;
 using WebApi.Models;
 
@@ -19,7 +24,6 @@ namespace WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //Services configuration
             builder.Services.AddControllers();
             builder.Services.AddDbContext<BtsContext>(options =>
                 options.UseMySql(builder.Configuration.GetConnectionString("ConnectionStrings"),
@@ -36,46 +40,47 @@ namespace WebApi
             builder.Services.AddScoped<UserManager<User>>();
             builder.Services.AddScoped<UserManager<User>, UserManager<User>>();
             builder.Services.AddScoped<IAccountService, AccountService>();
-            builder.Services.AddScoped<IAdminRoleService, AdminRoleService>();
-            builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IProfileService, ProfileService>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IDriverService, DriverService>();
+            builder.Services.AddScoped<IRouteService, RouteService>();
+            builder.Services.AddScoped<IScheduleService, ScheduleService>();
+            builder.Services.AddScoped<ITicketService, TicketService>();
+            builder.Services.AddScoped<ITransportService, TransportService>();
 
             //Registering Scoped Repositories
-            builder.Services.AddScoped<RouteRepository>();
-            builder.Services.AddScoped<DriverRepository>();
-            builder.Services.AddScoped<TransportRepository>();
-            builder.Services.AddScoped<ScheduleRepository>();
-            builder.Services.AddScoped<TicketRepository>();
-            builder.Services.AddScoped<OrderManagementRepository>();
+            builder.Services.AddScoped<IDriverRepository, DriverRepository>();
+            builder.Services.AddScoped<IRouteRepository, RouteRepository>();
+            builder.Services.AddScoped<ISñheduleRepository, ScheduleRepository>();
+            builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+            builder.Services.AddScoped<ITransportRepository, TransportRepository>();
+            builder.Services.AddScoped<IOrderManagementRepository, OrderManagementRepository>();
+
 
             //Identity Configuration
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<BtsContext>()
                 .AddRoles<IdentityRole>();
 
-            //Swagger Configuration
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            //Building the application
             var app = builder.Build();
 
-            //Development mode
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            //Middleware
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //Routing for controllers
             app.MapControllers();
 
-            //Exception handler
             app.ConfigureCustomExceptionMiddleware();
 
             app.Run();

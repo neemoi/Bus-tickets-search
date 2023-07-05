@@ -1,49 +1,48 @@
-﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.Interfaces.IRepository.Admin;
+﻿using Application.DtoModels.Models.Admin;
+using Application.Services.Interfaces.IServices.Admin;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Persistance.Repository.Admin;
 
 namespace WebApi.Controllers.Admin
 {
     [Authorize(Roles = "Admin")]
     public class DriversController : ControllerBase
     {
-        private readonly IDriverRepository _driverRepository;
+        private readonly IDriverService _driverService;
 
-        public DriversController(DriverRepository repository)
+        public DriversController(IDriverService driverService)
         {
-            _driverRepository = repository;
+            _driverService = driverService;
         }
 
         [HttpGet("api/Driver")]
         public async Task<IActionResult> GetAllDriverAsync()
         {
-            return Ok(await _driverRepository.GetAllDriversAsync());
+            return Ok(await _driverService.GetAllDriversAsync());
         }
 
         [HttpGet("api/Driver/{id}")]
         public async Task<IActionResult> GetByIdDriverAsync(uint id)
         {
-            return Ok(await _driverRepository.GetByIdDriversAsync(id));
+            return Ok(await _driverService.GetByIdDriversAsync(id));
         }
 
         [HttpPost("api/Driver")]
-        public async Task<IActionResult> CreatNewDriverAsync([FromQuery]DriverDto model)
+        public async Task<IActionResult> CreatNewDriverAsync([FromQuery] DriverDto model)
         {
-            return Ok(await _driverRepository.CreateDriverAsync(model));
+            return Ok(await _driverService.CreateDriverAsync(model));
         }
 
         [HttpPut("api/Driver/{id}")]
         public async Task<IActionResult> EditDriverAsync(uint id, DriverDto model)
         {
-            return Ok(await _driverRepository.EditDriversAsync(id, model));
+            return Ok(await _driverService.EditDriversAsync(id, model));
         }
 
         [HttpDelete("api/Driver/{id}")]
         public async Task<IActionResult> DeleteDriverByIdAsync(uint id)
         {
-            return Ok(await _driverRepository.DeleteDriversByIdAsync(id));
+            return Ok(await _driverService.DeleteDriversByIdAsync(id));
         }
     }
 }

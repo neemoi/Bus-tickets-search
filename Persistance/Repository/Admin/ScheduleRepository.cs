@@ -1,5 +1,4 @@
-﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.DtoModels.Response.Admin;
+﻿using Application.DtoModels.Models.Admin;
 using Application.Services.Interfaces.IRepository.Admin;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -20,17 +19,15 @@ namespace Persistance.Repository.Admin
             _mapper = mapper;
         }
 
-        public async Task<ScheduleResponseDto> CreateSсhedulesAsync(ScheduleDto model)
+        public async Task<Sсhedule> CreateSсhedulesAsync(Sсhedule sсhedule)
         {
-            var schedule = _mapper.Map<Sсhedule>(model);
+            var result = await _btsContext.Sсhedules.AddAsync(sсhedule);
 
-            var result = await _btsContext.Sсhedules.AddAsync(schedule);
-
-            if (result != null && schedule != null)
+            if (result != null)
             {
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<ScheduleResponseDto>(schedule);
+                return sсhedule;
             }
             else
             {
@@ -38,7 +35,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<ScheduleResponseDto> DeleteSсhedulesByIdAsync(uint idSchedule)
+        public async Task<Sсhedule> DeleteSсhedulesByIdAsync(uint idSchedule)
         {
             var result = await _btsContext.Sсhedules.FirstOrDefaultAsync(s => s.SсheduleId == idSchedule);
 
@@ -48,7 +45,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<ScheduleResponseDto>(result);
+                return result;
             }
             else
             {
@@ -56,7 +53,7 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<ScheduleResponseDto> EditSсhedulesAsync(uint idSchedule, ScheduleDto model)
+        public async Task<Sсhedule> EditSсhedulesAsync(uint idSchedule, ScheduleDto model)
         {
             var result = await _btsContext.Sсhedules.FirstOrDefaultAsync(s => s.SсheduleId == idSchedule);
 
@@ -68,7 +65,7 @@ namespace Persistance.Repository.Admin
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<ScheduleResponseDto>(result);
+                return result;
             }
             else
             {
@@ -76,22 +73,13 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<List<ScheduleResponseDto>> GetAllSсhedulesAsync()
+        public async Task<List<Sсhedule>> GetAllSсhedulesAsync()
         {
             var result = await _btsContext.Sсhedules.ToListAsync();
 
             if (result != null)
             {
-                var mappedShedules = new List<ScheduleResponseDto>();
-
-                foreach (var shedule in result)
-                {
-                    var mappedShedule = _mapper.Map<ScheduleResponseDto>(shedule);
-
-                    mappedShedules.Add(mappedShedule);
-                }
-
-                return mappedShedules;
+                return result;
             }
             else
             {
@@ -99,13 +87,13 @@ namespace Persistance.Repository.Admin
             }
         }
 
-        public async Task<ScheduleResponseDto> GetByIdSсhedulesAsync(uint idSchedule)
+        public async Task<Sсhedule> GetByIdSсhedulesAsync(uint idSchedule)
         {
             var result = await _btsContext.Sсhedules.FirstOrDefaultAsync(s => s.SсheduleId == idSchedule);
 
             if (result != null)
             {
-                return _mapper.Map<ScheduleResponseDto>(result);
+                return result;
             }
             else
             {
