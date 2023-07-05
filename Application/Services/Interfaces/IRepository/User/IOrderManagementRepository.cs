@@ -4,8 +4,8 @@ namespace Application.Services.Interfaces.IRepository.User
 {
     public interface IOrderManagementRepository
     {
-        Task<InfoTicketResponseDto> GetInfoByIdTicketAsync(string idUser);
+        Task<InfoOrderResponseDto> GetInfoByIdTicketAsync(string idUser);
 
-        Task<InfoTicketResponseDto> TicketCancelAtionAsync(string idUser);
+        Task<InfoOrderResponseDto> CancelOrderAsync(string idUser);
     }
 }

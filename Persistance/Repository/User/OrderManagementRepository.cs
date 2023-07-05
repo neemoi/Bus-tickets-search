@@ -18,11 +18,11 @@ namespace Persistance.Repository.User
             _mapper = mapper;
         }
 
-        public async Task<InfoTicketResponseDto> GetInfoByIdTicketAsync(string idUser)
+        public async Task<InfoOrderResponseDto> GetInfoByIdTicketAsync(string idUser)
         {
             var currentTicket = _btsContext.Users
                 .Where(u => u.Id == idUser)
-                .Select(u => new InfoTicketResponseDto
+                .Select(u => new InfoOrderResponseDto
                 {
                     TicketId = u.Tickets.FirstOrDefault().TicketId,
                     Surname = u.Surname,
@@ -41,7 +41,7 @@ namespace Persistance.Repository.User
 
             if (currentTicket != null)
             {
-                return _mapper.Map<InfoTicketResponseDto>(currentTicket);
+                return _mapper.Map<InfoOrderResponseDto>(currentTicket);
             }
             else
             {
@@ -49,7 +49,7 @@ namespace Persistance.Repository.User
             }
         }
 
-        public async Task<InfoTicketResponseDto> TicketCancelAtionAsync(string idUser)
+        public async Task<InfoOrderResponseDto> CancelOrderAsync(string idUser)
         {
             var ticket = _btsContext.Tickets
                .Where(t => t.User.Id == idUser)
@@ -61,7 +61,7 @@ namespace Persistance.Repository.User
 
                 await _btsContext.SaveChangesAsync();
 
-                return _mapper.Map<InfoTicketResponseDto>(ticket);
+                return _mapper.Map<InfoOrderResponseDto>(ticket);
             }
             else
             {

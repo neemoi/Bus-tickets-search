@@ -14,7 +14,7 @@ namespace WebApi.Controllers.User
         }
 
         [HttpGet("api/OrderManagement")]
-        public async Task<IActionResult> GetInfoByIdTicketAsync()
+        public async Task<IActionResult> GetInfoByIdOrderAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -22,11 +22,11 @@ namespace WebApi.Controllers.User
         }
 
         [HttpDelete("api/OrderManagement")]
-        public async Task<IActionResult> TicketCancellationAsync()
+        public async Task<IActionResult> CancelOrderAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            return Ok(await _orderManagementRepository.TicketCancelAtionAsync(userId));
+            return Ok(await _orderManagementRepository.CancelOrderAsync(userId));
         }
     }
 }

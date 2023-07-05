@@ -19,20 +19,20 @@ namespace WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //Конфигурация сервисов
+            //Services configuration
             builder.Services.AddControllers();
             builder.Services.AddDbContext<BtsContext>(options =>
                 options.UseMySql(builder.Configuration.GetConnectionString("ConnectionStrings"),
                 new MySqlServerVersion(new Version(8, 0, 23))));
             builder.Services.AddControllersWithViews();
 
-            //Регистрация AutoMapper
+            //Register AutoMapper
             builder.Services.AddAutoMapper(typeof(MappingDrivers), typeof(MappingRoles),
                 typeof(MappingRoutes), typeof(MappingSchedules), typeof(MappingTickets),
                 typeof(MappingTransports), typeof(MappingUsers), typeof(MappingAccount),
                 typeof(MappingOrderManagement), typeof(MappingUserEdit));
 
-            //Регистрация Scoped сервисов
+            //Registering Scoped Services
             builder.Services.AddScoped<UserManager<User>>();
             builder.Services.AddScoped<UserManager<User>, UserManager<User>>();
             builder.Services.AddScoped<IAccountService, AccountService>();
@@ -40,7 +40,7 @@ namespace WebApi
             builder.Services.AddScoped<IAdminUserService, AdminUserService>();
             builder.Services.AddScoped<IProfileService, ProfileService>();
 
-            //Регистрация Scoped репозиториев
+            //Registering Scoped Repositories
             builder.Services.AddScoped<RouteRepository>();
             builder.Services.AddScoped<DriverRepository>();
             builder.Services.AddScoped<TransportRepository>();
@@ -48,34 +48,34 @@ namespace WebApi
             builder.Services.AddScoped<TicketRepository>();
             builder.Services.AddScoped<OrderManagementRepository>();
 
-            //Конфигурация Identity
+            //Identity Configuration
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<BtsContext>()
                 .AddRoles<IdentityRole>();
 
-            //Конфигурация Swagger
+            //Swagger Configuration
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
-            //Построение приложения
+
+            //Building the application
             var app = builder.Build();
 
-            //Режим разработки
+            //Development mode
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            //Промежуточное ПО
+            //Middleware
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //Маршрутизация для контроллеров
+            //Routing for controllers
             app.MapControllers();
-            
-            //Обработчик исключений
+
+            //Exception handler
             app.ConfigureCustomExceptionMiddleware();
 
             app.Run();

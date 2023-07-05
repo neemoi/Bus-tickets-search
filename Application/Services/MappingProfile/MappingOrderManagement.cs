@@ -9,7 +9,7 @@ namespace Application.Services.MappingProfile
         public MappingOrderManagement()
         {   
             //OrderManagment
-            CreateMap<Ticket, InfoTicketResponseDto>();
+            CreateMap<Ticket, InfoOrderResponseDto>();
         }
     }
 }

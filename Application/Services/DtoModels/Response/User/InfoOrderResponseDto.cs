@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.DtoModels.Response.User
 {
-    public class InfoTicketResponseDto
+    public class InfoOrderResponseDto
     {
         public uint TicketId { get; set; }
 
