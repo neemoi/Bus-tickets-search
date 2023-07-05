@@ -2,11 +2,11 @@
 using Application.Services.DtoModels.Response.User;
 using Application.Services.Helper;
 using Application.Services.Interfaces.IServices.User;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using WebApi.Models;
 using WebApi.RequestError;
+using WebApi.Models;
+using AutoMapper;
 
 namespace Application.Services.Implementations
 {

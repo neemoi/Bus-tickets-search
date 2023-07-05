@@ -1,10 +1,9 @@
 ﻿using Application.Services.DtoModels.Models.User;
 using Application.Services.DtoModels.Response.User;
-using Application.Services.Interfaces.IServices;
 using Application.Services.Interfaces.IServices.User;
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using WebApi.Models;
+using AutoMapper;
 
 namespace Application.Services.Implementations
 {

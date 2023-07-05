@@ -1,9 +1,7 @@
-﻿using Application.Services.DtoModels.Models.Admin;
-using Application.Services.DtoModels.Response.User;
+﻿using Application.Services.DtoModels.Response.User;
 using Application.Services.Interfaces.IRepository.User;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
 using WebApi.RequestError;
 
@@ -20,14 +18,14 @@ namespace Persistance.Repository.User
             _mapper = mapper;
         }
 
-        public async Task<InfoTicketResponseDto> GetInfoTicketAsync(string idUser)
+        public async Task<InfoTicketResponseDto> GetInfoByIdTicketAsync(string idUser)
         {
             var currentTicket = _btsContext.Users
                 .Where(u => u.Id == idUser)
                 .Select(u => new InfoTicketResponseDto
                 {
                     TicketId = u.Tickets.FirstOrDefault().TicketId,
-                    Surname= u.Surname,
+                    Surname = u.Surname,
                     Price = u.Tickets.FirstOrDefault().Price,
                     StartLocation = u.Tickets.FirstOrDefault().FkRouteTNavigation.StartLocation,
                     EndLocation = u.Tickets.FirstOrDefault().FkRouteTNavigation.EndLocation,
@@ -51,7 +49,7 @@ namespace Persistance.Repository.User
             }
         }
 
-        public async Task<InfoTicketResponseDto> TicketCancellationAsync(string idUser)
+        public async Task<InfoTicketResponseDto> TicketCancelAtionAsync(string idUser)
         {
             var ticket = _btsContext.Tickets
                .Where(t => t.User.Id == idUser)
@@ -60,7 +58,7 @@ namespace Persistance.Repository.User
             if (ticket != null)
             {
                 _btsContext.Tickets.Remove(ticket);
-                
+
                 await _btsContext.SaveChangesAsync();
 
                 return _mapper.Map<InfoTicketResponseDto>(ticket);

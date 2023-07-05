@@ -34,47 +34,36 @@ namespace WebApi.CustomExceptionMiddleware
         {
             HttpStatusCode status;
 
-            var stackTrace = string.Empty;
+            var stackTrace = ex.StackTrace;
 
             string message;
 
-            var exceptionType = ex.GetType();
-
-            if (exceptionType == typeof(BadRequestException))
+            switch (ex)
             {
-                message = ex.Message;
-                status = HttpStatusCode.BadRequest;
-                stackTrace = ex.StackTrace;
-            }
-            else if (exceptionType == typeof(NotFoundException))
-            {
-                message = ex.Message;
-                status = HttpStatusCode.NotFound;
-                stackTrace = ex.StackTrace;
-            }
-            else if (exceptionType == typeof(NotImplementedException))
-            {
-                message = ex.Message;
-                status = HttpStatusCode.NotImplemented;
-                stackTrace = ex.StackTrace;
-            }
-            else if (exceptionType == typeof(KeyNotFoundException))
-            {
-                message = ex.Message;
-                status = HttpStatusCode.NotFound;
-                stackTrace = ex.StackTrace;
-            }
-            else if (exceptionType == typeof(UnauthorizedAccessException))
-            {
-                message = ex.Message;
-                status = HttpStatusCode.Unauthorized;
-                stackTrace = ex.StackTrace;
-            }
-            else
-            {
-                message = ex.Message;
-                status = HttpStatusCode.InternalServerError;
-                stackTrace = ex.StackTrace;
+                case BadRequestException:
+                    status = HttpStatusCode.BadRequest;
+                    message = ex.Message;
+                    break;
+                case NotFoundException:
+                    status = HttpStatusCode.NotFound;
+                    message = ex.Message;
+                    break;
+                case NotImplementedException:
+                    status = HttpStatusCode.NotImplemented;
+                    message = ex.Message;
+                    break;
+                case KeyNotFoundException:
+                    status = HttpStatusCode.NotFound;
+                    message = ex.Message;
+                    break;
+                case UnauthorizedAccessException:
+                    status = HttpStatusCode.Unauthorized;
+                    message = ex.Message;
+                    break;
+                default:
+                    status = HttpStatusCode.InternalServerError;
+                    message = ex.Message;
+                    break;
             }
 
             var exceptionResult = JsonSerializer.Serialize(new { error = message, stackTrace });

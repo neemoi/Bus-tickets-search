@@ -13,20 +13,20 @@ namespace WebApi.Controllers.User
             _orderManagementRepository = orderManagementRepository; 
         }
 
-        [HttpGet("api/InfoTicket")]
-        public async Task<IActionResult> GetInfoTicketAsync()
+        [HttpGet("api/OrderManagement")]
+        public async Task<IActionResult> GetInfoByIdTicketAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            return Ok(await _orderManagementRepository.GetInfoTicketAsync(userId));
+            return Ok(await _orderManagementRepository.GetInfoByIdTicketAsync(userId));
         }
 
-        [HttpDelete("api/Ticket")]
+        [HttpDelete("api/OrderManagement")]
         public async Task<IActionResult> TicketCancellationAsync()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            return Ok(await _orderManagementRepository.TicketCancellationAsync(userId));
+            return Ok(await _orderManagementRepository.TicketCancelAtionAsync(userId));
         }
     }
 }

@@ -21,7 +21,7 @@ namespace WebApi.Controllers.Admin
             return Ok(await _ticketRepository.GetAllTicketsAsync());
         }
 
-        [HttpGet("api/Ticket/id")]
+        [HttpGet("api/Ticket/{id}")]
         public async Task<IActionResult> GetByIdTicketAsync(uint idTicket)
         {
             return Ok(await _ticketRepository.GetByIdTicketAsync(idTicket));
@@ -33,13 +33,13 @@ namespace WebApi.Controllers.Admin
             return Ok(await _ticketRepository.CreateTicketAsync(model));
         }
 
-        [HttpPut("api/Ticket/id")]
+        [HttpPut("api/Ticket/{id}")]
         public async Task<IActionResult> EditTicketAsync(uint idTicket, TicketDto model)
         {
             return Ok(await _ticketRepository.EditTicketAsync(idTicket, model));
         }
 
-        [HttpDelete("api/Ticket/id")]
+        [HttpDelete("api/Ticket/{id}")]
         public async Task<IActionResult> DeleteTicketByIdAsync(uint idTicket)
         {
             return Ok(await _ticketRepository.DeleteTicketByIdAsync(idTicket));
