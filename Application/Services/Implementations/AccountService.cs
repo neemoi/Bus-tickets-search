@@ -1,11 +1,12 @@
-﻿using Application.Services.DtoModels.Response.AccountController;
-using Application.Services.Helper;
-using AutoMapper;
+﻿using Application.Services.Helper;
+using Application.Services.Interfaces.IServices.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using WebApi;
-using WebApi.Models;
 using WebApi.RequestError;
+using WebApi.Models;
+using AutoMapper;
+using Application.DtoModels.Models.User;
+using Application.DtoModels.Response.User;
 
 namespace Application.Services.Implementations
 {
@@ -22,41 +23,41 @@ namespace Application.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<UserLoginResponseDto> LoginAsync(LoginDto model)
+        public async Task<LoginResponseDto> LoginAsync(LoginDto model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: false);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, true, lockoutOnFailure: false);
 
-            var user = await _signInManager.UserManager.FindByNameAsync(model.Email);
+            var user = await _signInManager.UserManager.FindByNameAsync(model.UserName);
 
             if (result.Succeeded && user != null)
             {
-                return _mapper.Map<UserLoginResponseDto>(user);
+                return _mapper.Map<LoginResponseDto>(user);
             }
             else
             {
-                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, ErrorString.GetErrorString(new IdentityResult()));
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "Login");
             }
         }
 
-        public async Task<UserLogoutResponseDto> LogoutAsync(HttpContext httpContext)
+        public async Task<LogoutResponseDto> LogoutAsync(HttpContext httpContext)
         {
             var user = await _userManager.GetUserAsync(httpContext.User);
 
             await _signInManager.SignOutAsync();
 
-            return _mapper.Map<UserLogoutResponseDto>(user);
+            return _mapper.Map<LogoutResponseDto>(user);
         }
 
-        public async Task<UserRegisterResponseDto> RegisterAsync(RegisterDto model)
+        public async Task<RegisterResponseDto> RegisterAsync(RegisterDto model)
         {
-            var user = new User()
+            var user = _mapper.Map<User>(model);
+
+            var emailAlreadyExists = await _userManager.FindByEmailAsync(user.Email);
+
+            if (emailAlreadyExists != null)
             {
-                UserName = model.Email,
-                Email = model.Email,
-                Password = model.Password,
-                Surname = model.Surname,
-                PhoneNumber = model.Phone,
-            };
+                throw new ApiRequestErrorException(StatusCodes.Status400BadRequest, "A user with this email already exists");
+            }
 
             var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -66,7 +67,7 @@ namespace Application.Services.Implementations
 
                 await _userManager.AddToRoleAsync(user, "User");
 
-                return _mapper.Map<UserRegisterResponseDto>(user);
+                return _mapper.Map<RegisterResponseDto>(user);
             }
             else
             {

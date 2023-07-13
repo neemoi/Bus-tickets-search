@@ -6,9 +6,7 @@ public partial class Ticket
 
     public uint Price { get; set; }
 
-    public int Seat { get; set; }
-
-    public int FkRouteT { get; set; }
+    public int RouteId { get; set; }
 
     public string? UserId { get; set; }
 

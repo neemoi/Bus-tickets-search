@@ -84,48 +84,50 @@ namespace Persistance.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("ProviderKey")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("UserId")
                         .HasColumnType("longtext");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
 
                     b.ToTable("UserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.Property<string>("RoleId")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("UserId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("UserId", "RoleId");
 
                     b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
                     b.Property<string>("LoginProvider")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserTokens");
                 });
@@ -138,13 +140,11 @@ namespace Persistance.Migrations
                         .HasColumnName("driver_id");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)")
                         .HasColumnName("name");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
                         .HasMaxLength(45)
                         .HasColumnType("varchar(45)")
                         .HasColumnName("surname");
@@ -181,7 +181,7 @@ namespace Persistance.Migrations
 
                     b.Property<uint>("FkShedule")
                         .HasColumnType("int unsigned")
-                        .HasColumnName("fk_shedule");
+                        .HasColumnName("fk_sсhedule");
 
                     b.Property<uint>("FkTransport")
                         .HasColumnType("int unsigned")
@@ -198,19 +198,19 @@ namespace Persistance.Migrations
 
                     b.HasIndex(new[] { "FkDriver" }, "driver_id_idx");
 
-                    b.HasIndex(new[] { "FkShedule" }, "fk_shedule_idx");
+                    b.HasIndex(new[] { "FkShedule" }, "fk_sсhedule_idx");
 
                     b.HasIndex(new[] { "FkTransport" }, "transport_id_idx");
 
                     b.ToTable("route", (string)null);
                 });
 
-            modelBuilder.Entity("WebApi.Models.Shedule", b =>
+            modelBuilder.Entity("WebApi.Models.Sсhedule", b =>
                 {
-                    b.Property<uint>("SheduleId")
+                    b.Property<uint>("SсheduleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int unsigned")
-                        .HasColumnName("shedule_id");
+                        .HasColumnName("sсhedule_id");
 
                     b.Property<TimeOnly>("ArrivalTime")
                         .HasColumnType("time")
@@ -224,13 +224,13 @@ namespace Persistance.Migrations
                         .HasColumnType("time")
                         .HasColumnName("departure_time");
 
-                    b.HasKey("SheduleId")
+                    b.HasKey("SсheduleId")
                         .HasName("PRIMARY");
 
-                    b.HasIndex(new[] { "SheduleId" }, "shedule_id_UNIQUE")
+                    b.HasIndex(new[] { "SсheduleId" }, "sсhedule_id_UNIQUE")
                         .IsUnique();
 
-                    b.ToTable("shedule", (string)null);
+                    b.ToTable("sсhedule", (string)null);
                 });
 
             modelBuilder.Entity("WebApi.Models.Ticket", b =>
@@ -247,10 +247,6 @@ namespace Persistance.Migrations
                     b.Property<uint>("Price")
                         .HasColumnType("int unsigned")
                         .HasColumnName("price");
-
-                    b.Property<int>("Seat")
-                        .HasColumnType("int")
-                        .HasColumnName("seat");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -338,7 +334,6 @@ namespace Persistance.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
                         .HasColumnName("password");
@@ -356,7 +351,6 @@ namespace Persistance.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Surname")
-                        .IsRequired()
                         .HasMaxLength(28)
                         .HasColumnType("varchar(28)")
                         .HasColumnName("surname");
@@ -385,12 +379,12 @@ namespace Persistance.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_driver");
 
-                    b.HasOne("WebApi.Models.Shedule", "FkSheduleNavigation")
+                    b.HasOne("WebApi.Models.Sсhedule", "FkSheduleNavigation")
                         .WithMany("Routes")
                         .HasForeignKey("FkShedule")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_shedule");
+                        .HasConstraintName("fk_sсhedule");
 
                     b.HasOne("WebApi.Models.Transport", "FkTransportNavigation")
                         .WithMany("Routes")
@@ -437,7 +431,7 @@ namespace Persistance.Migrations
                     b.Navigation("Tickets");
                 });
 
-            modelBuilder.Entity("WebApi.Models.Shedule", b =>
+            modelBuilder.Entity("WebApi.Models.Sсhedule", b =>
                 {
                     b.Navigation("Routes");
                 });
